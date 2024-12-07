@@ -1,4 +1,6 @@
-# Praca w systemie Git
+# Praca w systemie Git 
+
+- Dotyczy systemu operacyjnego Linux
 
 ## 1. Konfiguracja wstępne 
 
@@ -57,13 +59,59 @@
 
  ## 2. Polecenia do pracy w Git.
  
- Polecenie pokazujące status naszej przesterzni w Git
+ 1. Polecenie pokazujące status naszej przesterzni w Git
 
- ```zsh
- git status
- ```
+    ```zsh
+    git status
+    ```
 
-Otrzymujemy następujące informaceje zawierające:
- - Listę commitów,
- - Ilość plików nieśledzonych,
- - Dokonane zmiany.
+    Otrzymujemy następujące informaceje zawierające:
+    - Listę commitów,
+    - Ilość plików nieśledzonych,
+    - Dokonane zmiany.
+
+2. Polecenie dodające pliki do stage's
+
+    ```zsh
+    git add .
+    ```
+
+    Efektem ww. komendy jest dodanie całej zawartści repozytorium do przestrzeni stage's
+    - Aby dodać wszystkie pliki ww. komendzie użyto znaku "."
+    - Jeżeli chcesz dodać konkretny plik to zamiast ww. znalu wpisz jego nazwę wraz z rozszerzeniem.
+
+3. Commit'owanie zmian
+
+    Commit to swego rodzaju "zrobienie zzrztu ekranu" naszego repozytorium - do którego będziemy mogli wrócić w dowolnym czasie.
+
+    ```zsh
+    git commit -m "Treść Commitu"
+    ```
+    
+    - Flaga `-m` powoduje to, że w obrzarze `" "` możemy bezpośrednio wpisać Tytuł naszego komita
+        - Bez użycia `-m` otworzy się nasz edytor tekstu.
+
+4. Historia Commit'ów
+    
+    Jest powiązana ze struktóą plików tworzoych na podstawie odpowiednich, niemutowalnych #-szy, aby było możliwe przywrócenie ich zawartości w dowolnym czsie pracy na repozytorium. 
+
+    ```zsh
+    git log
+    ```
+
+    Otrzymujemy: 
+    
+    ```
+    commit [xxnnnnnnnnnnnnn] (HEAD -> [lokalna_gałąź], [gałąź_zdalna])
+    Author: [Osoba_komitująca] <[Urządzenie z którego commit'owała]>
+    Date:   [Dziań.tyg. Miesiąc Dzień H:M:S Rok +0100]
+
+    [Tytuł Commitu]
+    ```
+    - `xxnnnnnnnnnnnnn` # commitu prezentowany jako ciąg niepowtarzalnych znaków identyfikujący nasz commit
+    - W podkatalogu objects katalogu .git tworzy się folder `xx`, zawierający plik `nnnnnnnnnnnnn`
+    - Poza `xx` tworzą się jeszcze dwa inne katalogi powiązane z 
+        - Drzewem katalogów 
+            - Plik w nim mówi, którego pliku dotyczył commit.
+        - Blob'em trzymającym zawartość naszego pliku.
+
