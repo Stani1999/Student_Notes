@@ -76,7 +76,7 @@
     git add .
     ```
 
-    Efektem ww. komendy jest dodanie całej zawartści repozytorium do przestrzeni stage's
+    Efektem ww. komendy jest dodanie całej zawartści repozytorium do przestrzeni Stage (Index)
     - Aby dodać wszystkie pliki ww. komendzie użyto znaku "."
     - Jeżeli chcesz dodać konkretny plik to zamiast ww. znalu wpisz jego nazwę wraz z rozszerzeniem.
 
@@ -88,7 +88,7 @@
     git commit -m "Treść Commitu"
     ```
     
-    - Flaga `-m` powoduje to, że w obrzarze `" "` możemy bezpośrednio wpisać Tytuł naszego komita
+    - Flaga `-m` (od message) powoduje to, że w obrzarze `" "` możemy bezpośrednio wpisać Tytuł naszego komita
         - Bez użycia `-m` otworzy się nasz edytor tekstu.
 
 4. Historia Commit'ów
@@ -102,9 +102,9 @@
     Otrzymujemy: 
     
     ```
-    commit [xxnnnnnnnnnnnnn] (HEAD -> [lokalna_gałąź], [gałąź_zdalna])
-    Author: [Osoba_komitująca] <[Urządzenie z którego commit'owała]>
-    Date:   [Dziań.tyg. Miesiąc Dzień H:M:S Rok +0100]
+    commit <xxnnnnnnnnnnnnn> (HEAD -> <lokalna_gałąź>, [gałąź_zdalna])
+    Author: <Osoba_komitująca> <<Urządzenie z którego commit'owała>>
+    Date:   <Dziań.tyg. Miesiąc Dzień H:M:S Rok +0100>
 
     [Tytuł Commitu]
     ```
@@ -114,4 +114,26 @@
         - Drzewem katalogów 
             - Plik w nim mówi, którego pliku dotyczył commit.
         - Blob'em trzymającym zawartość naszego pliku.
+
+5. Jeżeli w Stage są dwa pliki a chcemy skomitować tylko jeden z nich możemy unstage'ować drugi użyć następującej komendy:
+
+    ```zsh
+    git restore --staged <plik_do_unstage'owania>
+    ```
+
+6. Jeżeli chcemy cofnąć zmiany w plikach modyfikowanych lokalnie
+
+    ```zsh
+    git checkout .
+    ```
+    - Ww. polecenie usuwa wszystkie zmmiany w working tree (nie zostały przekazane do Stage)
+
+7. Cofanie zmian do ostatniego komita (repozytorium zdalnego)
+
+    ```zsh
+    git reset --hard
+    ```
+    
+    - Usuwa wszystkie zmiany które znajdowały się w przestrzeni Stage
+    - Nie zmienia plików w working tree
 
