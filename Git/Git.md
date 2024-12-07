@@ -135,5 +135,6 @@
     ```
     
     - Usuwa wszystkie zmiany które znajdowały się w przestrzeni Stage
-    - Nie zmienia plików w working tree
+    - Usuwa modyfikacje na plikach, które są na repozytorium zdalnym
+    - Nie zmienia plików lokalnych, do których nie ma odwołań w repozytorium zdalnym - nie istnieją tam.
 
