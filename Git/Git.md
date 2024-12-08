@@ -164,6 +164,12 @@
 
  ## 2. Branch'e (gałęzie)
 
+- Branch to wskaźnik do konkretnego commit'u
+    - Za nim porusza się wskaźnik `HEAD`.
+
+- Brnche przesuwa się wraz z commit'em 
+    - Wskazuje na najmłodszy commit.
+
 Podstawowe polecenie do operacji z branch'ami:
 
 ```zsh
@@ -211,6 +217,24 @@ git branch
         git checkout -b <nazwa_branch'a>
         ```
 
-- Poleceń  `git switch` oraz `git checkout` , można używać naprzemiennie.
-    - Robią dokładnie to samo.
+- Poleceń  `git switch` oraz `git checkout`, można używać naprzemiennie.
+    - Robią one dokładnie to samo tzn.
+        - Przenoszą `HEAD` aby wskazywał on na aktywny branch.
+            - Aktywny branch wskazuje na swój najmłodszy commit. 
+
+3. Połączenie gałęzi
+
+- Aby połączyć ze sobą gałęzie należy:
+    1. Przełączyć się na starszą gałąź
+    2. Użyć polecenia:
+
+        ```zsh
+        git marge <branch_do_połączenia>
+        ```
+
+        Jej efektem będzie.
+        - Przesunięcie wskaźnika aktywnego branch'a przesunie się do.
+            - Na najmłodszy commit'u branch'a <branch_do_połączenia>.
+
+        Parametr domylśny polecenia 
     
