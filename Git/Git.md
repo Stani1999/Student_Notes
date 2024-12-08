@@ -232,11 +232,18 @@ git branch
         git marge <branch_do_połączenia>
         ```
 
-        Jej efektem będzie.
-        - Przesunięcie wskaźnika aktywnego branch'a przesunie się do.
+    3. Połączenie bez konfliktu
+    - Zmiany wystąpiły tylko w jednej z gałęzi:
+        - Fast Forward (Scalenie bez konfliktu)
+        - Przesunięcie wskaźnika aktywnego branch'a,
             - Na najmłodszy commit'u branch'a <branch_do_połączenia>.
 
-        Parametr domylśny polecenia 
+    4. Połączenie z wystąpieniem konfliktu
+    - Plik był edytowany na więcej niż jednej gałęzi jednocześnie:
+        - Przesunięcie wskaźnika aktywnego branch'a,
+            - Na nowo utworzony commit tzw. "merge commit" 
+            - który ma więcej niż jednego rodzica
+                - wskazuje na commity z gałęzi, z których się wywodzi. 
 
 4. Usuwanie branch'y
 
