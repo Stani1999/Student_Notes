@@ -97,7 +97,9 @@ Efektem ww. komendy jest dodanie całej zawartści repozytorium do przestrzeni S
 
 ### 3. Commit'owanie zmian
 
-Commit to swego rodzaju "zrobienie zzrztu ekranu" naszego repozytorium - do którego będziemy mogli wrócić w dowolnym czasie.
+#### 1. Commit można utossamiać z "zrobienie zzrztu pamięci" naszego repozytorium 
+
+- Dzięki temu będziemy mogli do niego wrócić w dowolnym czasie.
 
 ```zsh
 git commit -m "Treść Commitu"
@@ -106,9 +108,35 @@ git commit -m "Treść Commitu"
 - Flaga `-m` (od message) powoduje to, że w obrzarze `" "` możemy bezpośrednio wpisać Tytuł naszego komita
     - Bez użycia `-m` otworzy się nasz edytor tekstu.
 
+#### 2. Flaga `--allow-empty` pozwala nam na utworzenie commitu, bez zmian na repozytorium.  
+
+```zsh
+git commit --allow-empty -m "Twoja wiadomość commit"
+```
+
+#### 3. Flaga --amend (poprawka) pozwala na poprawę commit'a
+
+```zsh
+git commit --amend --no-edit
+```
+
+- Jej efektem jest tak naprawdę podmiana commit'u
+    - Usunięcie commit'a oraz
+    
+    - Utworzenie nowego w jego miejsce.
+
+- Pozwala ona zmienić 
+    - Wiadomość tego commit'a 
+    
+    - Pliki wewnątrz tego commit'u
+    
+    - Do edycji bez zmiany wiadomości służy flaga `--no-edit`
+
 ### 4. Historia Commit'ów
     
-Jest powiązana ze struktóą plików tworzoych na podstawie odpowiednich, niemutowalnych #-szy, aby było możliwe przywrócenie ich zawartości w dowolnym czsie pracy na repozytorium. 
+#### 1. Jest powiązana ze struktóą plików tworzoych na podstawie
+- odpowiednich, niemutowalnych #-szy.
+- możliwe jest więc odtworzenie ich zawartości w dowolnym czsie.
 
 ```zsh
 git log
@@ -148,7 +176,7 @@ git checkout .
     
 - Jeżeli zamiast `.` podamy nazwę konkretnego pliku to cofniemy zmiany tylko w nim.
 
-### 7. Cofanie zmian do ostatniego komita (repozytorium)
+### 7. Cofanie zmian do ostatniego commita (repozytorium)
 
 ```zsh
 git reset --hard
@@ -255,7 +283,7 @@ git branch <nazwa_branch'a>
 git branch -d <branch_do_usunięcia>
 ```
 
-## 3. Połączenie z repozytorium zdalnym (GitHub)\
+## 3. Połączenie z repozytorium zdalnym (GitHub)
 
 ### 1. [Stwórz klucz uwiwrzytelniania](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
@@ -303,9 +331,9 @@ Służy do tego następujące polecenie:
 git config --global push.autoSetupRemote true
 ```
 
-## 5. Pull Request (PR) i przegląd kodu
+## 5. `Pull Request` (`PR`) i przegląd kodu
 
-### 1. Pull Request
+### 1. `Pull Request`
 
 Jest to sposób dołączania branch'y do innych branch'y
 
@@ -393,3 +421,59 @@ Jest to sposób dołączania branch'y do innych branch'y
 4. Po tym kroku należy zawsze pobrać zmiany na lokalne repozytorium.
     
     - W tym celu skożystaj z polecenia `git pull`. 
+
+## 6. `stash` (schowek )
+
+### 1. Działą na zasadzie stosu (LIFO) 
+
+- Możemy dodawać do niego nieskończoną ilość zmian
+
+- Zmiany te im są starsze tym wyższy mają index 
+    - Najmłodsza zawesze ma index `0`
+
+### 2. Aby przenieść dane do stash
+
+```zsh
+git stash
+```
+- Brak barametru oznacza przeniesienie do schowka 
+    - plików z working directory (tree)
+    - plików z stage (index)
+
+#### 1. Parametr `list` informacje o tym jakie zmiany znajdują się w stash'u 
+
+```zsh
+git stash list
+```
+
+#### 2. Prametr służące do przywracania danych.
+
+- `apply` - nie usuwa zmian ze stach'a
+
+- `pop` - usuwa zmiany z przestrzeni stash
+
+```zsh
+git stash apply             # przywróć i zostaw zmiany
+
+git stash pop               # przywróć i skasuj zmiany
+```
+
+W celu wyjęcie ze stasha starszych zmian należy po ww. komendach podać stash{n}
+- n to numer index'u starszej zmiany.
+
+```zsh
+git stash apply stash{n}    # przywróć zmiany z pod n-tego index'su.
+```
+
+#### 3. Parametr `save` służy do zapisania danych w stachu z własną wiadomością.
+
+```zsh
+git stash save "Wiadomość"
+``` 
+
+#### 4. Parametr `drop` służy do usuwania zmian ze stash'a
+- Tak jak poprzednio można usuwać zmiany o konkretnym n-tym index'ie.
+
+```zsh
+git stash drop stash{n}
+```
