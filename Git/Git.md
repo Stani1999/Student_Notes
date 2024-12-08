@@ -319,20 +319,77 @@ Jest to sposób dołączania branch'y do innych branch'y
     - `base:` <branch_do_którego_dołączamy>
     - `corpare:` <branch_do_z'merge'owania>
 
-3. Tworzenie `New pull request`
+3. Kroki 1. i 2 można poinąć: 
+    - klikając w link wyświetlany w terminalu
+        - Pojawi się on tem po użyciu komendy `git push` w nowej gałęzi.
+        - Należy się jednak upewnić, że parametry `base` oraz `corpare` są prawidłowe.
+
+4. Tworzenie `New pull request`
 
 - Wybieramy nasze branch'e `base` oraz `corpare`
     - Poniżej w `Showing` zostaną wyświetlone różniece między wybranymi branch'ami
 
 - Następnie wybierz `Create pull request`
     - Wprowadź krótki tytuł 
+    
     - W opisie podaj :
-        - Co się zmieniło 
-        - Jak przetestować te zmiany
-        - Informacje o branch'u 
-            - Czego brakuje 
+        - Co się zmieniło?
+        
+        - Jak przetestować te zmiany?
+        
+        - Informacje o branch'u
+            - Czego brakuje?
+            
             - Z jakim branch'em lub zadaniem jest on powiązany itp.
+    
     - Po ww. czynnościach naciśnij
         - `Create pull request`
 
 - Nasze zapytanie zostało utworzone.
+
+### 2. Ocena zmian w kodzie.
+
+1. Wewnątrz zakładki `Pull request` wewnątrz naszego repo na stronie Github.
+
+- W prawym górnym rogu (pod `<>Code v`) mamy informacje ile lini kodu się zmieniło
+
+- Po zapoznaniu się z treścią zapytania.
+    - Należy przejść do `Flies Chenges` 
+    
+    - Wyświetlą się wtedy wszystkie zmiany między porównywanymi gałęziami.
+    
+    - Podczas przeglądania kodu możemy za pomocą znaków `+` przy numerach wierszy
+        - Dodawać wskazówki, uwagi co do proponowanego kodu.
+        
+        - Dobrą praktyką jest sugierowanie rozwiązań a nie je nażucacanie.
+
+- Po zapoznaniu się z kodem możemy użyj `Finish your review`
+    - Dodać komentaż na temat kodu
+    
+    - Zaakceptować zmiany 
+        - jeżeli jesteśmy pewni, że przed zmerge'owaniem wszystko zostanie poprawione.
+    
+    - Poprosić o zmiany (odrzucić pull request).
+
+2. Po tym jak zmiany zostaną rozpatrzone pozytywnie 
+    
+    - Można na wykonać krok `Merge pull request`
+    
+    -  Znajduje się on na począdku pull request'a
+        - Na dole strony.
+        
+3. Jeżeli wystąpią konflikty trzeba je rozwiązać
+    - GitHub zablokuje możliwość użycia opcji `Merge pull request`
+        - Po naprwieniu konfliktu kliknij `Mark as resoulved`
+    
+    - Z poziomu GitHub opcja `Resolve conflicts`
+    
+    - Z poziomu gałęzi lokalnych
+    
+        ```zsh
+        git merge main
+        ```
+
+4. Po tym kroku należy zawsze pobrać zmiany na lokalne repozytorium.
+    
+    - W tym celu skożystaj z polecenia `git pull`. 
