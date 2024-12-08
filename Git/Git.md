@@ -2,11 +2,10 @@
 
 - Dotyczy systemu operacyjnego Linux
 
+
 ## 1. Konfiguracja wstępne 
 
-### 1. Zaleca się zmiane domylśnego edytora Vim np na Nano.
-
-- Vim może okazać się zbyt skomplikowanym edyterem do edytowania commitów.
+### 1. Zaleca się zmiane domylśnego edytora np na Nano.
 
 - Zmiany możemy dokonać wpisując w terminalu następujące polecenie:
 
@@ -31,7 +30,7 @@
 - Służy do tego polecenie:
 
     ```zsh
-    git init
+    git init            #inicjalizacja
     ```
 
 - Wynikiem polecenia jest utworzenie w naszym folderze następującej struktury plików w folderze .git:
@@ -68,8 +67,10 @@
         git config --global core.excludesfile ~/.gitignore
         ```
 
- ## 2. Polecenia do pracy w Git
- 
+
+## 2. Polecenia do pracy w Git
+
+
 ### 1. Polecenie pokazujące status naszej przesterzni w Git
 
 ```zsh
@@ -122,7 +123,7 @@ git commit --amend --no-edit
 
 - Jej efektem jest tak naprawdę podmiana commit'u
     - Usunięcie commit'a oraz
-    
+    z  
     - Utworzenie nowego w jego miejsce.
 
 - Pozwala ona zmienić 
@@ -151,6 +152,7 @@ Date:   <Dziań.tyg. Miesiąc Dzień H:M:S Rok +0100>
 
 [Tytuł Commitu]
 ```
+
 - `xxnnnnnnnnnnnnn` # commitu prezentowany jako ciąg niepowtarzalnych znaków identyfikujący nasz commit
     
 - W podkatalogu objects katalogu .git tworzy się folder `xx`, zawierający plik `nnnnnnnnnnnnn`
@@ -159,6 +161,33 @@ Date:   <Dziań.tyg. Miesiąc Dzień H:M:S Rok +0100>
     - Drzewem katalogów 
         - Plik w nim mówi, którego pliku dotyczył commit.
     - Blob'em trzymającym zawartość naszego pliku.
+
+#### 2. Za pomocą polecenia `git rebase` można edytować historię commit'ów
+
+Jest to pomocne kiedy chcemy przebudować naszą gałąź roboczą przed dodaniem jej do `main`
+- Załużmy, że na `main'e` pojawiły się ziany wprowadzone przez innych developerów.
+
+- Celem przebudowy użyjemy komendy :
+
+```zsh
+git rebase main                     # podanie main to przebudowa gałęzi na której pracujemy do gałęci main
+```
+
+- Aktywny zostanie tryb rebase'owania.
+    - W terminal pojawi się opis rebase-i
+
+- W między czasie będziemy musieli rozwiązać konflikty z poszczegulnymi commit'ami
+    - Po usunięciu bierzącego konfliktu należy:
+        - `git add .` - aby dodać poprawki kodu oraz
+
+        - `git rebase --continue` - aby przejść do następnego commit'a
+    
+    - Na koniec powinniśmu w terminalu otrzymaĆ komunikat: `Successfuly rebased and updated ...`.
+
+- Nie jest to zalecane jeżeli na tej gałęzi nie pracujemy sami.
+
+- Jej wynikiem jest utworzenie nowych commitów, gdzie najstarszy z nich zrówna się z najstarszym commitem gałęzi `main`
+
 
 ### 5. Jeżeli w Stage są dwa pliki a chcemy skomitować tylko jeden z nich możemy unstage'ować drugi użyć następującej komendy:
 
@@ -283,6 +312,7 @@ git branch <nazwa_branch'a>
 git branch -d <branch_do_usunięcia>
 ```
 
+
 ## 3. Połączenie z repozytorium zdalnym (GitHub)
 
 ### 1. [Stwórz klucz uwiwrzytelniania](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -293,6 +323,7 @@ git branch -d <branch_do_usunięcia>
 - Skopiuj polecenia zależnie od tego czy:
     - Zamierzasz je utworzyć, 
     - Masz istniejące repo. 
+
 
 ## 4. Pracac z GitHub (Repozytorium zdalnym)
 
@@ -331,7 +362,8 @@ Służy do tego następujące polecenie:
 git config --global push.autoSetupRemote true
 ```
 
-## 5. `Pull Request` (`PR`) i przegląd kodu
+
+## 5. Praca na repozytorium zdalnym
 
 ### 1. `Pull Request`
 
@@ -422,6 +454,7 @@ Jest to sposób dołączania branch'y do innych branch'y
     
     - W tym celu skożystaj z polecenia `git pull`. 
 
+
 ## 6. `stash` (schowek )
 
 ### 1. Działą na zasadzie stosu (LIFO) 
@@ -477,3 +510,5 @@ git stash save "Wiadomość"
 ```zsh
 git stash drop stash{n}
 ```
+
+
