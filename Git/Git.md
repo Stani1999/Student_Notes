@@ -253,18 +253,18 @@ git branch -d <branch_do_usunięcia>
 
 ## 3. Połączenie z repozytorium zdalnym (GitHub)\
 
-1. [Stwórz klucz uwiwrzytelniania](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+### 1. [Stwórz klucz uwiwrzytelniania](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
-2. [Utwórz repozytorium na GitHub](https://github.com/new)
+### 2. [Utwórz repozytorium na GitHub](https://github.com/new)
 
-3. W opcji Quick setup wybierz SSH 
-    - Skopiuj polecenia zależnie od tego czy:
-        - Zamierzasz je utworzyć, 
-        - Masz istniejące repo. 
+### 3. W opcji Quick setup wybierz SSH 
+- Skopiuj polecenia zależnie od tego czy:
+    - Zamierzasz je utworzyć, 
+    - Masz istniejące repo. 
 
 ## 4. Pracac z GitHub (Repozytorium zdalnym)
 
-1. Aby zaciągnąć repozytorium zdalne należy użyć polecenia:
+### 1. Aby zaciągnąć repozytorium zdalne należy użyć polecenia:
 
 ```zsh
 git clone <adress> <nazwa_folderu_z_repo>
@@ -273,7 +273,7 @@ git clone <adress> <nazwa_folderu_z_repo>
 W przypadku braku <nazwa_folderu_z_repo> 
 - Zostanie utworzony folder o takiej samej nazwie co repozytorium.
 
-2. Aby wypchnąć zmiany 
+### 2. Aby wypchnąć zmiany 
 
 ```zsh
 git push
@@ -287,4 +287,4 @@ git pull
 
 ## 5. Pull Request (PR) i przegląd kodu
 
-### 1. Pull Request 
+### 1. Pull Request
