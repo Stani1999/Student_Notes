@@ -220,7 +220,11 @@ git branch <nazwa_branch'a>
 #### 3. Poleceń  `git switch` oraz `git checkout`, można używać naprzemiennie.
 - Robią one dokładnie to samo tzn.
     - Przenoszą `HEAD` aby wskazywał on na aktywny branch.
-        - Aktywny branch wskazuje na swój najmłodszy commit. 
+        - Aktywny branch wskazuje na swój najmłodszy commit.
+
+#### 4. Aby przeżucić dane między gałęziami należy:
+- W trakcie ich edytowania przełączyć się na docelowy branch.
+- Ich zmiany mogą być przeniesione do obszaru Stage (Index)
 
 ### 3. Połączenie gałęzi
 
@@ -279,12 +283,56 @@ W przypadku braku <nazwa_folderu_z_repo>
 git push
 ```
 
-3. Aby pobrać zmiany ze zadlnego repozytorium
+### 3. Aby pobrać zmiany ze zadlnego repozytorium
 
 ```zsh
 git pull
 ```
 
+### 4. Dodawanie branch'a (gałęzi) na repozytorium zdalne
+
+```zsh
+git push --set-upstream origin <nazwa_repozytorium>
+```
+
+### 5. Nasze nowe gałęzie mogą być automatycznie dodawane zdalnego repozytorium.
+
+Służy do tego następujące polecenie:
+
+```zsh
+git config --global push.autoSetupRemote true
+```
+
 ## 5. Pull Request (PR) i przegląd kodu
 
 ### 1. Pull Request
+
+Jest to sposób dołączania branch'y do innych branch'y
+
+#### 1. Aby to zrobić należy
+
+1. Na Otowrzyć repozytorium na stronie GitHub.
+
+2. Przejść do zakładki `Pull request` 
+
+- Porównanie zmian :
+    - `base:` <branch_do_którego_dołączamy>
+    - `corpare:` <branch_do_z'merge'owania>
+
+3. Tworzenie `New pull request`
+
+- Wybieramy nasze branch'e `base` oraz `corpare`
+    - Poniżej w `Showing` zostaną wyświetlone różniece między wybranymi branch'ami
+
+- Następnie wybierz `Create pull request`
+    - Wprowadź krótki tytuł 
+    - W opisie podaj :
+        - Co się zmieniło 
+        - Jak przetestować te zmiany
+        - Informacje o branch'u 
+            - Czego brakuje 
+            - Z jakim branch'em lub zadaniem jest on powiązany itp.
+    - Po ww. czynnościach naciśnij
+        - `Create pull request`
+
+- Nasze zapytanie zostało utworzone.
