@@ -237,4 +237,10 @@ git branch
             - Na najmłodszy commit'u branch'a <branch_do_połączenia>.
 
         Parametr domylśny polecenia 
+
+4. Usuwanie branch'y
+
+```zsh
+git branch -d <branch_do_usunięcia>
+```
     
