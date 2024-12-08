@@ -148,18 +148,18 @@
     
     - Jeżeli zamiast `.` podamy nazwę konkretnego pliku to cofniemy zmiany tylko w nim.
 
-7. Cofanie zmian do ostatniego komita (repozytorium zdalnego)
+7. Cofanie zmian do ostatniego komita (repozytorium)
 
     ```zsh
     git reset --hard
     ```
     
     - Usuwa wszystkie zmiany, które znajdowały się w przestrzeni Stage
-        - Rwónież te bez odwołań w repozytorium zdalnym.
+        - Rwónież te bez odwołań w repozytorium.
     
-    - Usuwa **modyfikacje** na plikach, które są na repozytorium zdalnym.
+    - Usuwa **modyfikacje** na plikach, które są na repozytorium.
         - Nie zmienia plików lokalnych (w working tree), jeżeli: 
-            -  Nie ma ich w repozytorium zdalnym, 
+            -  Nie ma ich w repozytorium, 
                 - Nie ma do czego się cofnąć.
 
  ## 2. Branch'e (gałęzie)
@@ -250,4 +250,39 @@ git branch
 ```zsh
 git branch -d <branch_do_usunięcia>
 ```
-    
+
+## 3. Połączenie z repozytorium zdalnym (GitHub)\
+
+1. [Stwórz klucz uwiwrzytelniania](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+2. [Utwórz repozytorium na GitHub](https://github.com/new)
+
+3. W opcji Quick setup wybierz SSH 
+    - Skopiuj polecenia zależnie od tego czy:
+        - Zamierzasz je utworzyć, 
+        - Masz istniejące repo. 
+
+## 4. Pracac z GitHub (Repozytorium zdalnym)
+
+1. Aby zaciągnąć repozytorium zdalne należy użyć polecenia:
+
+```zsh
+git clone <adress> <nazwa_folderu_z_repo>
+```
+
+W przypadku braku <nazwa_folderu_z_repo> 
+- Zostanie utworzony folder o takiej samej nazwie co repozytorium.
+
+2. Aby wypchnąć zmiany 
+
+```zsh
+git push
+```
+
+3. Aby pobrać zmiany ze zadlnego repozytorium
+
+```zsh
+git pull
+```
+
+ 
