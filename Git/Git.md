@@ -7,16 +7,19 @@
 ### 1. Zaleca się zmiane domylśnego edytora Vim np na Nano.
 
 - Vim może okazać się zbyt skomplikowanym edyterem do edytowania commitów.
+
 - Zmiany możemy dokonać wpisując w terminalu następujące polecenie:
 
     ```zsh
     git config --global core.editor "nano"
     ```
+
 - w miejsce nano możesz wstawić dowolny edytor tekstu.
 
-### 2. Zaleca się zmianę domylśnego brancha z master na main.
+### 2. Zaleca się zmianę domylśnego branch'a z master na main.
 
 - Domylśna nazwa master nie jest już używana ze względu na "poprawność polityczną".
+
 - Służy do tego komenda:
 
     ```zsh
@@ -30,19 +33,25 @@
     ```zsh
     git init
     ```
+
 - Wynikiem polecenia jest utworzenie w naszym folderze następującej struktury plików w folderze .git:
 
     - FEATCH_HEAD - Pusty plik
+
     - HEAD - Zawiera branch na którym aktualnie pracujemy.
+
     - config - podstawowa konfiguracja
+
     - description - zawiera opis dot. naszego repo.
 
 ### 4. Utworzenie globalnego pliku .gitignore
 
 - Dział on w tedy dla wszystkich projektów
+
 - Przydatny aby ignorować pliki dot. środowiska wirtalnego python, czy pliku .DS_Store na systemie MAC_OS
 
 - W celu utworzenia globalnego .gitignore należy:
+
     1. Stworzyć odpowiedni plik :
 
          ```zsh
@@ -50,14 +59,16 @@
         ```
         
         - W celu wypełnienia pliku możesz skożystać ze strony gitignore.io.
+        
             - w polu wyszukiwania wprowadź venv i po kliknięciu "Create" skopiuj jego zawartość do ww. pliku.
 
     2. Skonfigurować go następującym poleceniem
+    
         ```zsh
         git config --global core.excludesfile ~/.gitignore
         ```
 
- ## 2. Polecenia do pracy w Git.
+ ## 2. Polecenia do pracy w Git
  
  1. Polecenie pokazujące status naszej przesterzni w Git
 
@@ -67,7 +78,9 @@
 
     Otrzymujemy następujące informaceje zawierające:
     - Listę commitów,
+    
     - Ilość plików nieśledzonych,
+    
     - Dokonane zmiany.
 
 2. Polecenie dodające pliki do stage's
@@ -77,7 +90,9 @@
     ```
 
     Efektem ww. komendy jest dodanie całej zawartści repozytorium do przestrzeni Stage (Index)
+    
     - Aby dodać wszystkie pliki ww. komendzie użyto znaku "."
+
     - Jeżeli chcesz dodać konkretny plik to zamiast ww. znalu wpisz jego nazwę wraz z rozszerzeniem.
 
 3. Commit'owanie zmian
@@ -109,7 +124,9 @@
     [Tytuł Commitu]
     ```
     - `xxnnnnnnnnnnnnn` # commitu prezentowany jako ciąg niepowtarzalnych znaków identyfikujący nasz commit
+    
     - W podkatalogu objects katalogu .git tworzy się folder `xx`, zawierający plik `nnnnnnnnnnnnn`
+    
     - Poza `xx` tworzą się jeszcze dwa inne katalogi powiązane z 
         - Drzewem katalogów 
             - Plik w nim mówi, którego pliku dotyczył commit.
@@ -126,7 +143,10 @@
     ```zsh
     git checkout .
     ```
+
     - Ww. polecenie usuwa wszystkie zmmiany w working tree (nie zostały przekazane do Stage)
+    
+    - Jeżeli zamiast `.` podamy nazwę konkretnego pliku to cofniemy zmiany tylko w nim.
 
 7. Cofanie zmian do ostatniego komita (repozytorium zdalnego)
 
@@ -134,7 +154,63 @@
     git reset --hard
     ```
     
-    - Usuwa wszystkie zmiany które znajdowały się w przestrzeni Stage
-    - Usuwa modyfikacje na plikach, które są na repozytorium zdalnym
-    - Nie zmienia plików lokalnych, do których nie ma odwołań w repozytorium zdalnym - nie istnieją tam.
+    - Usuwa wszystkie zmiany, które znajdowały się w przestrzeni Stage
+        - Rwónież te bez odwołań w repozytorium zdalnym.
+    
+    - Usuwa **modyfikacje** na plikach, które są na repozytorium zdalnym.
+        - Nie zmienia plików lokalnych (w working tree), jeżeli: 
+            -  Nie ma ich w repozytorium zdalnym, 
+                - Nie ma do czego się cofnąć.
 
+ ## 2. Branch'e (gałęzie)
+
+Podstawowe polecenie do operacji z branch'ami:
+
+```zsh
+git branch
+```
+
+- Wyświetli ona wszystkie utworzone gałęzie.
+
+- `*` przed nazwą branch'a oznacza, że działamy na nim.
+
+1. Dodawanie nowego branch'a
+
+- Za poleceniem wpisz nazwę nowego branch'a:
+
+    ```zsh
+    git branch <nazwa_branch'a>
+    ```
+
+    - Utworzono branch <nazwa_branch'a>
+    
+    - Pozostajemy na poprzednim branch'u (nie przełączyliśmy się)
+
+2. Przełączanie się między branch'ami
+
+- Istnieją do tego dwa sposoby:
+
+
+    - Nowszy sposób :
+
+        ```zsh
+        git switch <nazwa_branch'a>
+        ```
+        
+    - Starszy sposób to:
+
+        ```zsh
+        git checkout <nazwa_branch'a>
+        ``` 
+        
+- Używając starszego sposobu, możemy jednocześnie tworzyć nowy branch z przełączenim się na niego. 
+    
+    - Służy do tego flaga `-b`
+
+        ```zsh
+        git checkout -b <nazwa_branch'a>
+        ```
+
+- Poleceń  `git switch` oraz `git checkout` , można używać naprzemiennie.
+    - Robią dokładnie to samo.
+    
