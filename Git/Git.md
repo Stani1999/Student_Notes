@@ -188,6 +188,10 @@ git rebase main                     # podanie main to przebudowa gałęzi na kt�
 
 - Jej wynikiem jest utworzenie nowych commitów, gdzie najstarszy z nich zrówna się z najstarszym commitem gałęzi `main`
 
+#### 3. Poruszanie się po histori commit'ów
+
+
+
 
 ### 5. Jeżeli w Stage są dwa pliki a chcemy skomitować tylko jeden z nich możemy unstage'ować drugi użyć następującej komendy:
 
@@ -205,19 +209,21 @@ git checkout .
     
 - Jeżeli zamiast `.` podamy nazwę konkretnego pliku to cofniemy zmiany tylko w nim.
 
-### 7. Cofanie zmian do ostatniego commita (repozytorium)
+### 7. Cofanie zmian na repozytorium
 
 ```zsh
-git reset --hard
+git reset
 ```
-    
-- Usuwa wszystkie zmiany, które znajdowały się w przestrzeni Stage
-    - Rwónież te bez odwołań w repozytorium.
-    
-- Usuwa **modyfikacje** na plikach, które są na repozytorium.
-    - Nie zmienia plików lokalnych (w working tree), jeżeli: 
-        -  Nie ma ich w repozytorium, 
-            - Nie ma do czego się cofnąć.
+
+Tabela falg dla powyższego polecenia.
+
+| **Flaga**            | **Co zmienia?**                        | **Index (Staging Area)** | **Working Directory (Tree)**  | **Opis**                                                                                                                               |
+|----------------------|----------------------------------------|--------------------------|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **`--soft`**         | Resetuje tylko HEAD                    |  Zachowany               | Zachowany                                          | Przesuwa HEAD do wskazanego commita, ale zachowuje zmiany w obszarze staging i katalogu roboczym.                 |
+| **`--mixed`** (domyślna) | Resetuje HEAD i index              |  Wyczyszczony            | Zachowany                                          | Przesuwa HEAD do wskazanego commita, usuwa zmiany z obszaru staging, ale zachowuje je w katalogu roboczym.        |
+| **`--hard`**         | Resetuje HEAD, index i katalog roboczy | Wyczyszczony             | Wyczyszczony                                       | Przesuwa HEAD do wskazanego commita i usuwa wszystkie zmiany zarówno z obszaru staging, jak i katalogu roboczego. |
+| **`--merge`**        | Resetuje HEAD i index, zachowując tylko niezapisane zmiany | Wyczyszczony| Zachowuje tylko niezapisane zmiany          | Służy do przygotowania do ponownego mergowania bez niszczenia zmian, które są w konflikcie lub niezatwierdzone.   |
+| **`--keep`**         | Resetuje HEAD i index, przy brak zmian w plikach | Wyczyszczony   | Zachowany przy braku konfliktów | Zachowuje zmiany w katalogu roboczym, ale resetuje HEAD i staging, pod warunkiem, że zmiany nie spowodują konfliktów.                |
 
 ## 2. Branch'e (gałęzie)
 
@@ -249,35 +255,36 @@ git branch <nazwa_branch'a>
 
 - Pozostajemy na poprzednim branch'u (nie przełączyliśmy się)
 
-### 2. Przełączanie się między branch'ami
+### 2. Przełączanie się po repozytorium w tym między branch'ami
 
-#### 1. Istnieją do tego dwa sposoby:
-
+#### 1. Istnieją do tego dwa sposoby zmiany gałęzi.
 
 - Nowszy sposób :
 
     ```zsh
-    git switch <nazwa_branch'a>
+    git switch -c <nazwa_branch'a>
     ```
     
+    - Flaga `-c` (create) tworzy nową gałąź i dopiero się na nią przełącz 
+
 - Starszy sposób to:
 
     ```zsh
-    git checkout <nazwa_branch'a>
+    git checkout -b <nazwa_branch'a>
     ``` 
 
-#### 2. Używając starszego sposobu, możemy jednocześnie tworzyć nowy branch z przełączenim się na niego. 
+    - W tym przypadku flaga `-b` (branch) służy do utworzenia nowej gałęzi przed przełączeniem
 
-- Służy do tego flaga `-b`
+- Aby przełączać się na już utworzone gałęzie trzeba usunąć flagi '-c' lub '-b'
 
-    ```zsh
-    git checkout -b <nazwa_branch'a>
-    ```
-
-#### 3. Poleceń  `git switch` oraz `git checkout`, można używać naprzemiennie.
+#### 2. W przypadku gałęzi poleceń  `git switch` oraz `git checkout`, można używać naprzemiennie
 - Robią one dokładnie to samo tzn.
-    - Przenoszą `HEAD` aby wskazywał on na aktywny branch.
+    - Przenoszą `HEAD` aby wskazywał on na aktywny branch,
         - Aktywny branch wskazuje na swój najmłodszy commit.
+
+#### 3. Polecenie `git checkout` potrafi przełączać się między plikami (przenosi na nie wskaźnik HEAD)
+
+
 
 #### 4. Aby przeżucić dane między gałęziami należy:
 - W trakcie ich edytowania przełączyć się na docelowy branch.
@@ -510,5 +517,3 @@ git stash save "Wiadomość"
 ```zsh
 git stash drop stash{n}
 ```
-
-
