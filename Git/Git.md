@@ -188,10 +188,6 @@ git rebase main                     # podanie main to przebudowa gałęzi na kt�
 
 - Jej wynikiem jest utworzenie nowych commitów, gdzie najstarszy z nich zrówna się z najstarszym commitem gałęzi `main`
 
-#### 3. Poruszanie się po histori commit'ów
-
-
-
 
 ### 5. Jeżeli w Stage są dwa pliki a chcemy skomitować tylko jeden z nich możemy unstage'ować drugi użyć następującej komendy:
 
