@@ -44,7 +44,29 @@
 | **Drzewo**        | Brak wbudowanego     | `class Node: ...` lub `from anytree import Node; Node("root")` | Python nie ma wbudowanego typu drzewa, ale można go zaimplementować. |
 | **Plik**          | `open()` (obsługa plików) | `with open("plik.txt", "r") as f: dane = f.read()` | Python obsługuje pliki za pomocą funkcji `open()` i metod na plikach. |
 
-## **1. Listy (*list*):**
+## 1. Porównanie typów złożonych 
+### Różnice między listą, krotką, zbiorem i słownikiem w Pythonie
+
+
+| **Cecha/Właściwość**           | **Lista**                                  | **Krotka**                                | **Zbiór**                                | **Słownik**                               |
+|---------------------------------|--------------------------------------------|-------------------------------------------|-----------------------------------------|------------------------------------------|
+| **Definicja**                   | Kolekcja elementów w określonej kolejności. | Kolekcja elementów w określonej kolejności, ale niemutowalna. | Kolekcja unikalnych elementów, nieuporządkowana. | Kolekcja par klucz-wartość, nieuporządkowana. |
+| **Typ mutowalności**            | Mutowalna (można zmieniać elementy)        | Niemutowalna (nie można zmieniać elementów) | Mutowalny (można dodawać/usunąć elementy) | Mutowalny (można dodawać/usunąć elementy) |
+| **Indeksowanie**                | Tak (indeksowanie zaczyna się od 0)        | Tak (indeksowanie zaczyna się od 0)       | Nie (nie ma indeksów)                   | Tak (indeksowanie przez klucze)           |
+| **Duplikaty**                   | Dozwolone (można mieć powtarzające się elementy) | Dozwolone (można mieć powtarzające się elementy) | Niedozwolone (wszystkie elementy muszą być unikalne) | Niedozwolone (klucze muszą być unikalne) |
+| **Porządek**                    | Uporządkowane (elementy zachowują kolejność) | Uporządkowane (od Python 3.7+)             | Nieuporządkowane (do Python 3.6)        | Nieuporządkowane (do Python 3.6)         |
+| **Złożoność operacji**          | O(n) przy dodawaniu, usuwaniu, szukaniu     | O(n) przy szukaniu, dodawaniu (brak zmiany) | O(1) przy dodawaniu, usuwaniu, szukaniu | O(1) przy dodawaniu, usuwaniu, szukaniu  |
+| **Szerokość zastosowania**      | Dynamiczne kolekcje, gdzie kolejność ma znaczenie | Kolekcje stałe, kiedy dane nie mają się zmieniać | Operacje na unikalnych elementach, np. matematyczne operacje zbiorów | Przechowywanie danych w postaci klucz-wartość |
+| **Tworzenie**                   | `lista = [1, 2, 3]`                       | `krotka = (1, 2, 3)`                      | `zbior = {1, 2, 3}`                     | `slownik = {'a': 1, 'b': 2}`              |
+| **Zastosowanie**                | Kolekcje danych, do których będziesz często dodawać lub zmieniać elementy | Kolekcje stałe, takie jak dane konfiguracyjne | Przechowywanie unikalnych danych i operacje na zbiorach | Przechowywanie powiązanych danych w formie klucz-wartość |
+| **Dostęp do elementów**         | Indeksowanie, np. `lista[0]`                | Indeksowanie, np. `krotka[0]`              | Nie ma indeksowania, ale można iterować | Dostęp przez klucz, np. `slownik['a']`    |
+| **Przykład dodawania elementu** | `lista.append(4)`                          | Nie można dodawać                        | `zbior.add(4)`                           | `slownik['c'] = 3`                       |
+| **Przykład usuwania elementu**  | `lista.remove(2)`                          | Nie można usuwać                         | `zbior.remove(2)`                        | `del slownik['a']`                       |
+
+
+## 2. Tabele dotyczące typów złożonych
+
+### **1. Listy (*list*):**
 
 | **Cecha/Właściwość**        | **Opis**                                                                                     | **Przykład**                       |
 |-----------------------------|----------------------------------------------------------------------------------------------|------------------------------------|
@@ -63,7 +85,7 @@
 | **Operacje na listach**     | Konkatenacja list za pomocą `+`, powielanie za pomocą `*`.                                   | `[1, 2] + [3, 4]` = `[1, 2, 3, 4]` |
 | **Gniazdowanie**            | Listy mogą zawierać inne listy jako elementy (listy zagnieżdżone).                           | `[[1, 2], [3, 4]`                  |
 
-### Przykład użycia listy:
+#### Przykład użycia listy:
 ```python
 # Tworzenie listy
 lista = [1, 2, 3, 4, 5]
@@ -95,9 +117,9 @@ print(fragment)          # [2, 3, 5]
 ```
 
 
-## **2. Krotki (*tuples*):**
+### **2. Krotki (*tuples*):**
 
-### Główne różnice między listami a krotkami:
+#### Główne różnice między listami a krotkami:
 - **Krotki są niemutowalne**, co czyni je bardziej wydajnymi i bezpiecznymi, ale mniej elastycznymi niż listy.
 - Krotki są często używane, gdy dane są stałe i nie powinny być modyfikowane, np. współrzędne punktów czy klucze w strukturach danych.
 
@@ -119,7 +141,7 @@ print(fragment)          # [2, 3, 5]
 | **Operacje na krotkach**    | Konkatenacja krotek za pomocą `+`, powielanie za pomocą `*`.                                | `(1, 2) + (3, 4)` = `(1, 2, 3, 4)`  |
 | **Gniazdowanie**            | Krotki mogą zawierać inne krotki jako elementy (krotki zagnieżdżone).                       | `((1, 2), (3, 4))`                  |
 
-### Przykład użycia krotki:
+#### Przykład użycia krotki:
 ```python
 # Tworzenie krotki
 krotka = (1, 2, 3, 4, 5)
@@ -150,7 +172,7 @@ print(lista_z_krotki)   # [1, 2, 3, 4, 5]
 ```
 
 
-## **3. Zbiory (*set*):**
+### **3. Zbiory (*set*):**
 
 | **Cecha/Właściwość**        | **Opis**                                                                                     | **Przykład**                       |
 |-----------------------------|---------------------------------------------------------------------------------------------|-------------------------------------|
@@ -166,7 +188,7 @@ print(lista_z_krotki)   # [1, 2, 3, 4, 5]
 | **Zalety** | Zbiorów to szybkie sprawdzanie przynależności elementów, a także możliwość wykonywania matematycznych operacji na zbiorach. | - |
 | **Zastowowanie** | Zbiory są często wykorzystywane w algorytmach, gdzie ważne jest unikanie duplikatów i szybkie operacje sprawdzające, czy dany element znajduje się w zbiorze. | - |
 
-### Przykład użycia zbioru:
+#### Przykład użycia zbioru:
 ```python
 # Tworzenie zbioru
 zbior = {1, 2, 3, 4}
@@ -188,12 +210,10 @@ print(zbior.difference(zbior2))     # Zbiór: {1, 2}
 print(zbior.symmetric_difference(zbior2))  # Zbiór: {1, 2, 6}
 ```
 
-## 4. **Słownik** (*dict*ionary):
+### 4. **Słownik** (*dict*ionary):
 
-### Tabela: **Słownik w Pythonie**
-
-| **Cecha/Właściwość**          | **Opis**                                                                                         | **Przykład**                 |
-|-------------------------------|--------------------------------------------------------------------------------------------------|------------------------------|
+| **Cecha/Właściwość**          | **Opis**                                                                              | **Przykład**         |
+|-------------------------------|---------------------------------------------------------------------------------------|----------------------|
 | **Definicja**  | Słownik to struktura danych przechowująca pary klucz-wartość. Klucze muszą być unikalne i niemutowalne. | `slownik = {'a': 1, 'b': 2, 'c': 3}` |
 | **Tworzenie**                 | Słownik tworzony jest za pomocą nawiasów klamrowych `{}`.                                | `slownik = {'klucz1': 'wartość1'}`   |
 | **Dodawanie elementów**       | Elementy dodaje się, przypisując wartość do klucza. Jeśli klucz istnieje, wartość zostanie zaktualizowana. | `slownik['d'] = 4` |
@@ -204,7 +224,7 @@ print(zbior.symmetric_difference(zbior2))  # Zbiór: {1, 2, 6}
 | **Konwersja z innych struktur** | Słowniki można tworzyć z listy krotek (para klucz-wartość).                        | `slownik = dict([('a', 1), ('b', 2)])`   |
 | **Metody**                      | Metody do manipulacji: `keys()`, `values()`, `items()`, `get()`, `update()`, `clear()`, `popitem()`. | `slownik.keys()`       |
 
-### Przykłady użycia słownika w Pythonie:
+#### Przykłady użycia słownika w Pythonie:
 ```python
 # Tworzenie słownika
 slownik = {'a': 1, 'b': 2, 'c': 3}
@@ -250,10 +270,10 @@ slownik.clear()  # Słownik jest teraz pusty: {}
 print(slownik)
 ```
 
-## **5. Stos (*stack*):** 
+### **5. Stos (*stack*):** 
 
-| **Cecha/Właściwość**        | **Opis**                                                                                     | **Przykład**                       |
-|-----------------------------|----------------------------------------------------------------------------------------------|------------------------------------|
+| **Cecha/Właściwość**        | **Opis**                                                                        | **Przykład**              |
+|-----------------------------|---------------------------------------------------------------------------------|---------------------------|
 | **Definicja**               | Stos to struktura danych działająca na zasadzie LIFO (Last In, First Out) – ostatni element dodany jest pierwszym, który zostanie usunięty. | `stos = []` |
 | **Tworzenie**               | Stos można utworzyć jako listę lub używać specjalnych klas/stosów z modułów takich jak `collections.deque`. | `stos = []`         |
 | **Dodawanie elementów**     | Elementy dodaje się za pomocą metody `append()`.                                             | `stos.append(1)`                   |
@@ -265,7 +285,7 @@ print(slownik)
 | **Zastosowanie**          | Stos jest używany w algorytmach przetwarzania wyrażeń, w systemach rekurencyjnych, zarządzaniu historią (np. w przeglądarkach). | - |
 
 
-### Przykład użycia stosu za pomocą listy:
+#### Przykład użycia stosu za pomocą listy:
 ```python
 # Tworzenie stosu
 stos = []
@@ -286,7 +306,7 @@ print(stos[-1])    # Zwraca 1
 print(len(stos) == 0)  # False, ponieważ stos nie jest pusty
 ```
 
-## 6. **Kolejka (*queue*)**:
+### 6. **Kolejka (*queue*)**:
 
 | **Cecha/Właściwość**        | **Opis**                                                                                          | **Przykład**                                  |
 |-----------------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------|
@@ -298,7 +318,7 @@ print(len(stos) == 0)  # False, ponieważ stos nie jest pusty
 | **Iteracja**                | Po kolejce można iterować, aby uzyskać dostęp do jej elementów w kolejności ich dodania.           | `for element in kolejka:`                    |
 | **Zalety**                  | Kolejki są użyteczne w zadaniach, które wymagają przetwarzania elementów w kolejności ich dodania, np. w symulacjach, procesach kolejkowych. | - |
 
-### Przykład użycia kolejki za pomocą listy:
+#### Przykład użycia kolejki za pomocą listy:
 ```python
 # Tworzenie kolejki (lista)
 kolejka = []
@@ -317,7 +337,7 @@ print(len(kolejka) == 0)  # False, Kolejka zawiera elementy
 ```
 
 
-## **AD. 5. 6. Stos i kolejka za pomocą `deque`:**
+### **AD. 5. 6. Stos i kolejka za pomocą `deque`:**
 
 Dzięki zastosowaniu **`deque`** z biblioteki `collections`, zarówno stos, jak i kolejka, oferują szybkie operacje dodawania i usuwania elementów, co czyni je bardziej wydajnymi niż używanie tradycyjnych list w Pythonie.
 
@@ -332,7 +352,7 @@ Dzięki zastosowaniu **`deque`** z biblioteki `collections`, zarówno stos, jak 
 | **Zalety**                    | Szybki dostęp do ostatnio dodanego elementu.   | Szybki dostęp do pierwszego dodanego elementu.    |
 | **Zastosowanie**              | Przechowywanie danych, które muszą być przetwarzane w odwrotnej kolejności (np. operacje nawiasowe, wycofywanie zmian). | Przechowywanie danych, które muszą być przetwarzane w kolejności ich dodania (np. w algorytmach BFS). |
 
-### 1. **Stos (*LIFO*) za pomocą `deque`:**
+#### 1. **Stos (*LIFO*) za pomocą `deque`:**
 ```python
 from collections import deque
 
@@ -352,7 +372,7 @@ print(stos.pop())  # Usuwa 2, Stos: deque([1])
 print(len(stos) == 0)  # False, Stos zawiera elementy
 ```
 
-### 2. **Kolejka (*FIFO*) za pomocą `deque`:**
+#### 2. **Kolejka (*FIFO*) za pomocą `deque`:**
 ```python
 from collections import deque
 
@@ -372,7 +392,7 @@ print(kolejka.popleft())  # Usuwa 2, Kolejka: deque([3])
 print(len(kolejka) == 0)  # False, Kolejka zawiera elementy
 ```
 
-## **7. Drzewo (*tree*):**
+### **7. Drzewo (*tree*):**
 
 | **Cecha/Właściwość** | **Opis**                                                                                                     | **Przykład**              |
 |----------------------|--------------------------------------------------------------------------------------------------------------|---------------------------|
@@ -388,7 +408,7 @@ print(len(kolejka) == 0)  # False, Kolejka zawiera elementy
 | **Zalety**           | Drzewa pozwalają na efektywne przechowywanie danych i przechodzenie po nich w sposób hierarchiczny, umożliwiając szybkie wyszukiwanie, dodawanie oraz usuwanie elementów. | - |
 | **Brak wbudowanego typu w Pythonie** | W Pythonie nie ma wbudowanego typu dla drzewa, ale można je łatwo zaimplementować za pomocą klas i struktur danych, takich jak listy, słowniki czy `deque`. | - |
 
-### Przykład implementacji prostego drzewa binarnego w Pythonie:
+#### Przykład implementacji prostego drzewa binarnego w Pythonie:
 
 ```python
 class Node:
@@ -421,9 +441,7 @@ def preorder(node):
 # Wywołanie preorder dla korzenia
 preorder(root)  # Wynik: 1 2 4 5 3
 ```
-## **8. Plik (*file*):**
-
-### Tabela: **Plik w Pythonie**
+### **8. Plik (*file*):**
 
 Plik w Pythonie jest strukturą umożliwiającą przechowywanie danych na dysku. Pliki mogą zawierać tekst, liczby lub inne dane i są wykorzystywane do odczytu i zapisu danych w aplikacjach. Python oferuje prostą obsługę plików, pozwalając na wykonywanie różnych operacji, takich jak otwieranie, czytanie, zapisywanie czy zamykanie pliku.
 
@@ -438,7 +456,8 @@ Plik w Pythonie jest strukturą umożliwiającą przechowywanie danych na dysku.
 | **Zarządzanie plikami w kontekście** | Użycie konstrukcji `with` umożliwia automatyczne zamknięcie pliku po zakończeniu pracy. | `with open('example.txt', 'r') as file: ...`  |
 | **Przykładowe operacje**       | 1. Odczyt całego pliku: `content = file.read()`<br> 2. Zapis do pliku: `file.write('text')`<br> 3. Dopisanie do pliku: `file.write('more text')` | - |
 
-### Przykład użycia pliku:
+#### Przykład użycia pliku:
+##### 1. **Otwieranie pliku pliku:**
 
 ```python
 # Otwieranie pliku w trybie odczytu
@@ -451,14 +470,14 @@ with open('example.txt', 'w') as file:
     file.write('Hello, Python!')  # Zapis do pliku
 ```
 
-#### 2. **Dodawanie do pliku (dopisywanie):**
+##### 2. **Dodawanie do pliku (dopisywanie):**
 
 ```python
 with open('example.txt', 'a') as file:
     file.write('\nAppended text!')  # Dopisanie do pliku
 ```
 
-#### 3. **Odczyt linii z pliku:**
+##### 3. **Odczyt linii z pliku:**
 
 ```python
 with open('example.txt', 'r') as file:
@@ -466,43 +485,3 @@ with open('example.txt', 'r') as file:
     for line in lines:
         print(line.strip())  # Wyświetlanie każdej linii
 ```
-
-
-# 4. Operacje na typach złożonych 
-
-## 1. **Wycinki (*slices*)** 
-- Sposób na uzyskiwanie podzbiorów danych z list, łańcuchów znaków (*stringów*) i innych sekwencji. Oto szczegóły działania wycinków przedstawione w tabeli:
-
-| **Funkcjonalność**         | **Składnia**              | **Opis**                                                                                          | **Przykład**              | **Wynik**       |
-|----------------------------|---------------------------|--------------------------------------------------------------------------------------------------|---------------------------|-----------------|
-| **Podstawowy wycinek**     | `seq[start:end]`          | Pobiera elementy od indeksu `start` (włącznie) do `end` (wyłącznie).                             | `lista[1:4]`              | `[2, 3, 4]`     |
-| **Domyślny początek**      | `seq[:end]`               | Pobiera elementy od początku sekwencji do indeksu `end` (wyłącznie).                            | `lista[:3]`               | `[1, 2, 3]`     |
-| **Domyślny koniec**        | `seq[start:]`             | Pobiera elementy od indeksu `start` do końca sekwencji.                                          | `lista[2:]`               | `[3, 4, 5]`     |
-| **Cała sekwencja**         | `seq[:]`                 | Pobiera całą sekwencję (kopiuje ją).                                                            | `lista[:]`                | `[1, 2, 3, 4, 5]` |
-| **Krok (co n-ty element)** | `seq[start:end:step]`     | Pobiera elementy od `start` do `end` z krokiem `step`.                                           | `lista[::2]`              | `[1, 3, 5]`     |
-| **Odwrócenie sekwencji**   | `seq[::-1]`              | Pobiera elementy w odwrotnej kolejności (od końca do początku).                                  | `lista[::-1]`             | `[5, 4, 3, 2, 1]` |
-| **Negatywne indeksy**      | `seq[-start:-end]`        | Używa ujemnych indeksów, które liczą od końca sekwencji.                                         | `lista[-3:-1]`            | `[3, 4]`        |
-| **Łączenie wycinków**      | `seq[:mid] + seq[mid:]`   | Łączy dwa wycinki w jedną całość (można podzielić i złączyć listę).                              | `lista[:2] + lista[2:]`   | `[1, 2, 3, 4, 5]` |
-| **Modyfikacja wycinków**   | `seq[start:end] = values` | Zamienia elementy w podanym zakresie na nowe wartości (dla list, które są mutowalne).            | `lista[1:3] = [8, 9]`     | `[1, 8, 9, 4, 5]` |
-
-### Przykład kodu:
-
-```python
-lista = [1, 2, 3, 4, 5]
-
-# Podstawowe wycinki
-print(lista[1:4])    # [2, 3, 4]
-print(lista[:3])     # [1, 2, 3]
-print(lista[2:])     # [3, 4, 5]
-
-# Krok i odwrócenie
-print(lista[::2])    # [1, 3, 5]
-print(lista[::-1])   # [5, 4, 3, 2, 1]
-
-# Modyfikacja listy
-lista[1:3] = [8, 9]  
-print(lista)         # [1, 8, 9, 4, 5]
-```
-
-**Podsumowanie:**  
-Wycinki umożliwiają szybki i wygodny sposób pracy z sekwencjami (np. listami, stringami). Są przydatne do filtrowania, modyfikacji i odwracania danych.
