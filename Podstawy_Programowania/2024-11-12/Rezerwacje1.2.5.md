@@ -32,18 +32,32 @@ sudo apt install python3
 ```
 
 # Tworzenie środowiska wirtualnego
-Zalecane jest kożystnie za środowisk wirtualnych, aby odizolować swoje zależności od globalnych pakietó Python.
+Zaleca się korzystanie ze środowisk wirtualnych, aby odizolować zależności projektu od globalnych pakietów Pythona.
 
-## Aby aktywować środowisko wirtualne
+## Tworzenie i aktywowanie środowiska wirtualnego
 
 - **Windows**
-    ```bash
-    python3 -m vnev vnev
-    ``` 
-- **Linux**
-    ```bash
-    source neve\Script|activate
-    ``` 
+    1. Utwórz środowisko wirtualne:
+        ```bash
+        python -m venv <nazwa_katalogu>
+        ```
+    2. Aktywuj środowisko:
+        ```bash
+        <nazwa_katalogu>\Scripts\activate
+        ```
+
+- **Linux/macOS**
+    1. Utwórz środowisko wirtualne:
+        ```bash
+        python3 -m venv <nazwa_katalogu>
+        ```
+    2. Aktywuj środowisko:
+        ```bash
+        source <nazwa_katalogu>/bin/activate
+        ```
+
+Po aktywacji środowiska wirtualnego możesz instalować zależności, np. za pomocą `pip`, które będą izolowane w obrębie tego środowiska.
+
 
 ## Wymagania
 
