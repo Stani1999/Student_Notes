@@ -1,6 +1,8 @@
+''' Validation Functions Module '''
+
 import re
 
-# Validation Functions
+
 def pesel(pesel: str) -> bool:
     """Validate PESEL number."""
     if len(pesel) != 11 or not pesel.isdigit():
@@ -31,7 +33,7 @@ def regon(regon: str) -> bool:
     control_digit = control_sum % 11
     return control_digit == int(regon[len(weights)])
 
-def password(password):
+def password(password: str) -> tuple[bool, str]:
     """Validate password strength."""
     if len(password) < 8:
         return False, "Hasło jest za krótkie."
@@ -44,3 +46,15 @@ def password(password):
     if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
         return False, "Hasło musi zawierać znaki specjalne."
     return True, "Hasło jest silne."
+
+def name(name: str) -> tuple[bool, str]:
+    """Validate user name."""
+    if re.search(r'[0-9]', name):
+        return False, "Imie nie może zawierać cyfry."
+    if re.search(r'[!@#$%^&*(),?":{}|<>]', name):
+        return False, "Imie nie może zawierać znaków specjalnych."
+    if not re.search(r'[A-Z]', name):
+        return False, "Imie musi zawierać wielkie litery."
+    if not re.search(r'[a-z]', name):
+        return False, "Imie musi zawierać małe litery."
+    return True, f"Wprowadzasz dane dla {name}:"
