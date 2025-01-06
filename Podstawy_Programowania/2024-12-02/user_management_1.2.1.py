@@ -21,6 +21,15 @@ def generate_password(length=12):
     return ''.join(choice(characters) for _ in range(length))
 
 # User Management
+def print_user(users: dict, user_id: str, action: str) -> tuple[bool, str]:
+    """Display a user, by user_id. and check if they are in dict"""
+    for user in users.get("users", []):
+        if user.get("user_id") == user_id: 
+            return True, f"Użytkownik do {action} ID: {user.get('user_id') or 'Nie podano'}, Imię i nazwisko: {user.get('name') or 'Nie podano'}, PESEL: {user.get('pesel') or 'Nie podano'}, NIP: {user.get('nip') or 'Nie podano'}, REGON: {user.get('regon') or 'Nie podano'}"
+        
+
+    return False, f"Nie znaleziono użytkownika o ID {user_id}"
+
 def print_users(users: dict) -> None:
     """Display a list of users, sorted by user_id."""
     print("\nLista użytkowników:")
@@ -83,16 +92,20 @@ def edit_user(user_id: str, updated_data: dict) -> None:
     wo.save_json(users, USER_DATA)
     print("\nDane użytkownika zostały zaktualizowane.")
 
-def registration() -> dict:
+def registration(user_id) -> dict:
     """Register a new user."""
     name = None
     while name is None or (name and not val.name(name)[0]):
-        name = str(input("Nowe imię i nazwisko: "))
+        name = str(input("Podaj imię i nazwisko: "))
         '''Info from function'''
-        print(val.name(name)[1])
+        if name == "":
+            print(val.name(name)[1])
+            name = None
+        else:
+            print(val.name(name)[1])
             
     pesel = None
-    while pesel is None or (pesel and not val.pesel(pesel)):
+    while pesel is None or (pesel and not val.pesel(pesel)) or name == "":
         pesel = input("Podaj PESEL (opcjonalne): ")
         if pesel and not val.pesel(pesel):
             print("Błędny PESEL. Spróbuj ponownie.")
@@ -110,6 +123,7 @@ def registration() -> dict:
             print("Błędny REGON. Spróbuj ponownie.")
 
     return {
+        "user_id": user_id,
         "name": name,
         "pesel": pesel,
         "nip": nip,
@@ -133,16 +147,27 @@ def main() -> None:
                 print_users(users)
             elif option == "2":
                 user_id = str(int(input(("Podaj ID użytkownika: "))))
-                user_data = registration()
-                user_data["user_id"] = user_id
+                user_data = registration(user_id)  # Przekazujemy user_id jako argument
                 add_user(user_data)
             elif option == "3":
                 user_id = str(int(input("Podaj ID użytkownika do usunięcia: ")))
-                remove_user(user_id)
+                found, message = print_user(users, user_id, "do usunięcia")
+                print(message)
+                if found:
+                    confirm = input("Jeżeli usunąć wpisz 't', jeżeli nie wpisz 'n': ").lower()
+                    if confirm == "t":
+                        remove_user(user_id)
+                    elif confirm == "n":
+                        print("\nAnulowano usuwanie użytkownika.")
+                    else:
+                        print("\nNieprawidłowy wybór. Anulowano operacje.")
+                else:
+                    print("\nNie znaleziono użytkownika o podanym ID.")
             elif option == "4":
                 user_id = str(int(input("Podaj ID użytkownika do modyfikacji: ")))
+                found, message = print_user(users, user_id, "do modyfikacji")
                 print("Podaj nowe dane użytkownika: ")
-                updated_data = registration()
+                updated_data = registration(user_id)
                 updated_data = {k: v for k, v in updated_data.items() if v is not None}
                 edit_user(user_id, updated_data)
             elif option == "5":

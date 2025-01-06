@@ -19,6 +19,12 @@ Znajdziesz tam szczegółowe instrukcje dotyczące instalacji Pythona oraz tworz
 1. **Środowisko:**
    - Upewnij się, że Python 3.x jest zainstalowany.
    - Dodaj zmienną środowiskową `Modules`, wskazującą na katalog, w którym znajdują się moduły walidacyjne.
+      - Linux : 
+         ```bash
+         export PYTHONPATH=$PYTHONPATH:/ścieżka/do/Modules_py
+      - Windows : 
+         ```bash
+         set PYTHONPATH=%PYTHONPATH%;C:\ścieżka\do\Modules_py 
    - Dodaj zmienną środowiskową `USER_DATA_PATH`, która określa ścieżkę do pliku `users.json`.
 
 2. **Struktura katalogów:**
@@ -37,16 +43,23 @@ Znajdziesz tam szczegółowe instrukcje dotyczące instalacji Pythona oraz tworz
 - Ścieżka do pliku `users.json`. Domyślnie wskazuje na `data/users.json`, ale można ją zmienić za pomocą zmiennej środowiskowej `USER_DATA_PATH`.
 
 ### **2. Operacje na plikach JSON**
-#### **`wJ.load(file_path)`**
+#### **`wo.load_json(file_path)`**
 - Wczytuje dane JSON z pliku.
 - Jeśli plik nie istnieje, zwraca pustą strukturę danych.
 
-#### **`wJ.save(file_path, data)`**
+#### **`wo.save_json(file_path, data)`**
 - Zapisuje dane do pliku JSON w uporządkowanym formacie.
 
 ---
 
 ### **3. Funkcje Zarządzania Użytkownikami**
+
+#### **`print_user(users, user_id, action)`**
+- Wyświetla dane użytkownika po podaniu jego `user_id`.
+- Jeśli w słowniku nie ma podanego `user_id`, wyświetla komunikat: "Nie znaleziono użytkownika o ID {user_id}"
+- Posiada dwie informacje na swoim wyjściu
+   1. typu bool, aby dowiedzić się czy użytkownik został znaleziony.
+   2. typu str, zawiera ona informacje o użytkowniku, lub komunikat o braku id w słowniku.
 
 #### **`print_users(users)`**
 - Wyświetla listę użytkowników posortowaną według `user_id`.
@@ -70,10 +83,10 @@ Znajdziesz tam szczegółowe instrukcje dotyczące instalacji Pythona oraz tworz
 
 #### **`registration()`**
 - Rejestruje nowego użytkownika, prosząc użytkownika o podanie danych:
-  - **Imię i nazwisko:** Wymagane. Walidowane przez moduł `validate`.
-  - **PESEL:** Opcjonalne. Walidowane przez moduł `validate`.
-  - **NIP:** Opcjonalne. Walidowane przez moduł `validate`.
-  - **REGON:** Opcjonalne. Walidowane przez moduł `validate`.
+  - **Imię i nazwisko:** Wymagane. Walidowane przez moduł `validates`.
+  - **PESEL:** Opcjonalne. Walidowane przez moduł `validates`.
+  - **NIP:** Opcjonalne. Walidowane przez moduł `validates`.
+  - **REGON:** Opcjonalne. Walidowane przez moduł `validates`.
 - Zwraca słownik z wprowadzonymi danymi.
 
 ---
