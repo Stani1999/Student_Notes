@@ -1,6 +1,6 @@
 '''CSV via with open Function Module to load and save data in file'''
 
-import csv
+import csv, os
 
 def ensure_directory_exists(directory: str) -> None:
     """Create new directory if it doesn't exist yet."""
@@ -9,7 +9,7 @@ def ensure_directory_exists(directory: str) -> None:
     except OSError as e:
         print(f"Błąd podczas tworzenia struktury katalogowej {directory}: {e}")
 
-def load_csv(file_path: str) -> list:
+def load_csv_list(file_path: str) -> list:
     """Load data from a CSV file."""
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -24,7 +24,7 @@ def load_csv(file_path: str) -> list:
         print(f"Błąd podczas odczytu pliku CSV {file_path}: {e}")
         return []
 
-def save_csv(data: list, file_path: str, fieldnames: list = None) -> None:
+def save_csv_list(data: list, file_path: str, fieldnames: list = None) -> None:
     """Save data to a CSV file."""
     if not data:
         print("Dane są puste, zapisano pusty plik.")
@@ -43,6 +43,25 @@ def save_csv(data: list, file_path: str, fieldnames: list = None) -> None:
     except OSError as e:
         print(f"Błąd podczas zapisu pliku CSV {file_path}: {e}")
 
+
+def load_csv_dict(file_path, fieldnames):
+    """Load users from a CSV file."""
+    users = {"users": []}
+    if not os.path.exists(file_path):
+        return users
+
+    with open(file_path, mode="r", encoding="utf-8") as file:
+        reader = csv.DictReader(file, fieldnames=fieldnames)
+        next(reader, None)  # Pomijaj nagłówek tylko, jeśli jest potrzebne
+        users["users"] = list(reader)
+    return users
+
+def save_csv_dict(data, file_path, fieldnames):
+    """Save users to a CSV file."""
+    with open(file_path, mode="w", encoding="utf-8", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data["users"])
 
 '''
 # Przykładowe użycie modułu
