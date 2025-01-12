@@ -58,3 +58,34 @@ def name(name: str) -> tuple[bool, str]:
     if not re.search(r'[a-z]', name):
         return False, "Imie musi zawierać małe litery."
     return True, f"Wprowadzasz dane dla {name}:"
+
+
+def val_date(date_str: str) -> tuple[bool, str]:
+    """Validate date in 'YYYY-MM-DD' format and provide feedback."""
+    try:
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
+            year, month, day = map(int, date_str.split('-'))
+            if 1 <= month <= 12 and 1 <= day <= 31:
+                return True, "Poprawna data."
+        return False, "Błąd: Data powinna być w formacie 'YYYY-MM-DD'."
+    except ValueError:
+        return False, "Błąd: Niepoprawna wartość daty."
+
+
+def val_time(time_str: str) -> tuple[bool, str]:
+    """Validate time in 'HH:MM' format and provide feedback."""
+    try:
+        time_parts = time_str.split(":")
+        if len(time_parts) == 2:
+            hour, minute = map(int, time_parts)
+            if 0 <= hour <= 23 and 0 <= minute <= 59:
+                return True, "Poprawna godzina."
+        return False, "Błąd: Godzina powinna być w formacie 'HH:MM'."
+    except ValueError:
+        return False, "Błąd: Niepoprawna wartość godziny."
+
+date_input = input("Podaj datę (YYYY-MM-DD): ")
+print(val_date(date_input)[1])
+
+time_input = input("Podaj godzinę (HH:MM): ")
+print(val_time(time_input)[1])
