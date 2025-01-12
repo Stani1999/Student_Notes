@@ -1,4 +1,4 @@
-# Polecenia linux cz. 2
+# Polecenia linux cz. II
 
 ## Polecenie `alias`-  skróty dla często używanych poleceń
 
@@ -403,11 +403,12 @@ Podobnie jak w przypadku `more`, to polecenie wyświetli zawartość pliku `plik
 ln [opcje] plik_źródłowy plik_docelowy
 ```
 
-* **`plik_źródłowy`:** Plik, do którego tworzymy dowiązanie.
+* **`plik_źródłowy`:** Plik, do którego dowiązanie.
 * **`plik_docelowy`:** Nazwa nowego dowiązania.
 
 ### Opcje:
 * **`-s`:** Tworzy dowiązanie symboliczne.
+* **<brak>:** Tworzy dowiązanie twarde.
 
 ### Przykład:
 

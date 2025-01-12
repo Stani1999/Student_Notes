@@ -1,4 +1,6 @@
-## Polecenie `cat` – Proste, ale potężne narzędzie do wyświetlania plików
+# Polecenia linux cz. I
+
+## 1. Polecenie `cat` – Proste, ale potężne narzędzie do wyświetlania plików
 
 **`cat`** (skrót od "concatenate", czyli "łączyć") to jedno z podstawowych poleceń w Linuksie i innych systemach Unix-like. Służy przede wszystkim do **wyświetlania zawartości plików** na standardowym wyjściu (zwykle ekranie), ale ma również inne zastosowania.
 
@@ -48,22 +50,68 @@
   ```
 * **`-b`:** Numeruje wszystkie niepuste linie.
 
-### Przykłady bardziej zaawansowanego użycia
+
+## 2. Polecenia `tail` i `tac` – Praktyczne narzędzia do pracy z plikami tekstowymi
+
+Polecenia **`tail`** i **`tac`** są przydatne w codziennej pracy z plikami tekstowymi w systemach Linux. Służą do wyświetlania końcowych fragmentów plików (`tail`) oraz odwracania ich zawartości (`tac`). Można je stosować zarówno do analizy logów, jak i do bardziej zaawansowanych operacji na danych.
+
+### Podstawowe użycie `tail`
 
 * **Wyświetlanie ostatnich 10 linii pliku:**
    ```bash
    tail -n 10 plik.txt
    ```
+
+   To polecenie pokazuje ostatnie 10 linii z pliku `plik.txt`. Opcja `-n` pozwala określić liczbę linii, które mają być wyświetlone.
+
+* **Ciągłe monitorowanie zmian w pliku (np. logach):**
+   ```bash
+   tail -f log.txt
+   ```
+
+   Dzięki opcji `-f`, `tail` wyświetla w czasie rzeczywistym nowe linie dodawane do pliku.
+
+### Podstawowe użycie `tac`
+
 * **Wyświetlanie zawartości pliku w odwrotnej kolejności:**
    ```bash
    tac plik.txt
    ```
-* **Łączenie zawartości wielu plików i zapis do nowego pliku, dodając datę modyfikacji każdego pliku:**
+
+   Komenda ta odwraca kolejność linii w pliku `plik.txt`, zaczynając od ostatniej.
+
+Oczywiście! Oto tabela z opisem przydatnych opcji:  
+
+| Opcja    | Opis                                                            | Przykład                             |
+|----------|-----------------------------------------------------------------|--------------------------------------|
+| **`-i`** | Pyta przed nadpisaniem istniejącego pliku.                      | `tail -n 10 plik.txt > wynik.txt -i` |
+| **`-p`** | Zachowuje uprawnienia, daty modyfikacji i inne atrybuty plików. | `tac plik.txt > wynik.txt -p`        |
+| **`-f`** | Nadpisuje istniejące pliki bez pytania.                         | `tail -n 20 plik.txt > wynik.txt -f` |
+| **`-v`** | Wyświetla szczegółowe informacje o przetwarzaniu plików.        | `tac plik.txt > wynik.txt -v`        |
+
+Tabela pozwala na szybkie odnalezienie opcji i ich zastosowania wraz z odpowiednimi przykładami. 
+
+### Przykłady bardziej zaawansowanego użycia
+
+* **Łączenie zawartości wielu plików i zapis do nowego pliku z datą modyfikacji każdego pliku:**
    ```bash
-   for file in *.txt; do echo "$(date -r "$file") $file:"; cat "$file"; done > połączone.txt
+   for file in *.txt; do 
+       echo "$(date -r "$file") $file:" >> połączone.txt
+       cat "$file" >> połączone.txt
+   done
    ```
 
-   ## Polecenie `cp` w Linuksie: Kopiowanie plików i katalogów
+   W tym przypadku skrypt w pętli `for` przechodzi przez wszystkie pliki z rozszerzeniem `.txt` w bieżącym katalogu, dodaje do każdego datę modyfikacji oraz nazwę pliku, a następnie ich zawartość zapisuje do pliku `połączone.txt`.
+
+### Przydatne wskazówki
+
+* Komenda `tail` z opcją `-f` jest szczególnie użyteczna podczas analizy logów systemowych w czasie rzeczywistym.
+* `tac` świetnie nadaje się do analizy danych w plikach, gdzie ostatnie wpisy są najważniejsze.
+
+Dzięki połączeniu poleceń takich jak `tail`, `tac` i pętli `for`, praca z plikami tekstowymi staje się znacznie bardziej efektywna i elastyczna.
+```
+
+## 3. Polecenie `cp` w Linuksie: Kopiowanie plików i katalogów
 
 **`cp`** to jedno z podstawowych poleceń w systemie Linux, służące do **kopiowania plików i katalogów**. Dzięki niemu możemy tworzyć duplikaty plików, przenosić je do innych lokalizacji lub tworzyć kopie zapasowe danych.
 
@@ -97,19 +145,15 @@ cp -r katalog_źródłowy katalog_docelowy
 ```
 Opcja `-r` (lub `-R`) oznacza kopiowanie rekurencyjne, czyli kopiowanie całego katalogu wraz ze wszystkimi podkatalogami i plikami.
 
-### Przydatne opcje:
+### Oto tabela z przydatnymi opcjami:  
 
-* **`-i`:** Pyta przed nadpisaniem istniejącego pliku.
-* **`-p`:** Zachowuje uprawnienia, daty modyfikacji i inne atrybuty plików.
-* **`-f`:** Nadpisuje istniejące pliki bez pytania.
-* **`-v`:** Wyświetla szczegółowe informacje o kopiowaniu.
-
-**Przykłady z opcjami:**
-
-```bash
-cp -i plik1.txt plik2.txt  # Pyta przed nadpisaniem plik2.txt
-cp -rp katalog/ katalog_kopia/  # Kopiuje rekurencyjnie katalog, zachowując uprawnienia
-```
+| Opcja     | Opis                                                              | Przykład                              |
+|-----------|-------------------------------------------------------------------|---------------------------------------|
+| **`-i`**  | Pyta przed nadpisaniem istniejącego pliku.                        | `cp -i źródło.txt cel.txt`            |
+| **`-p`**  | Zachowuje uprawnienia, daty modyfikacji i inne atrybuty plików.   | `cp -p źródło.txt cel.txt`            |
+| **`-f`**  | Nadpisuje istniejące pliki bez pytania.                           | `cp -f źródło.txt cel.txt`            |
+| **`-v`**  | Wyświetla szczegółowe informacje o kopiowaniu.                    | `cp -v źródło.txt cel.txt`            |
+| **`-rp`** | Kopiuje rekurencyjnie katalog, zachowując uprawnienia             | `cp -rp źródło/ cel/`                 |
 
 ### Ważne uwagi:
 
@@ -130,32 +174,13 @@ ls
 
 To polecenie wyświetli listę plików i katalogów znajdujących się w bieżącym katalogu.
 
-### Opcje:
-
-* **`-l`**: Wyświetla szczegółowy listing, zawierający informacje o uprawnieniach, właścicielu, grupie, rozmiarze, dacie modyfikacji i nazwie pliku.
-* **`-a`**: Wyświetla wszystkie pliki, w tym ukryte (zaczynające się od kropki).
-* **`-h`**: Wyświetla rozmiar plików w czytelnym formacie (np. 10K, 2M).
-* **`-t`**: Sortuje pliki według daty modyfikacji.
-* **`-r`**: Sortuje pliki w odwrotnej kolejności.
-
-### Przykładowe użycie:
-
-* **Wyświetlenie szczegółowego listingu:**
-  ```bash
-  ls -l
-  ```
-* **Wyświetlenie wszystkich plików, w tym ukrytych:**
-  ```bash
-  ls -a
-  ```
-* **Wyświetlenie plików posortowanych według daty modyfikacji:**
-  ```bash
-  ls -t
-  ```
-* **Wyświetlenie rozmiaru plików w czytelnym formacie:**
-  ```bash
-  ls -h
-  ```
+| Opcja    | Opis                                                                                  | Przykład |
+|----------|---------------------------------------------------------------------------------------|---------------------------|
+| **`-l`** | Wyświetla szczegółowy informacji o uprawnieniach, właścicielu, grupie, rozmiarze, dacie modyfikacji i nazwie pliku. | `ls -l` |
+| **`-a`** | Wyświetla wszystkie pliki, w tym ukryte (zaczynające się od kropki).                  | `ls -a`  |
+| **`-h`** | Wyświetla rozmiar plików w czytelnym formacie (np. 10K, 2M).                          | `ls -lh` |
+| **`-t`** | Sortuje pliki według daty modyfikacji.                                                | `ls -lt` |
+| **`-r`** | Sortuje pliki w odwrotnej kolejności.                                                 | `ls -lr` |
 
 ### Kombinacje opcji:
 
