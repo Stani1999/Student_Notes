@@ -26,10 +26,10 @@ Ponieważ taśma jest z założenia nie skończona to symbol końca jest opcjola
 
 | Symbol \ Stan |           S            |  SC - Stan szukaj c   |  t - Stan akceptacji   |
 |:-------------:|:----------------------:|:---------------------:|:----------------------:|
-|       a       |        SC, a, →        |        SC, a, →       |         KONIEC         |
-|       b       |        S, b, →         |        S, b, →        |         KONIEC         |
-|       c       |        S, c, →         |        t, c, -        |         KONIEC         |
-|       P       |        S, P, →         |        S, P, →        |         KONIEC         |
+|       a       |        SC, -, →        |        SC, -, →       |         KONIEC         |
+|       b       |        S, -, →         |        S, -, →        |         KONIEC         |
+|       c       |        S, -, →         |        t, -, -        |         KONIEC         |
+|       P       |        S, -, →         |        S, -, →        |         KONIEC         |
 
 ### Operacje na taśmie:
 
@@ -59,10 +59,10 @@ Ponieważ taśma jest z założenia nie skończona to symbol końca jest opcjola
 
 | Symbol \ Stan |   S - Stan początkowy   |  C1 - I c znalezione  |  C2 - II c znalezione |  t - Stan akceptacji   |
 |:-------------:|:-----------------------:|:---------------------:|:---------------------:|:----------------------:|
-|       a       |         S, a, →         |        C1, a, →       |        C2, a, →       |         KONIEC         |
-|       b       |         S, b, →         |        C1, b, →       |        C2, b, →       |         KONIEC         |
+|       a       |         S, -, →         |        C1, -, →       |        C2, -, →       |         KONIEC         |
+|       b       |         S, -, →         |        C1, -, →       |        C2, -, →       |         KONIEC         |
 |       c       |         C1, C, →        |        C2, C, →       |        t, C, -        |         KONIEC         |
-|       P       |         S, P, →         |        C1, P, →       |        C2, P, →       |         KONIEC         |
+|       P       |         S, -, →         |        C1, -, →       |        C2, -, →       |         KONIEC         |
 
 ### Operacje na taśmie:
 
@@ -85,7 +85,7 @@ Ponieważ taśma jest z założenia nie skończona to symbol końca jest opcjola
 | gdzie |                             |                                                                              |
 |:-----:|-----------------------------|------------------------------------------------------------------------------|
 |   Q   | Zbiór stanów                | {S, A1, A2, A},gdzie An - stan zliczania n wystąpień a,                      |
-| S = S | Stan początkowy              | wyróżniony stan, od któego maszyna rozpoczyna działanie                      |
+| S = S | Stan początkowy             | wyróżniony stan, od któego maszyna rozpoczyna działanie                      |
 |   Σ   | Zbiór symboli taśmowych     | {a,b,c} + {P,K}, gdzie P - symbol pusty, K - symbol końcowy                  |
 |   δ   | Funkcja następnego ruchu    | (Q ∪ {k,t, n} x Σ) x {←, →, -}                                               |
 | dla δ | k, t, n to kolejno          | stan końcowy, stan akceptacji, stan odrzucenia                               |  
@@ -94,10 +94,10 @@ Ponieważ taśma jest z założenia nie skończona to symbol końca jest opcjola
 
 | Symbol \ Stan |           S            |  A1 - I a znalezione  |  A2 - II a znalezione |  t - Stan akceptacji   |
 |:-------------:|:----------------------:|:---------------------:|:---------------------:|:----------------------:|
-|       a       |        A1, a, →        |        A2, a, →       |        t, a, -        |         KONIEC         |
-|       b       |        S, b, →         |        S, b, →        |        S, b, →        |         KONIEC         |
-|       c       |        S, c, →         |        S, c, →        |        S, c, →        |         KONIEC         |
-|       P       |        S, P, →         |        S, P, →        |        S, P, →        |         KONIEC         |
+|       a       |        A1, -, →        |        A2, -, →       |        t, -, -        |         KONIEC         |
+|       b       |        S, -, →         |        S, -, →        |        S, -, →        |         KONIEC         |
+|       c       |        S, -, →         |        S, -, →        |        S, -, →        |         KONIEC         |
+|       P       |        S, -, →         |        S, -, →        |        S, -, →        |         KONIEC         |
 
 ### Operacje na taśmie:
 
@@ -134,10 +134,10 @@ MT = <Q, S, Σ, δ>
 
 | Symbol \ Stan |           S            | SAC -Stan szukaj a*c  |  t - Stan akceptacji   |
 |:-------------:|:----------------------:|:---------------------:|:----------------------:|
-|       a       |        SAC, a, →       |        SAC, a, →      |         KONIEC         |
-|       b       |        S, b, →         |        SAC, b, →      |         KONIEC         |
-|       c       |        S, c, →         |        t, c, -        |         KONIEC         |
-|       P       |        S, P, →         |        SAC, P, →      |         KONIEC         |
+|       a       |        SAC, -, →       |        SAC, a, →      |         KONIEC         |
+|       b       |        S, -, →         |        SAC, b, →      |         KONIEC         |
+|       c       |        S, -, →         |        t, c, -        |         KONIEC         |
+|       P       |        S, -, →         |        SAC, P, →      |         KONIEC         |
 
 ### Operacje na taśmie:
 
@@ -172,14 +172,14 @@ wszystkie możliwe do wprowadzenia znaki \ {A,B,C,1,2,3} = *
 
 | Symbol \ Stan |           S            |  1A - Szuka A po 1  |  A3 - Szuka 3 po A |  3B - Szuka B po 3 |  t - Stan akceptacji   |
 |:-------------:|:----------------------:|:-------------------:|:------------------:|:------------------:|:----------------------:|
-|       A       |        S, A, →         |       A3, A, →      |       S, A, →      |       S, A, →      |         KONIEC         |
-|       B       |        S, B, →         |       S, B, →       |       S, B, →      |       t, B, -      |         KONIEC         |
-|       C       |        S, C, →         |       S, C, →       |       S, C, →      |       S, C, →      |         KONIEC         |
-|       1       |        1A, 1, →        |       S, 1, →       |       S, 1, →      |       S, 1, →      |         KONIEC         |
-|       2       |        S, 2, →         |       S, 2, →       |       S, 2, →      |       S, 2, →      |         KONIEC         |
-|       3       |        S, 3, →         |       S, 3, →       |       3B, 3, →     |       S, 3, →      |         KONIEC         |
-|       *       |        S, *, →         |       S, *, →       |       S, *, →      |       S, *, →      |         KONIEC         |
-|       B       |        S, B, →         |       S, B, →       |       S, B, →      |       S, B, →      |         KONIEC         |
+|       A       |        S, -, →         |       A3, -, →      |       S, -, →      |       S, -, →      |         KONIEC         |
+|       B       |        S, -, →         |       S, -, →       |       S, -, →      |       t, -, -      |         KONIEC         |
+|       C       |        S, -, →         |       S, -, →       |       S, -, →      |       S, -, →      |         KONIEC         |
+|       1       |        1A, -, →        |       S, -, →       |       S, -, →      |       S, -, →      |         KONIEC         |
+|       2       |        S, -, →         |       S, -, →       |       S, -, →      |       S, -, →      |         KONIEC         |
+|       3       |        S, -, →         |       S, -, →       |       3B, -, →     |       S, -, →      |         KONIEC         |
+|       *       |        S, -, →         |       S, -, →       |       S, -, →      |       S, -, →      |         KONIEC         |
+|       B       |        S, -, →         |       S, -, →       |       S, -, →      |       S, -, →      |         KONIEC         |
 
 ### Operacje na taśmie:
 
@@ -210,7 +210,7 @@ wszystkie możliwe do wprowadzenia znaki \ {1,2,3,4,5,6,7,8,9,A,B,C,D,E,F} = *
 | gdzie |                             |                                                                            |
 |:-----:|-----------------------------|----------------------------------------------------------------------------|
 |   Q   | Zbiór stanów                | {S}                                                                        |
-| S = S | Stan początkowy              | wyróżniony stan, od któego maszyna rozpoczyna działanie                    |
+| S = S | Stan początkowy             | wyróżniony stan, od któego maszyna rozpoczyna działanie                    |
 |   Σ   | Zbiór symboli taśmowych     | {a,b,c} + {P,K}, gdzie P - symbol pusty, K - symbol końcowy                |
 |   δ   | Funkcja następnego ruchu    | (Q ∪ {k,t, n} x Σ) x {←, →, -}                                             |
 | dla δ | k, t, n to kolejno          | stan końcowy, stan akceptacji, stan odrzucenia                             | 
