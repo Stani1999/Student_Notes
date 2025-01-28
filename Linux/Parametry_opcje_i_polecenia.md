@@ -415,7 +415,7 @@ tail -f /var/log/syslog | grep --color -E "error|fail|critical"
   ss -tuln
   ```
 
-  Oto tabela przedstawiająca różne zastosowania polecenia `useradd` w systemie Linux oraz jego najczęściej używane opcje:
+## 39. `useradd`
 
 ---
 
