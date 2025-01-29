@@ -83,11 +83,13 @@ Instrukcja obsługi:
                            - Możesz uruchomić wizualizację obrazu.
 
                           7. Zapisz obraz do pliku w formacie binarnym:
+                           - Uwaga! przed wykonaniem tej operacji należy zakodować obraz lub go odczytać z pliku.
                            - Wybierz opcję 7, aby zapisać zakodowany obraz do pliku w formacie binarnym.
                            - Podaj nazwę pliku (rozszerzenie {PBIN} zostanie dodane automatycznie).
                            - Program zapisze obraz do pliku.
 
                           8. Zapisz obraz do pliku w formacie szesnastkowym:
+                           - Uwaga! przed wykonaniem tej operacji należy zakodować obraz lub go odczytać z pliku.
                            - Wybierz opcję 8, aby zapisać zakodowany obraz do pliku w formacie szesnastkowym.
                            - Podaj nazwę pliku (rozszerzenie {P16X} zostanie dodane automatycznie).
                            - Program zapisze obraz do pliku.
