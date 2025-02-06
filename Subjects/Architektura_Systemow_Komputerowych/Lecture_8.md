@@ -28,26 +28,16 @@ Architektura x86 jest klasycznym przykładem CISC. Jej główne cechy to:
 
 ### 3. **Zestaw rozkazów x86**
 
-Zestaw rozkazów x86 jest bardzo rozbudowany i obejmuje:
-| **Instrukcje**                    | **Przykłady** |  
-|-----------------------------------|---------------|  
-| **Arytmetyczne i logiczne**       | `ADD`, `SUB`  |  
-| **Sterujące przepływem programu** | `JMP`, `CALL` |  
-| **Operujące na pamięci**          | `MOV`, `PUSH` |  
-| **Wejścia/wyjścia**               | `IN`, `OUT`   |  
-| **Specjalne**                     | `INT`, `HLT`  |  
-
-**Legenda:**  
-- `ADD` – dodawanie wartości  
-- `SUB` – odejmowanie wartości  
-- `JMP` – skok do innej części kodu  
-- `CALL` – wywołanie procedury  
-- `MOV` – przenoszenie danych  
-- `PUSH` – zapis na stos  
-- `IN` – odczyt danych z portu wejściowego  
-- `OUT` – zapis danych do portu wyjściowego  
-- `INT` – wywołanie przerwania  
-- `HLT` – zatrzymanie procesora
+| **Instrukcje podstawowe**                                                                                     | **Instrukcje zaawansowane/specjalistyczne**                                                                |
+|---------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| **Podstawowe instrukcje arytmetyczne** (`ADD`, `SUB`, `MUL`, `DIV`, `INC`, `DEC`, `NEG`, `CMP`, `ADC`, `SBB`) | **Instrukcje SIMD/MMX/SSE/AVX** (`MOVDQA`, `ADDPS`, `MULPS`)                                               |
+| **Instrukcje logiczne** (`AND`, `OR`, `XOR`, `NOT`)                                                           | **Instrukcje specjalne dla systemów operacyjnych** (`SYSCALL`, `SYSENTER`)                                 |
+| **Przesunięcia i rotacje** (`SHL`, `SHR`, `SAL`, `SAR`, `ROL`, `ROR`, `RCL`, `RCR`)                           | **Instrukcje zarządzania pamięcią** (`LGDT`, `LIDT`, `INVLPG`)                                             |
+| **Instrukcje sterujące** (`JMP`, `CALL`, `RET`, `JWarunek`)                                                   | **Instrukcje wielowątkowe** (`LOCK`, `XCHG` w kontekście synchronizacji)                                   |
+| **Operacje na stosie** (`PUSH`, `POP`, `PUSHF`, `POPF`, `PUSHA`, `POPA`)                                      | **Instrukcje zaawansowanych operacji bitowych** (`BT`, `BSF`, `BSR`)                                       |
+| **Operacje na portach** (`IN`, `OUT`)                                                                         | **Instrukcje diagnostyczne i debugujące** (`RDTSC`, `CPUID`)                                               |
+| **Przerwania** (`INT`, `CLI`, `STI`)                                                                          | **Operacje na rejestrach** (`MOV`, `MOVZX`, `XCHG`, `LEA`, `BSWAP`)                                        |
+| **Instrukcje flagowe** (`CLC`, `STC`, `CMC`, `CLD`, `STD`)                                                    |                                                                                                            |
 
 ---
 
@@ -67,3 +57,4 @@ Architektura CISC, reprezentowana przez x86, jest zorientowana na bogaty zestaw 
 
 ## Wykład 8:
 Materiał bazowy, https://fulmanski.pl/zajecia/comp_sys_arch/zajecia_20242025/lecture_08_modern_processor_architectures_and_instruction_sets_cisc_x86.pdf
+<br>Zestaw rozkazów x86, https://en.wikipedia.org/wiki/X86_instruction_listings
