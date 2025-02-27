@@ -57,6 +57,9 @@ Instrukcja obsługi:
 
 ## Funkcje wizualne
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 def visualize_image(pixel_matrix: list[list[int]], colors: list[tuple[int, int, int]]) -> None:
     """
     Wizualizuje obraz na podstawie macierzy pikseli i przypisanych kolorów.
@@ -71,25 +74,34 @@ def visualize_image(pixel_matrix: list[list[int]], colors: list[tuple[int, int, 
             - B (int): niebieski (0-255).
     """
     visual = input("\nCzy uruchomić wizualizację? (tak/nie), enter = tak: ").lower()
-    if visual == "" or visual == "tak": # Jeśli użytkownik wciśnie Enter (odpowiedź pusta) lub wpisze "tak", wizualizacja zostanie uruchomiona.
-        height, width = len(pixel_matrix), len(pixel_matrix[0]) # Obliczanie wymiarów obrazu (pikseli w macierzy)
-        image = np.zeros((height, width, 3), dtype=np.uint8) 
-        # np.zeros - Tworzy macierz wypełnioną zerami.
-        # (height, width, 3) - Obraz o wymiarach height x width z trzema kanałami kolorów (R, G, B).
-        # Typ danych uint8 pozwala przechowywać liczby całkowite w zakresie 0-255 (odpowiednim dla wartości RGB)
+    if visual == "" or visual == "tak":
+        height, width = len(pixel_matrix), len(pixel_matrix[0])
+        image = np.zeros((height, width, 3), dtype=np.uint8)
 
-        for i in range(height): # Iterowanie przez każdy piksel obrazu wzwyż
-            for j in range(width): # Iterowanie przez każdy piksel obrazu wszeż
-                color_index = pixel_matrix[i][j] - 1  # Pobiernie indeks koloru z macierzy pikseli
-                if 0 <= color_index < len(colors): # Sprawdzenie poprawności indexu
-                    image[i, j] = colors[color_index]# Typ danych uint8 pozwala przechowywać liczby całkowite w zakresie 0-255 (odpowiednim dla wartości RGB)
+        for i in range(height):
+            for j in range(width):
+                color_index = pixel_matrix[i][j] - 1  # Indeksowanie od 0
+                if 0 <= color_index < len(colors):
+                    image[i, j] = colors[color_index]
 
-        plt.imshow(image) # Wyświetla macierz obrazu jako grafikę w oknie.
-        plt.axis('off')  # Wyłączenie osi
-        plt.show() # Wywołuje okno graficzne z wyświetlonym obrazem.
-    else: # Jeżeli użytkownik pominie wizualizację 
+        # Tworzenie figury z ciemnym tłem
+        fig = plt.figure(facecolor='lightgray')  # Ciemne tło okna
+        ax = fig.add_subplot(111, facecolor='lightgray')  # Ciemne tło osi
+
+        # Wyświetlanie obrazu
+        ax.imshow(image, origin='upper')  # origin='upper' — odwrócenie osi Y
+        ax.axis('off')  # Ukrycie osi
+
+        # Ustawienie okna w lewym górnym rogu ekranu
+        try:
+            manager = plt.get_current_fig_manager()
+            manager.window.wm_geometry("+0+0")  # Pozycja (0,0) = lewy górny róg
+        except AttributeError:
+            pass  # Obsługa środowisk, które nie wspierają wm_geometry()
+
+        plt.show()
+    else:
         print("Wizualizacja została pominięta.")
-
 
 def print_menu():
     """Wyświetla meny programu"""
