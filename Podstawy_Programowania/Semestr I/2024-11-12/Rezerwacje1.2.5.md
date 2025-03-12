@@ -11,7 +11,7 @@ Program służy do zarządzania rezerwacjami miejsc w kinie. Obsługuje takie fu
  - Uwaga zmiejszenie wartości zmiennej `n` może skrućić listę o rezerwacje o wyższych niż ona indeksach.
 
 ## **Konfiguracja**
-Aby skonfigurować system, zapoznaj się z [przewodnikiem instalacji i konfiguracji](../installation_and_setup_pl.md).  
+Aby skonfigurować system, zapoznaj się z [przewodnikiem instalacji i konfiguracji](../../Describe/installation_and_setup_pl.md).  
 Znajdziesz tam szczegółowe instrukcje dotyczące instalacji Pythona oraz tworzenia środowiska wirtualnego.
 
 ## Wymagania
