@@ -55,7 +55,8 @@ def display_phonebook(phonebook: dict) -> None:
     """Wyświetlenie zawartości książki telefonicznej."""
     print("\nLista użytkowników:")
     if not phonebook["phonebook"]:
-        print("Brak użytkowników.")
+        print("\nKsiążka telefoniczna jest pusta")
+        print("")
         return
 
     sorted_by_numer = sorted(phonebook["phonebook"], key=lambda u: int(u.get("numer", 0) or 0))

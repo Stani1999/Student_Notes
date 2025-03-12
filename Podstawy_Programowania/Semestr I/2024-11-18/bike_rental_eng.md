@@ -13,7 +13,7 @@ The program uses JSON files for storing rental data and ensures directories and 
 ---
 
 ## **Setup**
-To set up the Bike Rental System, please follow the [Installation and Environment Setup Guide](../installation_and_setup_eng.md).  
+To set up the Bike Rental System, please follow the [Installation and Environment Setup Guide](../../Describe/installation_and_setup_eng.md).  
 This guide contains detailed instructions for installing Python and setting up a virtual environment.
 
 ---

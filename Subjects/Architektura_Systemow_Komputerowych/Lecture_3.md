@@ -65,6 +65,8 @@ Cykl pracy procesora, zwany również *cyklem rozkazowym*, składa się z kilku 
 #### *Potokowanie instrukcji (Pipeline):*
 W nowoczesnych procesorach etapy cyklu rozkazowego są wykonywane równolegle dla różnych instrukcji, co znacznie zwiększa wydajność. Na przykład, podczas gdy jedna instrukcja jest dekodowana, następna może być pobierana.
 
+**Pipeline bubble** to sytuacja, w której jeden lub więcej etapów potoku jest "pusty" (nie wykonuje żadnej użytecznej pracy). Powstaje, gdy procesor napotyka problem, który uniemożliwia płynne przechodzenie instrukcji przez potok. W efekcie w potoku pojawia się "przerwa" (bąbel), która zmniejsza wydajność procesora.
+
 ---
 
 ### *5. Zbiór instrukcji procesora*

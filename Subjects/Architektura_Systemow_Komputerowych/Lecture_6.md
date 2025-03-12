@@ -52,12 +52,23 @@
 **Dodatkowe informacje:**
 
 *   Wykonanie poza kolejnością jest powszechnie stosowane w nowoczesnych procesorach.
-*   Technika ta współdziała z innymi mechanizmami, takimi jak potokowanie i przewidywanie rozgałęzień, aby jeszcze bardziej zwiększyć wydajność.
+*   Technika ta współdziała z innymi mechanizmami, takimi jak potokowanie i przewidywanie rozgałęzień<br> (branch predictor, np. **układ przewidywania skoków**), aby jeszcze bardziej zwiększyć wydajność.
 *   Procesor musi być w stanie cofnąć zmiany, jeśli okaże się, że instrukcja wykonana poza kolejnością była jednak zależna od wcześniejszych.
 
 ---
 
-### 5. **Przemianowanie rejestrów (register renaming)**
+### 5. Właściwości układu przewidywaia skoków, implementowanego w nowoczesnych procesorach.
+
+| **Cecha**                      | **Opis**                                                                                                   |
+|--------------------------------|------------------------------------------------------------------------------------------------------------|
+| **Definicja**                  | Odpowiada za przewidywanie, czy wystąpi skok, minimalizując straty wynikające z błędnych przewidywań.      |
+| **Rodzaje skoków**             | Skoki mogą być bezwarunkowe (adres skoku znany) lub warunkowe (adres znany, ale warunek oceniany później). |
+| **Metody przewidywania**       | 1. **Przewidywanie statyczne** – najprostsza metoda, zakładająca, że skok: <br> - zawsze zajdzie (60% skuteczności), <br> - skok wsteczny zajdzie, a w przód nie (65% skuteczności). <br> 2. **Przewidywanie dynamiczne** – bazuje na historii skoków zapisanej w tablicach. |
+| **Tablica historii skoków**    | Zawiera informacje o poprzednich skokach: <br> - 1-bitowa historia (czy skok zaszedł ostatnio), <br> - 2-bitowa historia (bardziej szczegółowa historia skoków), <br> - liczba wpisów: 128-1024, <br> - dodatkowe informacje: bity statusu, adres instrukcji wywołującej skok, adres skoku. |
+| **Problem skoków warunkowych** | Warunek skoku obliczany jest dopiero na etapie wykonania rozkazu, co wymusza spekulacyjne wykonywanie instrukcji po skoku. <br> Błędne przewidywanie skoku prowadzi do opróżnienia potoku i kasowania niepotrzebnie wykonanych instrukcji, co powoduje opóźnienia. |
+| **Skuteczność nowoczesnych układów** | Przekracza 98%, dzięki zaawansowanym technikom przewidywania. |
+
+### 6. **Przemianowanie rejestrów (register renaming)**
 
 | **Cecha**           | **Opis**                                                                                                                   |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------|
@@ -67,7 +78,7 @@
 
 ---
 
-### 6. **Simultaneous multithreading (SMT)**
+### 7. **Simultaneous multithreading (SMT)**
 
 | **Cecha**     | **Opis**                                                                                                                                            |
 |---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -76,7 +87,7 @@
 
 ---
 
-### 7. **Przetwarzanie typu SIMD (single instruction, multiple data)**
+### 8. **Przetwarzanie typu SIMD (single instruction, multiple data)**
 
 | **Cecha**        | **Opis**                                                                                                                                            |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -91,3 +102,4 @@
 
 ## Wykład 6:
 Materiał bazowy, https://fulmanski.pl/zajecia/comp_sys_arch/zajecia_20242025/lecture_06_performance_enhancing_techniques_part_02.pdf
+<br> Układ przewidywania skoków, https://esezam.okno.pw.edu.pl/mod/book/view.php?id=51&chapterid=1083

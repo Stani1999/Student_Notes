@@ -13,7 +13,7 @@ Program korzysta z plików JSON do przechowywania danych o wypożyczeniach i zap
 ---
 
 ## **Konfiguracja**
-Aby skonfigurować system, zapoznaj się z [przewodnikiem instalacji i konfiguracji](../installation_and_setup_pl.md).  
+Aby skonfigurować system, zapoznaj się z [przewodnikiem instalacji i konfiguracji](../../Describe/installation_and_setup_pl.md).  
 Znajdziesz tam szczegółowe instrukcje dotyczące instalacji Pythona oraz tworzenia środowiska wirtualnego.
 
 ---
