@@ -66,3 +66,42 @@ print(f"{n}: {czy_to_liczba_pierwsza(n)[1]}", timeit.timeit(lambda:  czy_to_licz
 
 
 #Do domu znalezienie liczb pierwszych od 0 do n w formie listy, Można użyć rekurencji
+import timeit, math
+
+
+def lista_pierwszych(n: int) -> list:
+    # Funkcja tworzy listę liczb pierwszych od 0 do n
+    if n < 2:
+        return []                   # Brak liczb pierwszych dla n < 2
+    lista_liczb = [2]               # dodanie 2, jedynej parzystej liczby pierwszej
+    for i in range(3, n + 1, 2):    # Sprawdzanie tylko nieparzyste liczby
+        is_prime = True             # Przed sprawdzeniem zakładam, że liczba jest pierwszą
+        sqrt_i = int(i**0.5) + 1    # Zaokrąglona wartość pierwiastka z liczby + 1 do sprawdzania czy liczba jest pierwsza
+        for dzielnik in lista_liczb:# Sprawdzamy podzielność tylko przez znalezione liczby pierwsze
+            if dzielnik > sqrt_i:   # Jeżeli dzielnik jest więlszy od zaokrąflonej wartości liczby
+                break               # Wyjście z pętli
+            if i % dzielnik == 0:   # Jeżeli nie ma reszty z dzielenia
+                is_prime = False    # To nie jest to liczba pierwsza
+                break               # Wyjście z pętli
+        if is_prime:                # Czy jest liczbą pierwszą (po ww. warunkach)
+            lista_liczb.append(i)   # Dodanie liczby do listy
+    return lista_liczb              # Zwrócenie listy
+
+
+print(lista_pierwszych(17), timeit.timeit(lambda:  czy_to_liczba_pierwsza(n), number = 1), "sekundy")  
+
+def lista_pierwszych_sito(n: int) -> list:
+    # Funkcja tworzy listę liczb pierwszych od 1 do n
+    if n < 2:                                               # Jeżeli n jest mniejsze od 2
+        return []                                           # Zwrócenie listy (pustą)
+    lista_liczb = [2] + [i for i in range(3, n + 1, 2)]     # Tworzenie listy zawierającej 2 oraz liczby nieparzyste od 3 do n
+    for i in lista_liczb:                                   # Sprawdzanie, czy liczba jest pierwsza
+        if i > 1:                                           # Pomijanie 1, bo nie jest liczbą pierwszą
+            for krotnosc in range(i * i, n + 1, i):         # Porównywanie krotności z kolejnymi potęgami
+                if krotnosc in lista_liczb:                 # Szukanie krotności w liście
+                    lista_liczb.remove(krotnosc)            # Usuwanie wartości, w których znaleziono krotność
+    return lista_liczb                                      # Zwróceni listy
+
+
+print(lista_pierwszych_sito(17), timeit.timeit(lambda:  czy_to_liczba_pierwsza(n), number = 1), "sekundy")  
+
