@@ -11,7 +11,7 @@
 | **1945**        | **ENIAC** (Electronic Numerical Integrator and Computer) | Pierwszy programowalny komputer elektroniczny. Zajmował 167 m², używał 17 000 lamp próżniowych.                                           |
 | **1947**        | **Tranzystor** (wynaleziony przez Bardeena, Brattaina i Shockleya) | Zastąpił lampy próżniowe – mniejszy, szybszy, bardziej energooszczędny i niezawodny.                                            |
 | **1958**        | **Układ scalony** (Jack Kilby, Texas Instruments) | Miniaturyzacja komponentów elektronicznych na jednym chipie krzemowym.                                                                           |
-| **1965**        | **Prawo Moore'a**                         | Obserwacja, że liczba tranzystorów w układach scalonych podwaja się co 18-24 miesięcy, prowadząc do wykładniczego wzrostu mocy obliczeniowej.            |
+| **1965**        | **Prawo Moore'a**                         | Obserwacja, że liczba tranzystorów w układach scalonych podwaja się (np. co 18-24 miesięcy), prowadząc do wykładniczego wzrostu mocy obliczeniowej.      |
 | **1971**        | **Intel 4004** (pierwszy mikroprocesor)   | Pierwszy komercyjny mikroprocesor (4-bitowy), zapoczątkował rozwój nowoczesnych komputerów.                                                              |
 | **1981**        | **IBM PC (IBM 5150)**                     | Pierwszy komputer osobisty (PC) firmy IBM, który stał się standardem dla rynku komputerów osobistych. Wykorzystywał procesor Intel 8088 i system MS-DOS. |
 | **1982**        | **Intel 80286**                           | Znacznie zwiększył wydajność komputerów PC oraz umożliwił pracę w **trybie chronionym**, co pozwalało na wielozadaniowość i lepsze zarządzanie pamięcią. |
