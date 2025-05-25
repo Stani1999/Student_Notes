@@ -77,7 +77,7 @@
 | 27. | **Prawda**    | `digitalWrite(pin, HIGH)` ustawia stan wysoki na pinie cyfrowym.                                                                                 |
 | 28. | **Fałsz**     | Rejestr przesuwny umożliwia przesyłanie danych z wejścia szeregowego do wyjść równoległych, ale **nie działa jak demultiplekser**                |
 | 29. | **Prawda**    | Przycisk podłączony do cyfrowego pinu można obsłużyć przez `digitalRead()` i porównanie.                                                         |
-| 30. | **Prawda**    | `FPU` faktycznie posiada własne rejestry, ale może również korzystać z pamięci RAM (np. ładować z niej dane), mimo że jest ona wolniejsza.       |
+| 30. | **Fałsz**     | `FPU` faktycznie posiada własne rejestry, ale może również korzystać z pamięci RAM (np. ładować z niej dane), mimo że jest ona wolniejsza.       |
 | 31. | **Prawda**    | Bufor cykliczny nadpisuje najstarsze dane przy przepełnieniu.                                                                                    |
 | 32. | **Prawda**    | W języku C można użyć operatora przesunięcia bitowego (`>>`) i bitowego `AND` (`& 1`), by wydobyć kolejne bity bez konieczności stosowania `if`. |
 | 33. | **Prawda**    | `head` wskazuje miejsce zapisu, `tail` miejsce odczytu.                                                                                          |
