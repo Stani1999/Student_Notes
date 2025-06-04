@@ -1,17 +1,23 @@
 # Notatka z języka C
 
-## Spis treści
-- [I. Kompilowanie programu](#i-kompilowanie-programu)
-- [II. Zagadnienia języka C](#ii-zagadnienia-związane-z-językiem-c)
-    - [Argumenty wejściowe](#ii-1-argumenty-wejściowe-int-argc-char-argv)
-    - [Printf i scanf](#ii-2-printf-oraz-scanf)
-    - [Funkcje i wskaźniki](#ii-3-funkcje-i-wskaźniki)
-    - [Tablice](#ii-4-tablice)
-    - [Alokacja dynamiczna](#ii-5-alokacja-dynamiczna)
-    - [Stringi](#ii-6-stringi-c-style)
-    - [Struktury](#ii-7-struktury)
-    - [Wyliczenia (enum)](#ii-8-wyliczenia-enum)
-
+### **Spis treści**  
+1. [Kompilowanie programu](#i-kompilowanie-programu)  
+2. [Zagadnienia języka C](#ii-zagadnienia-związane-z-językiem-c)  
+   - [Argumenty wejściowe](#ii-1-argumenty-wejściowe-int-argc-char-argv)  
+   - [Printf i scanf](#ii-2-printf-oraz-scanf)  
+   - [Funkcje i wskaźniki](#ii-3-funkcje-i-wskaźniki)  
+   - [Tablice](#ii-4-tablice)  
+   - [Alokacja dynamiczna](#ii-5-alokacja-dynamiczna)  
+   - [Stringi](#ii-6-stringi-c-style)  
+   - [Struktury](#ii-7-struktury)  
+   - [Wyliczenia (enum)](#ii-8-wyliczenia-enum)  
+3. [Assembler NASM (x86_64)](#iii-4-assembler-nasm-x86_64)  
+4. [Organizacja projektu](#iv-organizacja-projektu)  
+   - [Podział na pliki `.c` i `.h`](#iv-1-podział-na-pliki-c-i-h)  
+   - [Makefile i CMake](#iv-2-makefile-i-cmake)  
+5. [Dynamiczne struktury danych](#v-dynamiczne-struktury-danych)  
+   - [Kolejka (FIFO)](#v-1-kolejka-fifo)  
+   - [Stos (LIFO)](#v-2-stos-lifo)  
 
 ## I. Kompilowanie programu
 
@@ -644,3 +650,321 @@ int main() {
        - Można ręcznie przypisać wartości: enum { JAN=1, FEB, MAR };
        - enum class w C++ jest bezpieczniejszy */
 ```
+
+
+### III. 4. Assembler NASM (x86_64)
+
+Assembler to niskopoziomowy język programowania, który jest bardzo bliski kodowi maszynowemu. NASM (Netwide Assembler) jest popularnym asemblerem dla architektury x86 (w tym x86_64). Format `elf64` jest używany w systemach Linux 64-bitowych.
+
+#### III. 4. 1. Rejestry i kolejność przekazywania argumentów (System V AMD64 ABI)
+
+W architekturze x86_64, przy wywoływaniu funkcji (konwencja System V AMD64 ABI, używana m.in. w Linuxie):
+
+| Typ Argumentu/Wartości                               | Rejestry                                   |
+| :--------------------------------------------------- | :----------------------------------------- |
+| Argumenty całkowitoliczbowe lub wskaźniki            | `RDI`, `RSI`, `RDX`, `RCX`, `R8`, `R9`     |
+| Argumenty zmiennoprzecinkowe (pierwsze 8)            | `XMM0` - `XMM7`                            |
+| Wartość zwracana całkowitoliczbowa lub wskaźnik      | `RAX`                                      |
+| Wartość zwracana zmiennoprzecinkowa                  | `XMM0`                                     |
+
+* **Rejestry, które funkcja wołana może dowolnie modyfikować (caller-saved):**
+    * `RAX`, `RCX`, `RDX`, `RSI`, `RDI`, `R8`, `R9`, `R10`, `R11`
+    * Rejestry `XMM0` - `XMM15` (i `YMM`/`ZMM` jeśli używane)
+* **Rejestry, których wartości funkcja wołana musi zachować (callee-saved):**
+    * `RBX`, `RBP`, `RSP`, `R12`, `R13`, `R14`, `R15`
+    * Jeśli funkcja ich używa, musi zapisać ich oryginalne wartości na stosie i przywrócić przed powrotem.
+* `RSP`: Wskaźnik stosu.
+* `RBP`: Wskaźnik bazowy ramki stosu (często używany, ale można go pominąć w prostych funkcjach).
+
+#### III. 4. 2. Podstawowe Instrukcje Sterowania Przepływem w NASM
+
+Poniższe instrukcje służą do kontrolowania kolejności wykonywania rozkazów w programie.
+
+##### `call` - Wywołanie procedury
+* **Działanie:** Wykonuje wywołanie procedury (funkcji)[cite: 2]. Polecenie to powoduje umieszczenie na stosie adresu następnego rozkazu (tego, który następuje zaraz po tej instrukcji) i przekazuje sterowanie programem do określonego przez operand miejsca[cite: 3].
+* **Typy wywołań:**
+    * **Bliskie (near call):** Na stosie umieszczany jest sam adres powrotu[cite: 5]. Jest to domyślny typ w płaskim modelu pamięci używanym przez systemy operacyjne Windows i Linux[cite: 6].
+    * **Odległe (far call):** Jeśli procedura nie występuje w tym samym segmencie co jej wywołanie, na stosie umieszczany jest segment i adres rozkazu po `call`[cite: 4].
+* **Operand (`A`):** Etykieta lub adres procedury zawarty w rejestrze lub komórce pamięci[cite: 7].
+* **Przykład:**
+    ```nasm
+    call moja_procedura
+    ```
+    [cite: 7]
+
+##### `ret`, `retn`, `retf` - Powrót z procedury
+* **Działanie:** Instrukcja ta wykonuje powrót z procedury[cite: 13]. Polega to na zdjęciu ze stosu adresu powrotu umieszczonego przez polecenie `call`[cite: 13].
+* **Warianty:**
+    * `retn`: Służy do tzw. bliskiego powrotu (zdejmuje jedynie wartość rejestru IP/RIP)[cite: 14].
+    * `retf`: Służy do odległego powrotu (najpierw zdejmowana jest wartość rejestru IP/RIP, potem CS)[cite: 14].
+    * `ret`: Może być typu zarówno bliskiego jak i odległego, w zależności od tego, jak została zdefiniowana procedura, z której się powraca[cite: 15].
+* **Opcjonalny operand (`A`):** Wszystkie trzy rozkazy opcjonalnie przyjmują jeden 8-bitowy operand bezpośredni (liczbę), który nakazuje procesorowi dodanie odpowiedniej ilości bajtów do rejestru wskaźnika stosu (`SP`/`RSP`) *po* zdjęciu adresu powrotnego[cite: 16, 17]. Służy to do usunięcia argumentów przekazanych przez stos (częściej spotykane w konwencjach 32-bitowych jak `stdcall` lub `cdecl` gdy funkcja wołana sprząta stos). W konwencji System V AMD64 ABI (Linux 64-bit) argumenty są przekazywane przez rejestry, więc ta forma `ret` jest rzadziej używana do czyszczenia argumentów.
+* **Przykład:**
+    ```nasm
+    ret 4  ; Zdejmij adres powrotu, następnie dodaj 4 do RSP
+    ```
+    [cite: 17]
+
+##### `jmp` - Skok bezwarunkowy
+* **Działanie:** Polecenie wykonuje bezwarunkowy skok do etykiety[cite: 8].
+* **Typy etykiet (operandu `A`):**
+    * **short:** Skok o -128 do +127 bajtów od aktualnego położenia[cite: 8].
+    * **near:** Skok w obrębie aktualnego segmentu kodu[cite: 8]. W płaskim modelu pamięci x86_64 jest to najczęstszy typ.
+    * **far:** Skok do innego segmentu[cite: 8]. Rzadziej używane w nowoczesnych systemach operacyjnych z płaskim modelem pamięci.
+* Instrukcja ta przyjmuje tylko jeden operand, którym jest etykieta, do której ma być wykonany skok[cite: 9].
+* **Przykład:**
+    ```nasm
+    jmp etykieta_docelowa
+    ```
+    [cite: 10]
+
+##### `jWarunek` - Skoki warunkowe
+* **Działanie:** Wykonują skok do etykiety tylko wtedy, jeśli dany warunek (zależny od stanu flag procesora) jest spełniony[cite: 11].
+* **Przykład:**
+    ```nasm
+    cmp rax, 0      ; Porównaj rax z 0 (ustawia flagi)
+    jz jest_zero    ; Skocz do etykiety 'jest_zero' jeśli rax był równy 0 (ZF=1)
+    ; ... kod jeśli nie jest zero
+    jest_zero:
+    ; ... kod jeśli jest zero
+    ```
+    [cite: 11]
+
+* **Tabela Skoków Warunkowych:**
+
+    | Mnemonik | Angielski (rozwinięcie skrótu)           | Skok (po polsku),                                   | Warunek (Flagi)            |
+    | :------- | :--------------------------------------- | :-------------------------------------------------- | :------------------------- |
+    | `JZ`     | Jump if Zero                             | Skok, jeśli zero                                    | $ZF=1$                     |
+    | `JE`     | Jump if Equal                            | Skok, jeśli równe                                   | $ZF=1$                     |
+    | `JNZ`    | Jump if Not Zero                         | Skok, jeśli nie zero                                | $ZF=0$ ($ZF=0$)            |
+    | `JNE`    | Jump if Not Equal                        | Skok, jeśli nie równe                               | $ZF=0$ ($ZF=0$)            |
+    | `JA`     | Jump if Above (unsigned)                 | Skok, jeśli większe (bez znaku)                     | $CF=0$ i $ZF=0$            |
+    | `JNBE`   | Jump if Not Below or Equal (unsigned)    | Skok, jeśli nie mniejsze lub równe (bez znaku)      | $CF=0$ i $ZF=0$            |
+    | `JNA`    | Jump if Not Above (unsigned)             | Skok, jeśli nie większe (bez znaku)                 | $CF=1$ lub $ZF=1$          |
+    | `JBE`    | Jump if Below or Equal (unsigned)        | Skok, jeśli mniejsze lub równe (bez znaku)          | $CF=1$ lub $ZF=1$          |
+    | `JB`     | Jump if Below (unsigned)                 | Skok, jeśli mniejsze (bez znaku)                    | $CF=1$                     |
+    | `JNAE`   | Jump if Not Above or Equal (unsigned)    | Skok, jeśli nie większe lub równe (bez znaku)       | $CF=1$                     |
+    | `JC`     | Jump if Carry                            | Skok, jeśli jest przeniesienie                      | $CF=1$                     |
+    | `JNB`    | Jump if Not Below (unsigned)             | Skok, jeśli nie mniejsze (bez znaku)                | $CF=0$                     |
+    | `JAE`    | Jump if Above or Equal (unsigned)        | Skok, jeśli większe lub równe (bez znaku)           | $CF=0$                     |
+    | `JNC`    | Jump if No Carry                         | Skok, jeśli nie ma przeniesienia                    | $CF=0$                     |
+    | `JG`     | Jump if Greater (signed)                 | Skok, jeśli większe (ze znakiem)                    | $ZF=0$ i $SF=OF$ ($ZF=C$ i $SF=OF$) |
+    | `JNLE`   | Jump if Not Less or Equal (signed)       | Skok, jeśli nie mniejsze lub równe (ze znakiem)     | $ZF=0$ i $SF=OF$ ($ZF=C$ i $SF=OF$) |
+    | `JNG`    | Jump if Not Greater (signed)             | Skok, jeśli nie większe (ze znakiem)                | $ZF=1$ lub $SF \neq OF$ ($ZF=1$ lub $SF<>OF$) |
+    | `JLE`    | Jump if Less or Equal (signed)           | Skok, jeśli mniejsze lub równe (ze znakiem)         | $ZF=1$ lub $SF \neq OF$ ($SF<>OF$)  |
+    | `JL`     | Jump if Less (signed)                    | Skok, jeśli mniejsze (ze znakiem)                   | $SF \neq OF$ ($SF<>OF$)    |
+    | `JNGE`   | Jump if Not Greater or Equal (signed)    | Skok, jeśli nie większe lub równe (ze znakiem)      | $SF \neq OF$ ($SF<>OF$)    |
+    | `JNL`    | Jump if Not Less (signed)                | Skok, jeśli nie mniejsze (ze znakiem)               | $SF=OF$                    |
+    | `JGE`    | Jump if Greater or Equal (signed)        | Skok, jeśli większe lub równe (ze znakiem)          | $SF=OF$                    |
+    | `JCXZ`   | Jump if CX is Zero                       | Skok, jeśli rejestr $CX=0$                          | $CX=0$                     |
+    | `JECXZ`  | Jump if ECX is Zero                      | Skok, jeśli rejestr $ECX=0$                         | $ECX=0$                    |
+    |          | (W x86_64 używa się `JRCXZ` dla `RCX=0`) | Skok, jeśli rejestr $RCX=0$                         | $RCX=0$                    |
+    | `JP`     | Jump if Parity                           | Skok, jeśli parzystość                              | $PF=1$                     |
+    | `JPE`    | Jump if Parity Even                      | Skok, jeśli parzystość (parzysta liczba bitów '1')  | $PF=1$                     |
+    | `JNP`    | Jump if No Parity                        | Skok, jeśli nieparzystość                           | $PF=0$                     |
+    | `JPO`    | Jump if Parity Odd                       | Skok, jeśli nieparzystość (nieparzysta liczba bitów '1') | $PF=0$                |
+    | `JO`     | Jump if Overflow                         | Skok, jeśli przepełnienie                           | $OF=1$                     |
+    | `JNO`    | Jump if No Overflow                      | Skok, jeśli nie ma przepełnienia                    | $OF=0$                     |
+    | `JS`     | Jump if Sign                             | Skok, jeśli znak (ujemny)                           | $SF=1$                     |
+    | `JNS`    | Jump if No Sign                          | Skok, jeśli nie ma znaku (dodatni)                  | $SF=0$                     |
+
+
+##### Flagi Procesora Używane w Skokach Warunkowych
+
+Skoki warunkowe działają na podstawie stanu flag w rejestrze flag procesora (np. `EFLAGS` w x86, `RFLAGS` w x86_64). Flagi te są ustawiane przez większość instrukcji arytmetycznych i logicznych, a także przez instrukcje porównania (`CMP`, `TEST`).
+
+| Flaga | Nazwa Angielska | Nazwa Polska        | Opis                                                                                                |
+| :---- | :-------------- | :------------------ | :-------------------------------------------------------------------------------------------------- |
+| `ZF`  | Zero Flag       | Flaga Zera          | Ustawiana na 1, jeśli wynik ostatniej operacji był równy zero; w przeciwnym razie 0.                |
+| `CF`  | Carry Flag      | Flaga Przeniesienia | Ustawiana na 1, jeśli operacja arytmetyczna na liczbach bez znaku spowodowała przeniesienie (nadmiar) z najbardziej znaczącego bitu lub pożyczkę do najbardziej znaczącego bitu. |
+| `SF`  | Sign Flag       | Flaga Znaku         | Ustawiana na wartość najbardziej znaczącego bitu wyniku operacji (dla liczb ze znakiem: 1 oznacza ujemną, 0 dodatnią). |
+| `OF`  | Overflow Flag   | Flaga Nadmiaru      | Ustawiana na 1, jeśli operacja arytmetyczna na liczbach ze znakiem spowodowała nadmiar, tj. wynik nie mieści się w docelowym operandzie i znak wyniku jest niepoprawny. |
+| `PF`  | Parity Flag     | Flaga Parzystości   | Ustawiana na 1, jeśli najmniej znaczący bajt wyniku zawiera parzystą liczbę bitów ustawionych na 1; w przeciwnym razie 0. |
+
+#### III. 4. 3. Wywoływanie funkcji zaimplementowanych w asemblerze z poziomu kodu w C
+
+Aby funkcja napisana w NASM była widoczna dla C, musi:
+1.  Być zadeklarowana jako `global` w pliku asemblera. Nazwa funkcji w asemblerze jest tą samą nazwą, której użyjemy w C.
+2.  Przestrzegać konwencji wołania funkcji (ABI), czyli przyjmować argumenty w odpowiednich rejestrach (`RDI`, `RSI`, itd.) i zwracać wynik w `RAX` (lub `XMM0`).
+3.  Zachowywać wartości rejestrów callee-saved (`RBX`, `RBP`, `R12`-`R15`), jeśli ich używa (poprzez zapisanie ich na stosie na początku funkcji i przywrócenie przed `ret`).
+
+**Plik `asm_funkcje.asm`:**
+```nasm
+section .text
+    global asm_prosta_funkcja
+
+; Funkcja przyjmuje int w RDI, zwraca RDI + 5 w RAX
+asm_prosta_funkcja:
+    mov rax, rdi    ; Kopiuj argument z RDI do RAX
+    add rax, 5      ; Dodaj 5 do RAX
+    ret             ; Powrót, wynik w RAX
+```
+
+**Plik `main_asm.c`:**
+```c
+#include <stdio.h>
+
+// Deklaracja funkcji zdefiniowanej w asemblerze
+extern int asm_prosta_funkcja(int a);
+
+int main() {
+    int x = 10;
+    int wynik;
+
+    wynik = asm_prosta_funkcja(x);
+    printf("Wynik z ASM dla %d to %d\n", x, wynik); // Oczekiwany wynik: 15
+
+    return 0;
+}
+```
+
+**Kompilacja i linkowanie (np. w Makefile):**
+1.  Skompiluj plik asemblera do pliku obiektowego:
+    `nasm -f elf64 asm_funkcje.asm -o asm_funkcje.o`
+2.  Skompiluj plik C do pliku obiektowego:
+    `gcc -c main_asm.c -o main_asm.o -Wall -Wextra -std=c11 -g`
+3.  Zlinkuj pliki obiektowe w program wykonywalny:
+    `gcc main_asm.o asm_funkcje.o -o program_z_asm`
+
+---
+
+#### **IV. Organizacja projektu**  
+##### **IV. 1. Podział na pliki `.c` i `.h`**  
+- **Nagłówki (`.h`)** – zawierają deklaracje funkcji, struktur i makr.  
+- **Implementacje (`.c`)** – definiują logikę funkcji.  
+- **Include guard** – chroni przed wielokrotnym dołączeniem:  
+  ```c
+  #ifndef NAZWA_PLIKU_H  
+  #define NAZWA_PLIKU_H  
+  // Kod  
+  #endif  
+  ```  
+
+##### **IV. 2. Makefile i CMake**  
+
+##  **Podstawowe elementy `Makefile`**
+
+### 🔹 `CC` — kompilator
+
+```makefile
+CC = gcc
+```
+
+Określa, którego kompilatora używać (np. `gcc`, `clang`).
+
+---
+
+### 🔹 `CFLAGS` — flagi kompilatora
+
+```makefile
+CFLAGS = -Wall -Wextra -pedantic -std=c11
+```
+
+* `-Wall` – włącz wszystkie ważne ostrzeżenia
+* `-Wextra` – dodatkowe ostrzeżenia
+* `-pedantic` – wymuszaj standard języka
+* `-std=c11` – użyj standardu C11
+
+---
+
+### 🔹 `SRC`, `OBJ`, `TARGET` — zmienne z plikami
+
+```makefile
+SRC = main.c stack.c
+OBJ = $(SRC:.c=.o)
+TARGET = program
+```
+
+* `SRC` — pliki źródłowe
+* `OBJ` — odpowiadające im pliki obiektowe (`.o`)
+* `TARGET` — nazwa programu wynikowego
+
+---
+
+##  **Reguły w Makefile**
+
+### 🔹 Reguła domyślna (`all`)
+
+```makefile
+all: $(TARGET)
+```
+
+Domyślna reguła wykonywana przy `make`.
+
+---
+
+### 🔹 Reguła linkowania
+
+```makefile
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+```
+
+Tworzy plik wynikowy z plików `.o`.
+
+* `$@` – oznacza nazwę celu (tu: `program`)
+* `$^` – lista zależności (tu: wszystkie `.o`)
+
+---
+
+### 🔹 Reguła kompilowania pojedynczego `.c` do `.o`
+
+```makefile
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+```
+
+* `%.o: %.c` — wzorzec dla reguły (każdy `.c` → `.o`)
+* `$<` – oznacza pierwszy plik zależny (tu: `.c`)
+
+---
+
+### 🔹 Reguła czyszczenia (`clean`)
+
+```makefile
+clean:
+	rm -f *.o $(TARGET)
+```
+
+Czyści pliki tymczasowe. Uruchamiasz komendą:
+
+```bash
+make clean
+```
+
+---
+
+## **Przykład pełnego Makefile**
+
+```makefile
+CC = gcc
+CFLAGS = -Wall -Wextra -pedantic -std=c11
+
+SRC = main.c stack.c
+OBJ = $(SRC:.c=.o)
+TARGET = program
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f *.o $(TARGET)
+```
+
+---
+
+##  **Najczęstsze zmienne specjalne w Makefile**
+
+| Zmienna | Znaczenie                         |
+| ------- | --------------------------------- |
+| `$@`    | Cel (target)                      |
+| `$<`    | Pierwsza zależność (np. `main.c`) |
+| `$^`    | Wszystkie zależności              |
+| `$?`    | Tylko zmienione zależności        |
+
+---
