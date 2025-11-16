@@ -243,3 +243,162 @@ VALUES (ROW('ul. Główna 1', 'Warszawa', '00-001'));
 ```
 
 ---
+
+## 13.11.2025:
+
+### Struktura początkowa i Domeny
+
+Utworzenie podstawowych tabel (`users`, `forms`) oraz domeny (`form_title`) z kluczami głównymi i obcymi.
+
+```sql
+-- Tabela użytkowników, users
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+```sql
+-- Definicja domeny dla tytułu formularza (PSQL nie obsługuje NOT EXISTS dla domen)
+CREATE DOMAIN form_title AS VARCHAR(255) NOT NULL;
+```
+
+```sql
+-- Tabela formularzy, forms
+CREATE TABLE IF NOT EXISTS forms (
+    form_id SERIAL PRIMARY KEY,
+    title form_title UNIQUE, -- Użycie utworzonej domeny
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    owner_id INTEGER NOT NULL,
+    CONSTRAINT fk_owner
+    FOREIGN KEY(owner_id) 
+    REFERENCES users(user_id)
+    ON DELETE CASCADE
+);
+```
+
+---
+
+### Zadanie 1: Tabela Pytania (`questions`)
+
+Utworzenie tabeli `questions` przechowującej pytania do formularzy.
+
+**Wskazówka:** Staramy się tworzyć nazwy kluczy, aby identyfikowały się z nazwą tabeli (np. `fk_form`).
+
+```sql
+-- Tabela questions:
+CREATE TABLE IF NOT EXISTS questions (
+    question_id smallserial PRIMARY KEY,
+    form_id INTEGER NOT NULL,
+    question_text TEXT NOT NULL,
+    question_type VARCHAR(50) NOT NULL, /* np text, rating, wybór itp. */
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_form
+        FOREIGN KEY(form_id)
+            REFERENCES forms(form_id)
+    ON DELETE CASCADE
+);
+```
+
+---
+
+### Wprowadzanie Danych
+
+Przykładowe dane do tabel `users`, `forms` i `questions`.
+
+```sql
+-- Dodwanie userów
+INSERT INTO users (email, password_hash) VALUES
+('Gołt@Pessi.wowo', 'hash30'),
+('Gołt@Ronaldo.siu', 'hash7'),
+('TRUE_GOAT@Ronal.dinho', 'hash10');
+```
+
+```sql
+-- Dodwanie formularzy
+INSERT INTO forms (title, owner_id) VALUES
+('Ankieta satysfakcji klienta', 1),
+('Formularz rejestracyjny', 2);
+```
+
+```sql
+-- Dodwanie pytań
+INSERT INTO questions (form_id, question_text, question_type) VALUES
+(1, 'Jak oceniasz obsługę?', 'rating'),
+(1, 'Co możemy poprawić?', 'text'),
+(2, 'Podaj swoje imię i nazwisko', 'text');
+```
+
+---
+
+### Zadanie 2: Modyfikacja Tabeli `forms`
+
+#### A. Dodanie kolumny `status`
+
+Dodanie kolumny `status` do tabeli `forms` z domyślną wartością `'draft'`.
+
+```sql
+-- A do tabeli forms dodajemy kolumnę status domyślnie jako 'draft'
+ALTER TABLE forms ADD COLUMN status VARCHAR (20) DEFAULT 'draft';
+```
+
+#### Dodanie nowego formularza (z domyślnym statusem)
+
+```sql
+-- Dodajemy nowy formularz bez podawania statusu
+INSERT INTO forms (title, owner_id) VALUES
+('Quiz', 1);
+```
+
+#### Dodanie i aktualizacja `response_count`
+
+Dodanie kolumny `response_count` i zaktualizowanie jej wartości w istniejących formularzach.
+
+**Uwaga:** W PostgreSQL wartości **NULL** nie są zliczane do funkcji agregującej `COUNT`.
+
+```sql
+-- Dodanie kolumny do forms response_count
+ALTER TABLE forms ADD COLUMN response_count INTEGER DEFAULT 0;
+```
+
+```sql
+-- Dodanie przykładowych danych do formularzy
+UPDATE forms SET response_count = 150 WHERE form_id = 1;
+UPDATE forms SET response_count = 75 WHERE form_id = 2;
+UPDATE forms SET response_count = 50 WHERE form_id = 3;
+```
+
+---
+
+### Funkcje Agregujące i Grupowanie
+
+#### Obliczenia globalne (SUM, AVG, MAX, MIN)
+
+```sql
+-- Suma wartości wszystkich odpowiedzi
+SELECT SUM(response_count) AS total_responses FROM forms;
+```
+
+```sql
+-- Dla średniej i max min
+SELECT AVG(response_count) AS average_responses,
+       MAX(response_count) AS max_responses,
+       MIN(response_count) AS min_responses
+FROM forms;
+```
+
+#### Grupowanie (`GROUP BY`)
+
+Policzenie, ilu formularzy jest właścicielem każdy z użytkowników.
+
+```sql
+-- Aby policzyć ile formularzy ma każdy z użytkowników 
+SELECT owner_id, count(*) AS number_of_forms
+FROM forms
+GROUP BY owner_id  
+ORDER BY number_of_forms DESC;
+```
+
+---
