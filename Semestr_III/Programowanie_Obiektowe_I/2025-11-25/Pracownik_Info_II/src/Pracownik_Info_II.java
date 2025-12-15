@@ -9,5 +9,9 @@ public class Pracownik_Info_II {
         for (Pracownik p : wol) {
             System.out.println("Nazwa: " + p.getNazwa() + " Pensja: " + p.getPensja() + " SM: " + p.getSN());
         }
+        // Własne dodadki do kodu:
+        Kierownik kieras = new Kierownik("I", "Wojtek", 10000.00);
+        System.out.println("Pracownik " + kieras.getNazwa() + " to kierownik Stopnia: " + kieras.getStopień()
+                + ", zarabia: " + kieras.getPensja());
     }
 }

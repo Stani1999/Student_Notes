@@ -14,6 +14,7 @@ public class Pracownik {
     private int sn;
     private String nazwa = "";
     private double pensja;
+    private Date DZad;
 
     // Inicjalizacja instancji
     {
@@ -23,18 +24,12 @@ public class Pracownik {
     // --Konstruktoru--
 
     // Główny
-    public Pracownik(String n, double p){
+    public Pracownik(String n, double p, int d, int m, int r){
         this.nazwa = n;
         this.pensja = p;
-    }
-
-    // Drugi do "przeciąrzenia"
-    public Pracownik(double p){
-        this("Pracownik #" + ni, p);
-    }
-
-    // Konstruktor bezargumentowy
-    public Pracownik(){
+        // Miesiące w GregorianCalendar są liczone od 0
+        GregorianCalendar k = new GregorianCalendar(r, m - 1, d);
+        DZad = k.getTime();
     }
 
     // --Metody--
@@ -47,10 +42,10 @@ public class Pracownik {
     public double getPensja() {
         return pensja;
     }
-    public void setNazwa(String n){
-        this.nazwa = n;
+    public Date getDZad(){
+        return DZad;
     }
-    public void setPensja(double pensja){
-        this.pensja = pensja;
+    public void premia(double p){
+        pensja += pensja * p/100;
     }
 }

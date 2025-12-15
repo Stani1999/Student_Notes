@@ -8,7 +8,7 @@ public class kalendarz {
 
     public static void main(String[] args) {
 
-        GregorianCalendar gc = new GregorianCalendar(2025,Calendar.NOVEMBER,05);
+        GregorianCalendar gc = new GregorianCalendar(2025,10-1,05);
                 Date d = gc.getTime();
         System.out.println(d);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-YYYY");

@@ -37,6 +37,7 @@ class Pracownik{
         // Miesiące w GregorianCalendar są liczone od 0
         GregorianCalendar k = new GregorianCalendar(r, m - 1, d);
 
+
         DZad = k.getTime();
 
         int dzien = k.get(GregorianCalendar.DAY_OF_MONTH);

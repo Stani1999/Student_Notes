@@ -16,11 +16,10 @@ public class IO_Save {
             String content = Files.readString(sourcePath);
             System.out.println(content);
             System.out.print("Podaj nową nazwę pliku (np. nowy_plik.txt): ");
-            String newFileName = input.nextLine();
+            String newFileName = input.nextLine(); // Po znaku nowej lini przypisz do zmiennej
 
             Path newPath = Paths.get(newFileName);
             Files.writeString(newPath, content);
-
             System.out.println("Plik został zapisany jako: " + newFileName);
 
         } catch (IOException e) {
