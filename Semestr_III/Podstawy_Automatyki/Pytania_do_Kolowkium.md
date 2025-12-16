@@ -1,8 +1,8 @@
 # Podstawy Automatyki I Sterowania
 
-## Pytania do kolokwium 
+## Pytania do kolokwium
 
-### 1. Omów pojęcia: obiekt regulacji, urządzenie wykonawcze, zakłócenie, element pomiarowy - w tym narysować symbole. 
+### 1. Omów pojęcia: obiekt regulacji, urządzenie wykonawcze,<br> zakłócenie, element pomiarowy - w tym narysować symbole
 
 ![Układ Regulacji](pictures/Wiki_Układ_regulacji.png) <br> Żródło [Wikipedia.org - Układ regulacji (automatyka)](https://pl.wikipedia.org/wiki/Uk%C5%82ad_regulacji_%28automatyka%29)
 
@@ -13,7 +13,7 @@
 **Zakłócenie**            | Niekorzystny sygnał zewnętrzny `z(t)`, to niepożądany czynnik, który powoduje <br> odchylenie wielkości regulowanej `y(t)` od wartości zadanej `w(t)`
 **Element <br> pomiarowy**     | Wykonuje pomiar wielkości regulowanej `y(t)`, a następnie przekształcają na sygnał `v(t)` <br> (opisywanego także jako y<sub>m</sub>) zrozumiałego i gotowego do wprowadzenia do regulatora
 
-### 2. Omów sposoby łączenia podstawowych bloków na schematach blokowych.
+### 2. Omów sposoby łączenia podstawowych bloków na schematach blokowych
 
 **Połączenie**          | **Opis danego połączonenia bloków** | **Transmisja wypadkowa**
 ------------------------|-------------------------------------|-----------------------------------
@@ -21,7 +21,7 @@
 **Równoległe**          | Ten sam sygnał wejściowy jest podawany <br> jednocześnie na wszystkie bloki składowe, <br> a ich sygnały wyjściowe są sumowane <br> algebraicznie w węźle sumacyjnym | Suma algebraliczna <br> $G_w = G_1 + G_2 + \dots + G_n$
 **Ze sprzężeniem <br> zwrotnym** | Sygnał wyjściowy obiektu jest zwracany (sprzęgany)<br> i odejmowany lub dodawany do sygnału wejściowego,<br> tworząc zamkniętą pętlę regulacji | $G_w = \frac{G_1}{1 \pm G_1 \cdot G_2}$ <br> dla sprzężenie zwrotnego `-` <br> dla sprzężenia dodatniego `+`
 
-### 3. Omów na przykładzie różnice między regulacją ręczną i automatyczną 
+### 3. Omów na przykładzie różnice między regulacją ręczną i automatyczną
 
  **Cecha <br> regulacji** | **Regulacja Ręczna <br> (Przykład: Zawór Grzejnikowy)** | **Regulacja Automatyczna <br> (Przykład: Termostat Grzejnikowy)** |
  :--- | :--- | :--- 
@@ -31,7 +31,7 @@
  **Reakcja<br> na zakłócenia** | Wymaga **ponownego dostosowania** <br> zaworu przez człowieka <br> W przypadku zakłóceń (`z`) <br> układ nie będzie wykonywał zadania,<br >dopóki operator nie zareaguje | Działanie układu ma na celu <br> **eliminowanie wpływu zakłóceń** (`z`) <br> na wielkość regulowaną <br> Układu jest stosunkowo niewrażliwa <br> na zewnętrzne zakłócenia 
  **Dokładność** | Jest **niska**,<br> zależna od uwagi operatora; <br> może subiektywnie wpływać na proces | Ma na celu **minimalizację uchybu**<br> (to znaczy różnicy) <br> między wielkością regulowaną a zadaną, <br> zapewniając wymaganą jakość regulacji 
 
-### 4. Omów metodę doświadczalną wyznaczania charakterystyk dynamicznych.
+### 4. Omów metodę doświadczalną wyznaczania charakterystyk dynamicznych
 
 **Aspekt**  | **Opis** 
 :---------- | :---------- 
@@ -42,7 +42,7 @@
 **Współczynnik** | $K = \frac{\Delta y}{\Delta u}$
  *gdzie* | $\Delta y$ - zmiana wartości ustalonej odpowiedzi skosowej obiektu <br> $\Delta u$ - zmiana wartości sygnału wejściowego
 
-### 5. Scharakteryzuj i podaj przykład obiektu proporcjonalnego z opóźnieniem.
+### 5. Scharakteryzuj i podaj przykład obiektu proporcjonalnego z opóźnieniem
 
 **Aspekt** | **Opis** |
 :----- | :--- |
@@ -53,7 +53,7 @@
 **Przykład 1** | **Przewód z mieszającym zaworem regulacyjnym <br> oraz czujnikiem temperatury** – sygnał temperatury dociera do czujnika <br> z opóźnieniem wynikającym z czasu przepływu medium
 **Przykład 2** | **Taśmowy podajnik węgla** <br> grubość warstwy paliwa w odległości $l$ od początku podajnika powtarza <br> grubość na początku, ale z opóźnieniem $T = \frac{l}{v}$
 
-### 6. Scharakteryzuj i podaj przykład obiektu inercyjnego pierwszego rzędu.
+### 6. Scharakteryzuj i podaj przykład obiektu inercyjnego pierwszego rzędu
 
 **Aspekt** | **Opis** |
 :----- | :--- 
@@ -63,7 +63,7 @@
 **Transmitancja <br> Operatorowa** | $$G(s) = \frac{K}{T \cdot s + 1}$$<br>gdzie $K$ to współczynnik wzmocnienia, <br> $T$ to stała czasowa, <br> człon ${T \cdot s + 1}$ stanowi inercję
 **Przykład** | **Podgrzewacz ciepłej wody** z trójdrogowym zaworem regulacyjnym
 
-### 7. Omów sposoby doboru nastaw dynamicznych regulatora PID. 
+### 7. Omów sposoby doboru nastaw dynamicznych regulatora PID
 
 **Aspekt** | **Opis**
 :----- | :---
@@ -116,16 +116,41 @@ Aspekt | Cienkowarstwowe termometry platynowe (Thin-Film Platinum RTD)
 
 ### 10. Omów czujniki pomiaru wilgotności
 
+**Elektryczne czujniki wilgotnośc**i wykorzystują substancje lub układy, które absorbują lub oddają wilgoć<br> w zależności od wilgotności względnej otoczenia.<br> Ta zmiana zawartości wilgoci powoduje zmianę właściwości elektrycznych układu, takich jak:<br>
+* impedancja,
+* pojemność elektryczna
+* itp parametry elektryczne. 
+
+Czujniki te mogą dostarczać sygnał wyjściowy w postaci napięciowej lub częstotliwościowej;<br>w przypadku sygnału częstotliwościowego stosuje się przetwornik częstotliwościowo-napięciowy,<br> aby uzyskać standardowy sygnał napięciowy proporcjonalny do wilgotności.
+
+
 Aspekt | Czujniki rezystancyjne<br> (np. Dunmore’a) | Czujniki pojemnościowe<br> z tlenkiem glinu | **Czujniki pojemnościowe<br> polimerowe (All Polimer)**
 :--- | :--- | :--- | :---
 **Zasada<br> działania** | Zmiana rezystancji<br> warstwy higroskopijnej<br> (np. chlorku litu)<br> w zależności od wilgotności. | Zmiana pojemności<br> kondensatora,<br> którego dielektrykiem<br> jest higroskopijna warstwa<br> tlenku glinu (Al₂O₃). | Zmiana pojemności<br> kondensatora zbudowanego<br> z polimerowych płytek<br> nasyconych węglem,<br> rozdzielonych wodochłonnym<br> polimerem,<br> którego stała dielektryczna<br> zmienia się z wilgotnością
-**Budowa** | Dwie elektrody<br> na płytce pokrytej<br> warstwą chlorku litu. | Płytka aluminiowa<br> z warstwą Al₂O₃,<br> pokryta cienką warstwą metalu<br> (Au lub Cr) jako druga elektroda. | Niemetaliczny kondensator<br> z polimerowych płytek<br> z węglem, między którymi<br> znajduje się<br> higroskopijny polimer
+**Budowa** | Dwie elektrody<br> na płytce pokrytej<br> warstwą chlorku litu. | Płytka aluminiowa<br> z warstwą Al₂O₃<br> (o dużej higroskopijności),<br> naniesioną elektronicznie | Niemetaliczny kondensator<br> z polimerowych płytek<br> nasyconych węglem, między którymi<br> znajduje się<br> higroskopijny polimer
 **Czas<br> reakcji** | Kilkanaście sekund<br> do kilkudziesięciu sekund. | <2 s przy niskiej wilgotności,<br> wydłuża się przy wysokiej | Szybki,<br> zazwyczaj rzędu kilku sekund
 **Stabilność** | Umiarkowana,<br> wymaga<br> okresowej kalibracji. | Duża stałość<br> przy zmianach temperatury. | Wysoka stabilność,<br> dobra powtarzalność,<br> kalibracja fabryczna
 **Zalety** | Prosta konstrukcja,<br> niski koszt,<br> szeroki zakres | Mała bezwładność,<br> dobra odporność na<br> temperaturowe<br> zmiany parametrów | Nowoczesna konstrukcja,<br> dobra liniowość,<br> odporność na<br> zanieczyszczenia,<br> sygnał wyjściowy<br> już znormalizowany<br> (0–10 V lub 4–20 mA)
 **Wady** | Wrażliwość<br> na zanieczyszczenia,<br> konieczność stosowania<br> kilku czujników<br> dla pełnego zakresu | Przy wysokiej wilgotności<br> czas ustalania<br> wydłuża się znacznie | Wyższy koszt<br> w porównaniu do prostych<br> czujników rezystancyjnych
-**Zastosowania** | Ogólne pomiary wilgotności<br> w systemach wentylacji,<br> klimatyzacji | Szybkie pomiary<br> w systemach HVAC,<br> procesach przemysłowych <br> wymagających szybkiej reakcji | Nowoczesne systemy BMS,<br> precyzyjna kontrola wilgotności <br> w pomieszczeniach czystych,<br> laboratoriach,<br> archiwach
 
-### 11. Na czym polega zjawisko kawitacji w zaworach regulacyjnych?(p5)
+### 11. Na czym polega zjawisko kawitacji w zaworach regulacyjnych?
 
-### 12. Omów podział i zastosowanie przepustnic regulacyjnych powietrza.(p5)
+Aspekt Zjawiska <br> Kawitacji | Opis Zjawiska Kawitacji 
+:--- | :---
+**Powstawanie** | Występuje, gdy nadmierny spadek ciśnienia na zaworze <br> powoduje gwałtowny wzrost prędkości przepływu<br> w miejscu największego przewężenia przekroju
+**Mechanizm** | Spadek ciśnienia prowadzi do miejscowego odparowania cieczy.<br> Następnie, podczas skraplania,<br> powstające pęcherzyki pary implodują z ogromną prędkością,<br> uderzając w ścianki zaworu
+**Konsekwencje** | Uderzenia implodujących pęcherzyków powodują<br> erozyjne wypłukiwanie materiału zaworu,<br> podobne do czyszczenia strumieniem piasku
+**Objawy towarzyszące zjawisku** |  charakterystyczny, głośny hałas w instalacji
+**Podsumowanie <br> zagrożenia** | **Kawitacja** – zjawisko szczególnie niebezpieczne w układach hydraulicznych,<br> prowadzące do szybkiego zniszczenia elementów wykonawczych
+
+### 12. Omów podział i zastosowanie przepustnic regulacyjnych powietrza
+
+Aspekt| Opis
+:--- | :---
+**Definicja** | Przepustnice regulacyjne lub nastawcze stosuje się w <br> instalacjach powietrznych do zmian ilości<br> lub ciśnienia powietrza w zależności od zadanych wielkości<br> np. temperatury, prędkości, ciśnienia
+**Typy ogólne** | Są one jednoelementowe lub wieloelementowe
+**Podział wieloelementowych** | a) przepustnice żaluzjowe z łopatkam współbieżnymi,<br> b) przepustnice żaluzjowe z łopatkam przeciwbieżnymi
+**Zastosowanie: Żaluzje zewnętrzne** | Żaluzie do zewnętrznego powietrza i powietrza wywiewanego <br> na początku i końcu instalacji służą do zamykania<br> i mają z tego względu działanie dwupozycyjne zamknięty-otwarty
+**Zastosowanie:<br> Przepustnice dławiące** | Przepustnice dławiące do zmiany ilości powietrza powinny z reguły<br> posiadać przeciwbieżne łopatki, które <br>służą do regulacji i ograniczania przepływu powietrza
+**Zastosowanie:<br> Przepustnice mieszające** | Przepustnice mieszające są stosowane w urządzeniach klimatyzacyjnych <br> do mieszania powietrza recyrkulacyjnego z powietrzem zewnętrznym <br> Przepustnice te są najczęściej sprzężone ze sobą<br> i dodatkowo z przepustnicą powietrza wywiewanego <br> (sterowane jednym sygnałem sterującym)
+**Zalecenia konstrukcyjne** | Przy długich kanałach powietrza zewnętrznego<br> i wywiewanego korzystniejsze są przepustnice przeciwbieżne,<br> w innych przypadkach współbieżne<br> (np. nadanie odpowiedniego kierunku przy mieszaniu strumieni powietrza)
