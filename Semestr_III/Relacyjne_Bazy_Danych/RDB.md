@@ -1121,3 +1121,423 @@ $$ LANGUAGE plpgsql;
 SELECT list_user_forms(1); -- zwraca tytuły formularzy użytkownika o user_id = 1 oddzielone średnikami
 ```
 
+## 2026-01-12
+Napisz funkcję generate_order_code(user_id INT), która wygeneruje kod zamówienia w formacie: ORD-[ROK]-[ID_USERA]-[LOSOWE_3_CYFRY]. Przykład: ORD-2023-15-492
+
+```sql
+CREATE OR REPLACE FUNCTION generate_order_code(user_id_in INT)
+RETURNS TEXT AS $$
+DECLARE
+    current_year INT;
+    random_number INT;
+    order_code TEXT;
+BEGIN
+    -- Aktualny rok
+    current_year := EXTRACT(YEAR FROM CURRENT_DATE);
+    -- LOSOWE_3_CYFRY
+    random_number := FLOOR(RANDOM() * 900) + 100; -- losowa liczba od 100 do 999
+    -- Formatowanie ORD-[ROK]-[ID_USERA]-[LOSOWE_3_CYFRY]
+    order_code := FORMAT('ORD-%s-%s-%s', current_year, user_id_in, random_number);
+    RETURN order_code;
+END;
+$$ LANGUAGE plpgsql;
+-- Wywołanie funkcji
+SELECT generate_order_code(15); -- Przykład wywołania dla user_id = 15
+```
+
+Procedury
+
+"Bardziej rozszeżona funkcje" funkcje wywołuje się przez Select, a procedurę wywołuje się przez CALL.
+Select musi zwracać jakść wartość, 
+a procedura nie musi musieć zwracać wartości.
+
+Trasnakcyjność
+Jeżeli chodzi o transakcje to można zarządzać transackcjami
+Nie można jej używać w formacie zapytaniowym np. join, select itp.
+
+Służą do:
+Operacji biznesowych itp.
+Archiwizacja i czyszczenie danych
+
+Może nią być
+
+Gdy chcemy wykonać wielokrokową operację
+Możemy albo nie użyć jej jako transakcji albo nie i zapisać commitem.
+
+Jeżeli proces wymaga złożonych działąń
+
+Jeżeli chodzi o składnię to:
+
+```sql
+
+CREATE OR REPLACE PROCEDURE nazwa_procedury(parametry)
+LANGUAGE plpgsql AS $$
+DECLARE
+    -- deklaracje zmiennych
+BEGIN
+    -- ciało procedury
+END;
+
+$$;
+```
+
+Zadanie:
+
+```sql
+--dodaj nowego użytkownika
+--  user_id |              email              |   password_hash   |          created_at           | manager_id 
+-- ---------+---------------------------------+-------------------+-------------------------------+------------
+CREATE OR REPLACE PROCEDURE user_add( 
+    user_email VARCHAR(255),
+    user_password_hash TEXT,
+    manager_id INT
+)
+LANGUAGE plpgsql AS $$
+-- TUTAJ NAPRAWIAMY BŁĄD: Deklaracja zmiennej lokalnej
+DECLARE
+    manager_email_found VARCHAR(255);
+BEGIN
+    -- 1. Sprawdzenie, czy użytkownik już istnieje
+    IF EXISTS (
+        SELECT 1 FROM users WHERE email = user_email
+    ) THEN
+        RAISE EXCEPTION 'Użytkownik %, już istnieje w tabeli users', user_email;
+    END IF;
+
+    -- 2. Wstawienie nowego rekordu
+    INSERT INTO users (email, password_hash, manager_id)
+    VALUES (user_email, user_password_hash, manager_id);
+
+    -- 3. Pobranie emaila managera
+    -- Używamy prostej konstrukcji IF, aby uniknąć błędów przy NULL
+    IF manager_id IS NOT NULL THEN
+        SELECT email INTO manager_email_found 
+        FROM users 
+        WHERE user_id = manager_id;
+
+        -- Jeśli manager_id nie istnieje w bazie (np. błędne ID)
+        IF manager_email_found IS NULL THEN
+            manager_email_found := 'Nieznany (brak w bazie)';
+        END IF;
+    ELSE
+        manager_email_found := 'Brak (użytkownik root)';
+    END IF;
+
+    -- 4. Informacja zwrotna
+    RAISE NOTICE 'Dodano użytkownika: %', user_email;
+    RAISE NOTICE 'Manager: % (ID: %)', manager_email_found, manager_id;
+END;
+$$;
+
+-- Wywołanie procedury
+CALL user_add('Przyklad@poczta.pl', 'hash_example', NULL);
+```
+
+Zadanie2 : Procedura tworząca nam formularz
+
+```sql
+CREATE OR REPLACE PROCEDURE create_form_with_questions(
+    p_owner_id INT,
+    p_title form_title,
+    p_questions TEXT[],
+    INOUT p_form_id INT DEFAULT NULL,
+    INOUT p_questions_count INT DEFAULT NULL
+)
+LANGUAGE plpgsql AS $$
+DECLARE
+    v_question TEXT;
+BEGIN
+    p_questions_count := array_length(p_questions, 1);
+    
+    -- utwórz formularz
+    INSERT INTO forms (title, owner_id)
+    VALUES (p_title, p_owner_id)
+    RETURNING form_id INTO p_form_id;
+    
+    -- dodaj pytania
+    FOREACH v_question IN ARRAY p_questions
+    LOOP
+        INSERT INTO questions (form_id, question_text, question_type)
+        VALUES (p_form_id, v_question, 'text');
+    END LOOP;
+    
+    RAISE NOTICE 'Utworzono formularz ID: % z % pytaniami', p_form_id, p_questions_count;
+END;
+$$;
+
+-- Aby wywołać procedurę i uzyskać wartości OUT, możemy użyć bloku DO
+DO $$
+DECLARE
+    v_new_form_id INT;
+    v_count INT;
+BEGIN
+    CALL create_form_with_questions(1, 'Nowy Formularz', ARRAY['Pytanie 1', 'Pytanie 2'], 
+    v_new_form_id, v_count);
+    RAISE NOTICE 'Form ID: %, Questions Count: %', v_new_form_id, v_count;
+END;
+$$;
+
+
+-- Wywołanie procedury
+CALL create_form_with_questions(1, 'Nowy Formularz', ARRAY['Pytanie 1', 'Pytanie 2']);
+```
+
+## 2026-01-19
+
+Kiedy używwać triggerów?
+
+-- do automatyzacji
+-- do audytów
+-- do walidacji przed zapisem
+    -- gdy dodajemy parametr to może on weryfikować dane i uzupełniać inne dane
+    -- soft delete --przenoszenie do archiwum (zamiast usuwania)
+
+Nie używać triggerów PSQL do:
+-- prostej walidacji -- lepiej użyć
+-- logiki biznesowej -- lepiej użyć procedur składowanych
+-- do raportowania -- lepiej użyć narzędzi ETL lub dedykowanych
+
+```sql
+
+CREATE OR REPLACE FUNCTION nazwa_logiki_dla_triggera()
+RETURNS TRIGGER AS $$
+
+BEGIN
+    -- logika triggera
+    RETURN NEW; -- lub RETURN OLD/Null w zależności od typu triggera
+    -- przy tworzeniu mamy 
+    -- insert - NEW.nazwa_kolumny 
+    -- update - NEW.nazwa_kolumny, OLD.nazwa_kolumny (wartość nadpisywana)
+    -- delete - tylko OLD.nazwa_kolumny (wartość usuwana)
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER nazwa_triggera()
+{BEFORE} -- kiedy ma się uruchamiać (BEFORE|AFTER|INSTEAD OF)
+{INSERT} -- na jakiej operacji ma działać INSERT|UPDATE|DELETE
+
+FOR EACH ROW -- dla każdego  (ROW|STATEMENT)
+[WHEN ()] -- opcjonalny warunek uruchomienia triggera np czy hasło nie było użyte wcześniej
+
+EXECUTE FUNCTION nazwa_logiki_dla_triggera();
+```
+
+Zmienne są:
+OLD - zmienna ROW, wartość przed zmianą
+NEW - wartość po zmianie
+TG_OP - operacja która wywołała trigger (INSERT, UPDATE, DELETE)
+
+Możemy zrobić warunek typu
+
+TG_TABLE_NAME = 'nazwa_tabeli'
+TG_TABLE_SCHEMA = 'nazwa_schematu''
+TG_WHEN = 'BEFORE' lub 'AFTER'
+TG_LEVEL = 'ROW' lub 'STATEMENT'
+TG_NARGS = liczba argumentów przekazanych do triggera
+TG_ARGV - tablica argumentów przekazanych do triggera
+
+IF TG_OP = 'INSERT' THEN
+ELSIF TG_OP
+END IF;
+
+-- Przykład triggera, który nie pozwala na usunięcie użytkownika jeżeli posiada formularze
+
+```sql
+-- Funkcja triggera
+CREATE OR REPLACE FUNCTION prevent_user_deletion()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_form_count INT;
+BEGIN
+    -- logika triggera
+    -- Sprawdzenie czy użytkownik posiada formularze
+    SeLECT COUNT(1) INTO v_form_count
+    FROM forms
+    WHERE owner_id = OLD.user_id; -- OLD bo delite
+
+    -- Jeżeli ma to wyrzuć błąd
+    IF v_form_count > 0 THEN
+        RAISE EXCEPTION 'Nie można usunąć użytkownika %, ponieważ posiada % formularzy. Najpierw przenieś lub usuń formularze.', OLD.email, v_form_count;
+    END IF;
+
+    RETURN OLD; -- zwarcamy OLD bo usuwamy ID'ka, w returnie można przypisać to co chcę więc można usunąć nie to co chcemy
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Wyzwalacz
+
+CREATE TRIGGER trg_user_prevent_deletion
+
+BEFORE 
+
+DELETE ON users
+
+FOR EACH ROW
+
+EXECUTE FUNCTION prevent_user_deletion();
+
+```
+
+Cel: Zablokuj możliwość publikacji formularza (is_published = true), jeśli właściciel formularza (users.is_active) jest nieaktywny.
+
+Stwórz funkcję check_owner_active().
+Pobierz status właściciela z tabeli users na podstawie NEW.owner_id.
+Jeśli użytkownik nieaktywny i NEW.is_published jest prawdą -> RAISE EXCEPTION.
+Podepnij trigger BEFORE INSERT OR UPDATE do tabeli forms.
+
+```sql
+-- Utworzenie tabeli users i forms, jeżeli nie istnieją
+CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, email TEXT, is_active BOOLEAN DEFAULT true);
+CREATE TABLE IF NOT EXISTS forms (form_id SERIAL PRIMARY KEY, owner_id INT, title TEXT, is_published BOOLEAN DEFAULT false);
+```
+
+```sql
+-- Dostowowanie istniejących tabel do zadania
+ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT true;
+ALTER TABLE forms ADD COLUMN IF NOT EXISTS is_published BOOLEAN DEFAULT false;
+```
+
+```sql
+-- Zadanie 
+-- Cel: Zablokuj możliwość publikacji formularza (is_published = true), jeśli właściciel formularza (users.is_active) jest nieaktywny.
+
+-- Stwórz funkcję check_owner_active().
+CREATE OR REPLACE FUNCTION check_owner_active()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_is_active BOOLEAN;
+BEGIN
+    -- Pobierz status właściciela 
+    SELECT is_active INTO v_is_active
+    -- z tabeli users 
+    FROM users
+    -- na podstawie NEW.owner_id.
+    WHERE user_id = NEW.owner_id;
+
+    -- Jeśli użytkownik nieaktywny
+    IF v_is_active = false 
+    -- i NEW.is_published jest prawdą 
+    AND NEW.is_published = true THEN
+    -- -> RAISE EXCEPTION.
+        RAISE EXCEPTION 'Publikacja formularza jest niemożliwa: Właściciel jest nieaktywny.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql; 
+
+-- Podepnij trigger 
+CREATE TRIGGER trg_check_owner_active
+-- BEFORE INSERT OR UPDATE do tabeli forms.
+BEFORE INSERT OR UPDATE ON forms
+FOR EACH ROW
+EXECUTE FUNCTION check_owner_active();
+```
+
+AD. do opisu parametrów INSTEAD OF, używamy tylko w widokach (VIEW).
+
+Zadanie 2: 
+Cel: Loguj zmiany tytułów formularzy do nowej tabeli title_history, ale tylko wtedy, gdy tytuł faktycznie się zmienił.
+Stwórz tabelę title_history (form_id INT, old_title TEXT, new_title TEXT, changed_at TIMESTAMP).
+Stwórz funkcję logującą.
+Podepnij trigger AFTER UPDATE na tabeli forms.
+Kluczowe: Użyj klauzuli WHEN, aby trigger nie uruchamiał się, gdy zmieniono tylko pole is_published, a tytuł został ten sam.
+
+```sql
+-- Stwórz tabelę title_history (form_id INT, old_title TEXT, new_title TEXT, changed_at TIMESTAMP).
+CREATE TABLE IF NOT EXISTS title_history (
+    form_id INT, 
+    old_title TEXT, 
+    new_title TEXT, 
+    changed_at TIMESTAMP
+);
+
+-- Stwórz funkcję logującą.
+CREATE OR REPLACE FUNCTION log_wgen_title_change()
+
+RETURNS TRIGGER AS $$
+
+BEGIN
+    -- Wstawienie rekordu do title_history
+    INSERT INTO title_history (form_id, old_title, new_title, changed_at)
+    VALUES (NEW.form_id, OLD.title, NEW.title, CURRENT_TIMESTAMP);
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Podepnij trigger AFTER UPDATE na tabeli forms.
+CREATE TRIGGER trg_log_title_change
+AFTER UPDATE ON forms
+FOR EACH ROW
+-- Kluczowe: Użyj klauzuli WHEN, aby trigger nie uruchamiał się, gdy zmieniono tylko pole is_published, a tytuł został ten sam.
+WHEN (OLD.title IS DISTINCT FROM NEW.title)
+EXECUTE FUNCTION log_wgen_title_change();
+```
+
+Trochę o JSON i JSONB
+
+JSON -- Tekstowy, nieindeksowalny, trudniejszy do parsowania
+
+JSONB -- Binarny, indeksowalny, szybszy w parsowaniu
+
+```sql
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    specs JSONB -- Tu dzieje się magia
+);
+
+INSERT INTO products (name, specs) VALUES
+('Laptop Pro', '{ "cpu": "M1", "ram": "16GB", "ports": ["usb-c", "hdmi"], "available": true }'),
+('Running Shoes', '{ "size": 42, "color": "red", "brand": "Nike", "available": true }'),
+('Smart Watch', '{ "brand": "Apple", "features": {"gps": true, "lte": false} }');
+``` 
+
+Aby się odwoływać 
+-> operator -> zwraca JSON w cudzysłowie
+
+->> operator ->> zwraca czysty tekst
+
+```sql
+SELECT name, specs->>'ram' AS ram
+FROM products
+WHERE specs? 'ram'; -- sprawdza czy klucz istnieje
+```
+
+Tworzenie indeksu na danym JSON'ie
+
+```sql
+CREATE INDEX idx_products_specs on products USING GIN (specs); -- jest to wyszukiwanie "full table scan"
+```
+
+-- @> - oznacza "zawiera"
+
+```sql
+SELECT * FROM products
+WHERE specs @> '{"available": true}'; -- sprawdza czy specs zawiera dany fragment JSON
+
+SELECT * FROM products
+WHERE specs @> '{"brand": "Apple"}'; -- sprawdza czy specs zawiera dany fragment JSON
+```
+
+Wyszukiwanie zagnieżdżonych elementów
+
+```sql
+UPDATE products
+SET specs = jsonb_set(specs, '{features, lte}', 
+'true'::jsonb)
+WHERE name = 'Smart Watch';
+```
+
+Aby usuwać zagnieżdżone elementy
+- `-` -- usuwa klucz z JSON'a
+
+```sql
+
+UPDATE products
+SET specs = specs - '{available}'   
+WHERE name = 'Laptop Pro';
+```
+
