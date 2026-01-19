@@ -15,3 +15,11 @@ oSuma n lista = if lista == []
                 in if odd x  -- odd oznacza "nieparzysta"
                      then oSuma (n + x) xd
                      else oSuma n xd
+
+ooSuma list = zSuma list 0
+    where
+        zSuma n [] = n
+        zSuma n (x:xd) = 
+            if odd x
+                then zSuma (n + x) xd
+                else zSuma n xd
