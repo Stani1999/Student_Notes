@@ -1,15 +1,10 @@
-public class Pracownik_Info {
+public class Abstrakcja {
     public static void main(String[] args) {
-        Pracownik[] wol = new Pracownik[3];
-        wol[0] = new Pracownik("Bogdan Boner", 1000.0, 10, 20, 2025);
-        wol[1] = new Pracownik("", 999.0, 10, 20, 2025);
-        wol[2] = new Pracownik("Prezydent", 15000.0, 10, 20, 2025);
-        for (Pracownik p : wol) {
-            System.out.println(
-                    "\nNazwa: " + p.getNazwa() +
-                    " \nPensja: " + p.getPensja() +
-                    " \nSM: " + p.getSN() +
-                    " \nZatrudniony: " + p.getDZad());
-        }
+        Intruz[] i = new Intruz[2];
+        i[0] = new Pracownik("JK", 2000, 1, 1, 2001);
+        i[1] = new Student("Maciej", "Promptolodzia");
+            for (Intruz t: i){
+                System.out.println(t.getNazwa() + " " + t.getOpis());
+            }
     }
 }

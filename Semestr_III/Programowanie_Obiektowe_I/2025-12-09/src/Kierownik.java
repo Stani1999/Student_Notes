@@ -12,4 +12,3 @@ public class Kierownik extends Pracownik{
         dodatek = d;
     }
 }
-

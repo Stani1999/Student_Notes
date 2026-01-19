@@ -1,8 +1,6 @@
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
+import java.util.*;
 
-public class Pracownik {
+public class Pracownik extends Intruz {
     // --Pola--
     //Pole statyczne
     public static int ni;
@@ -14,8 +12,7 @@ public class Pracownik {
     }
     // Pola instancji
     private int sn;
-    private String nazwa = "";
-    private double pensja;
+    private double wyplata;
     private Date DZad;
 
     // Inicjalizacja instancji
@@ -26,28 +23,28 @@ public class Pracownik {
     // --Konstruktoru--
 
     // Główny
-    public Pracownik(String n, double p, int d, int m, int r){
-        this.nazwa = n;
-        this.pensja = p;
+    public Pracownik(String n,double w, int d, int m, int r){
+        super (n);
+        this.wyplata = w;
         // Miesiące w GregorianCalendar są liczone od 0
         GregorianCalendar k = new GregorianCalendar(r, m - 1, d);
         DZad = k.getTime();
     }
 
     // --Metody--
-    public String getNazwa(){
-        return nazwa;
-    }
     public int getSN(){
         return sn;
     }
-    public double getPensja() {
-        return pensja;
+    public double getWyplata() {
+        return wyplata;
     }
     public Date getDZad(){
         return DZad;
     }
     public void premia(double p){
-        pensja += pensja * p/100;
+        wyplata += wyplata * p/100;
+    }
+    public String getOpis(){
+        return String.format("w: %.2f zł", wyplata);
     }
 }
