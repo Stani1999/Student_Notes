@@ -1,7 +1,8 @@
-
 # Relacyjne Bazy Danych - Notatki z Ćwiczeń (PostgreSQL)
 
-## 06.10.2025 — Instalacja PSQL (Linux)
+\* - oznacza dodane do notatek po zajęciach
+
+## 2025.10.06 — Instalacja PSQL (Linux)
 
 ### Instalacja i konfiguracja
 
@@ -11,9 +12,9 @@
 sudo apt update && sudo apt upgrade -y
 ```
 
-#### 2. Instalacja PostgreSQL
+#### 2. Instalacja PostgreSQL dla systemów opartych na Debianie/Ubuntu
 
-* Polecenie instalacyjne (przykład dla wersji 18):
+- Polecenie instalacyjne (przykład dla wersji 18):
 
 ```bash
 sudo apt install postgresql-18
@@ -21,11 +22,15 @@ sudo apt install postgresql-18
 
 #### 3. Sprawdzenie statusu usługi
 
+- Usługa powinna być aktywna (active):
+
 ```bash
 sudo systemctl status postgresql
 ```
 
 #### 4. Aktywacja nieaktywnej usługi
+ 
+- Jeżeli usługa jest nieaktywna, uruchom ją poleceniem:
 
 ```bash
 sudo systemctl start postgresql
@@ -33,136 +38,258 @@ sudo systemctl start postgresql
 
 #### 5. Uruchomienie interaktywnej konsoli PSQL jako użytkownik `postgres`
 
+- Domyślny superadmin PostgreSQL to użytkownik `postgres`, więc aby zalogować się do konsoli PSQL, użyj polecenia:
+
 ```bash
 sudo -u postgres psql
 ```
 
+#### \*6. Aby sprawdzić kto jest aktualnie podpięty do bazy
+```sql
+SELECT * FROM pg_stat_activity;
+```
+
+#### \*7. Sprawdzenie wersji PostgreSQL
+
+```sql
+SELECT version();
+```
+
+#### \*8. Wyjście z konsoli PSQL
+
+- Aby wyjść z konsoli PSQL, wpisz:
+
+```sql
+\q
+```
+
 ---
 
-## 13.10.2025 — Użytkownicy i konfiguracja dostępu
+## 2025.10.12 — Użytkownicy i konfiguracja dostępu
 
-### Przełączanie użytkowników
+### 1. Przełączanie użytkowników
 
-**Przełączenie na użytkownika `postgres` (superadmin):**
+**1.1 Przełączenie na użytkownika `postgres` (superadmin):**
+
+- Uruchamia interaktywną powłokę jako użytkownik systemowy `postgres`, który posiada pełne uprawnienia administracyjne do serwera PostgreSQL.
+
+- Wymaga podania hasła użytkownika wywołującego polecenie sudo (z Linux), a nie hasła użytkownika postgres
 
 ```bash
 sudo -i -u postgres
 ```
 
-**Logowanie do konsoli PSQL jako superadmin:**
+- Aby wrócić do poprzedniego użytkownika (z Linux), użyj polecenia:
+
+```bash
+exit
+```
+
+**1.2 Logowanie do konsoli PSQL jako superadmin:**
+
+- Po przełączeniu na użytkownika `postgres`, uruchom konsolę PSQL poleceniem:
 
 ```bash
 psql
 ```
 
-### Konfiguracja dostępu (pg_hba.conf)
+- Alternatywnie, można bezpośrednio uruchomić PSQL jako użytkownik `postgres` bez przełączania się na niego:
 
-**Sprawdzenie lokalizacji pliku konfiguracyjnego w psql:**
+```bash
+sudo -u postgres psql
+```
+
+### 2. Konfiguracja dostępu (pg_hba.conf)
+
+- Definiuje adresy IP i metody autoryzacji dla połączeń z bazą danych PostgreSQL
+
+#### 2.1 Sprawdzenie lokalizacji pliku konfiguracyjnego w psql:
 
 ```sql
 SHOW hba_file;
 ```
 
-**Otwieranie konfiguracji pg_hba (przykład dla wersji 16):**
+- W ww. plikie `pg_hba.conf` definiowane są zasady uwierzytelniania i kontroli dostępu do bazy danych PostgreSQL.
+
+#### 2.2 Otwieranie konfiguracji pg_hba (przykład dla wersji 16):
 
 ```bash
 sudo nano /etc/postgresql/16/main/pg_hba.conf
 ```
 
-**Przeładowanie konfiguracji:**
+#### 2.3 Przeładowanie konfiguracji:
+
+- Stosowane w przypadku zmian w pliku `pg_hba.conf` bez konieczności restartu całej usługi:
 
 ```bash
 sudo systemctl reload postgresql
 ```
 
-#### Ważne informacje
+#### 2.4 Przeładowanie konfiguracji:
 
-* Zdalne logowanie jest domyślnie zablokowane.
-* Katalog `conf.d` nadpisuje wcześniejsze ustawienia.
-* Opcja `hostssl` umożliwia logowanie przez SSL.
-* Zalecana alokacja RAM: **25%**, nie więcej niż **40%**.
-* WAL (Write-Ahead Logging) zapisuje każdą zmianę w logach.
+* Zdalne logowanie jest domyślnie zablokowane
+* Katalog `conf.d` nadpisuje wcześniejsze ustawienia
+* Opcja `hostssl` umożliwia logowanie przez SSL
+* Zalecana alokacja RAM: **25%**, nie więcej niż **40%**
+* WAL (Write-Ahead Logging) zapisuje każdą zmianę w logach
+
+### \*3. Zarządzanie użytkownikami w PostgreSQL
+
+Komenda DDL (Data Manipulation Language)                            | Opis działania
+--------------------------------------------------------------------|----------------------------------------------
+`CREATE USER nazwa_uzytkownika WITH PASSWORD 'haslo';`              | Tworzy nowego użytkownika z określonym hasłem
+`ALTER USER nazwa_uzytkownika WITH PASSWORD 'nowe_haslo';`          | Zmienia hasło istniejącego użytkownika
+`ALTER USER nazwa_uzytkownika WITH NOLOGIN;`                        | Blokuje możliwość logowania się użytkownika
+`DROP USER nazwa_uzytkownika;`                                      | Usuwa użytkownika z bazy danych
+
+Komenda DCL (Data Control Language) — Kontrola dostępu              | Opis działania
+--------------------------------------------------------------------|----------------------------------------------
+`GRANT ALL PRIVILEGES ON DATABASE nazwa_bazy TO nazwa_uzytkownika;` | Przyznaje wszystkie uprawnienia do danej bazy
+`REVOKE ALL ON DATABASE nazwa_bazy FROM nazwa_uzytkownika;`         | Odbiera uprawnienia użytkownikowi do bazy
+
+### \*4. Zarządzanie bazami danych
+
+#### \*4.1 Podstawowe polecenia do zarządzania bazami danych
+
+Komenda DDL (Data Manipulation Language)                | Opis działania
+--------------------------------------------------------|--------------------------------------------------
+`CREATE TABLE nazwa (kolumna typ |  ...);`              | Tworzy nową tabelę z określonymi kolumnami
+`ALTER TABLE nazwa RENAME TO nowa_nazwa;`               | Zmienia nazwę istniejącej tabeli
+`ALTER TABLE nazwa ADD COLUMN kolumna typ;`             | Dodaje nową kolumnę do istniejącej tabeli
+`ALTER TABLE nazwa DROP COLUMN kolumna;`                | Usuwa kolumnę z tabeli
+`ALTER TABLE nazwa ALTER COLUMN kolumna TYPE nowy_typ;` | Zmienia typ danych istniejącej kolumny
+`DROP TABLE nazwa;`                                     | Całkowicie usuwa tabelę i wszystkie jej dane z bazy
+`TRUNCATE TABLE nazwa;`                                 | Usuwa wszystkie rekordy z tabeli |  ale zostawia jej strukturę
+
+#### \*4.2 Sprawdzenie rozmiaru bazy danych
+
+```sql
+SELECT pg_size_pretty(pg_database_size('nazwa_bazy_danych'));
+```
+
+#### \*4.3 Optymalizacja bazy danych
+
+```sql
+VACUUM;  -- Czyści „martwe” dane po DELETE/UPDATE, odzyskuje miejsce
+ANALYZE; -- Aktualizuje statystyki dla optymalizatora zapytań
+```
+
+#### \*4.4 Tworzenie kopii zapasowej bazy danych
+
+```bash
+pg_dump -U nazwa_uzytkownika -F c -b -v -f "nazwa_bazy.backup" nazwa_bazy
+```
 
 ---
 
-## 20.10.2025 — Bezpieczeństwo i dobre praktyki
+## 2025.10.20 — Bezpieczeństwo i dobre praktyki
 
 ### Aspekty bezpieczeństwa
 
-* Ograniczaj dostęp tylko do konkretnych adresów IP.
-* Zmieniaj domyślne porty i adresy.
-* **Bastion Host** — maszyna pośrednia o stałym IP do łączenia się z bazą.
-* Przechowuj konfiguracje w repozytorium Git.
+* IP Whitelisting: Ograniczaj dostęp tylko do konkretnych adresów IP w pliku `pg_hba.conf`
+* Zmieniaj domyślne porty (domyślnie `5432`) i adresy nasłuchiwania
+* **Bastion Host**: Wykorzystuj maszynę pośrednią o stałym IP (skoczka) do łączenia się z bazą wewnątrz sieci prywatne
+* Przechowuj konfiguracje (pliki .conf) w repozytorium Git, aby śledzić zmiany
 
 ---
 
-## 27.10.2025 — Narzędzie `psql` i ustawienia połączenia
+## 2025.10.27 — Narzędzie `psql` i ustawienia połączenia
 
-### Narzędzie `psql` (CLI)
+### 1. Narzędzie `psql` (CLI)
 
-**Zalety:**
+- Jest to narzędzie, dzięki któremu komunikujemy się z bazą danych.
+Pozwala na:  
 
 * szybkie przeglądanie tabel,
 * historia poleceń,
 * możliwość wykonywania skryptów.
 
-### Polecenia pomocnicze (psql)
+### 2. Polecenia pomocnicze (psql)
 
-| Komenda | Opis                   |
-| ------- | ---------------------- |
-| `\list` | Lista baz danych       |
-| `\c`    | Połączenie z inną bazą |
-| `\dn`   | Lista schematów        |
-| `\df`   | Lista funkcji          |
-| `\dn+`  | Szczegóły schematów    |
-| `\?`    | Pomoc dla komend psql  |
-| `\h`    | Pomoc dla poleceń SQL  |
+Komenda|Pełny zamiennik lub rozwinięcie znaczenia|Opis działania
+-----|---------------------------------------|-----------------
+`\l`   | `\list`                             | Lista baz danych
+`\c`   | `\connect`                          | Połączenie z inną bazą danych
+`\h`   | `\help`                             | Pomoc dla poleceń SQL
+`\dn`  | `Display Namespaces`                | Lista schematów
+`\df`  | `Data Function / Display Functions` | Lista funkcji 
+`\dn+` | `Display Namespaces Plus`           | Szczegóły schematów (ACL - Access Control List (uprawnienia), właściciel)
+`\?`   | `Internal Help`                     | Pomoc dla komend psql
+`\d`   | `Describe`                          | Struktura tabeli/widoku
+`\d nazwa_tabeli` | `Describe nazwa_tabeli`  | Struktura konkretnej tabeli/widoku
+`\dx`  | `Display Extensions`                | Lista rozszerzeń
+`\dt`  | `Display Tables`                    | Pokazuje tylko listę tabel
+`\dv`  | `Display Views`                     | *Pokazuje tylko listę widoków
+`\di`  | `Display Indexes`                   | *Pokazuje tylko listę indeksów
+`\dp`  | `Display Privileges`                | *Pokazuje uprawnienia do tabel/widoków
+`\dt+` | `Display Tables Plus`               | *Szczegóły tabel (rozmiar,  właściciel,  ACL)
+`\i`   | `Include`                           | *Wykonuje skrypt SQL z pliku zewnętrznego
+`\q`   | `Quit`                              | *Wyjście z psql
+ 
+- Brak `\` oznacza że nie jest to polecenie lecz nazwa, z której wywodzi się polecenie
 
-### Łączenie z bazą i plik `.pgpass`
+- Niektóre z wymienionych poleceń `psql` (np. `\h`) posiadają system nawigacji, działający podobnie jak w linuksowym `less`:
 
-**Łączenie z lokalnym serwerem:**
+  * `Space` — przewija o jedną stronę w dół,
+  * `b` — przewija o jedną stronę w górę,
+  * `Enter` — przewija o jedną linię w dół.
+  * Aby wyjść z `psql` wystarczy nacisnąć klawisz `q`
+
+ - Można doinstalować rozszerzenia bazodanowe, pozwalające utworzyć np. bazy geodezyjne czy wektorowe itp. (widodne w `\dx`)
+
+### 3. Łączenie z bazą i plik `.pgpass`
+
+**3.1 Łączenie z lokalnym serwerem:**
 
 ```bash
 psql -h 127.0.0.1 -p 5432
 ```
 
-**Zmienne środowiskowe:**
+- 127.0.0.1 to twój lokalny adres IP (loopback)
+- `5432` to domyślny port PostgreSQL, jeżeli został zmieniony, podaj odpowiedni numer portu
 
-```bash
-export PGUSER=postgres
-export PGDATABASE=postgres
-```
+**3.2 Zmienne środowiskowe:**
 
-**Plik `.pgpass`**
+- Ustawienie zmiennych środowiskowych pozwala na pominięcie podawania ich w poleceniu `psql`.
 
-* przechowuje dane logowania,
-* musi mieć uprawnienia:
+    * Dla nazwy użytkownika:
+        ```bash
+        export PGUSER=postgres 
+        ```
+    * Dla nazwy bazy danych:
+        ```bash
+        export PGDATABASE=postgres
+        ```
 
-```bash
-chmod 600 ~/.pgpass
-```
+**Plik `.pgpass`** z którego `psql` automatycznie pobiera:
 
-**Składnia pliku `.pgpass`:**
+* dane logowania według składni:
+    ```bash
+    hostname:port:database:username:password
+    ```
+* musi mieć uprawnienian tylko dla użytkownika:
 
-```sh
-hostname:port:database:username:password
-```
+    ```bash
+    chmod 600 ~/.pgpass
+    ```
+* Istanieją gotowe szablony do generowania pliku `.pgpass`, zawierające konkretne uprawnienia
 
-### Zmiana portu
+### 4. Zmiana portu (postgresql.conf)
 
-**Sprawdzenie lokalizacji configu:**
+**4.1 Sprawdzenie lokalizacji configu:**
 
 ```sql
 SHOW config_file;
 ```
 
-**Otwieranie konfiguracji config_file (przykład dla wersji 16):**
+**4.2 Otwieranie konfiguracji config_file (gdzie xx to wersja PostgreSQL):**
 
 ```bash
-sudo nano /etc/postgresql/16/main/postgresql.conf
+sudo nano /etc/postgresql/xx/main/postgresql.conf
 ```
 
-Zmień parametr `port` i zrestartuj usługę PostgreSQL.
+Zmień parametr `port` i zrestartuj usługę PostgreSQL
+Poza tym można zmienić adresy IP, na których nasłuchuje PostgreSQL (parametr `listen_addresses`)
 
 ```sh
 sudo systemctl restart postgresql
@@ -170,19 +297,91 @@ sudo systemctl restart postgresql
 
 ---
 
-## 03.11.2025 — Typy danych i tabele
+## 2025.11.03 — Typy danych i tabele
 
-### Tworzenie tabel
+### 1. Typy danych w PostgreSQL
 
-* Sprawdzać dokumentację typów danych.
+#### 1.1 Typy numeryczne (Numeric Types) 
+
+Typ danych         | Alias         | Rozmiar  | Opis
+-------------------|---------------|----------|--------------------------------------------
+`smallint`         | `int2`        | 2 bajty  | Liczby całkowite (-32768 do +32767)
+`integer`          | `int`, `int4` | 4 bajty  | Standardowy wybór dla liczb całkowitych
+`bigint`           | `int8`        | 8 bajtów | Duże liczby całkowite
+`decimal`          | `numeric`     | zmienny  | Dokładne liczby (np. do finansów)
+`real`             | `float4`      | 4 bajty  | Liczba zmiennoprzecinkowa (niska precyzja)
+`double precision` | `float8`      | 8 bajtów | Liczba zmiennoprzecinkowa (wysoka precyzja)
+`smallserial`      | `serial2`     | 2 bajty  | Autonumeracja 1-32767
+`serial`           | `serial4`     | 4 bajty  | Autonumeracja 1-2 mld
+`bigserial`        | `serial8`     | 8 bajtów | Autonumeracja dla ogromnych tabel
+`money`            | –             | 8 bajtów | Kwoty walutowe
+
+#### 1.2 Typy znakowe (Character Types)
+
+Typ danych             | Alias      | Długość   | Opis                                                                             
+-----------------------|------------|-----------|--------------------------------------------
+`character(n)`         | `char(n)`    | stała     | Zawsze zajmuje n znaków (dopełnia spacjami)
+`character varying(n)` | `varchar(n)` | zmienna   | Tekst o ograniczonej długości do n
+`text`                 | –          | zmienna   | Nieograniczony tekst
+
+#### 1.3 Typy Data/Czas (Date/Time Types)
+
+Typ danych  | Rozmiar   | Opis                                                                             
+------------|-----------|-----------------------------------------------------
+`date`        | 4 bajty   | "Tylko data (rok |  miesiąc |  dzień)."
+`time`        | 8 bajtów  | Godzina bez daty.
+`timestamptz` | 8 bajtów  | Data i godzina z uwzględnieniem strefy czasowej
+`timestamp`   | 8 bajtów  | Data i godzina bez strefy czasowej
+`interval`    | 16 bajtów | Przedział czasowy (np. 1 day 2 hours)
+
+Jednostki i przedziały dla typu `interval`:
+- `YEAR`
+- `MONTH`
+- `DAY`
+- `HOUR`
+- `MINUTE`
+- `SECOND`
+- `YEAR TO MONTH`
+- `DAY TO HOUR`
+- `DAY TO MINUTE`
+- `DAY TO SECOND`
+- `HOUR TO MINUTE`
+- `HOUR TO SECOND`
+- `MINUTE TO SECOND`
+
+#### 1.4 Typy geometryczne (Geometric Types)
+
+Nazwa   | Opis               | Format (przykład)   | Rozmiar
+--------|--------------------|---------------------|-----------
+point   | Punkt              | "(x, y)"            | 16 bajtów
+line    | Linia nieskończona | "{A, B, C}"         | 32 bajty
+lseg    | Odcinek            | "((x1,y1),(x2,y2))" | 32 bajty
+box     | Prostokąt          | "((x1,y1),(x2,y2))" | 32 bajty
+polygon | Wielokąt           | "((x1,y1), ...)"    | zmienny
+circle  | Koło               | "<(x,y), r>"        | 24 bajty
+
+#### 1.5 Typy sieciowe (Network Types)
+
+Nazwa    | Opis                      | Przykład
+---------|---------------------------|---------------------
+inet     | Adres hosta IPv4/IPv6     | 192.168.1.1
+cidr     | Adres sieci IPv4/IPv6     | 192.168.1.0/24
+macaddr  | Adres MAC                 | 08:00:2b:01:02:03
+macaddr8 | Adres MAC (format EUI-64) | 08-00-2b-ff-fe-01-02-03
+
+#### 1.6 Inne typy dabnnych
+
+Nazwa    | Opis                             | Uwagi
+---------|----------------------------------|------------------------------
+boolean  | Prawda / Fałsz (true/false)      | Zajmuje 1 bajt
+uuid     | Unikalny identyfikator (128-bit) | Lepszy niż tekstowy odpowiednik
+json     | Tekstowy format JSON             | Sprawdza tylko poprawność składni
+jsonb    | Binarny format JSON              | Indeksowalny i nowszy i szybszy w obróbce od `json`
+bytea    | Dane binarne (obrazy,  pliki)    | Przechowywane "as is"
+pg_lsn   | Log Sequence Number              | Fizyczny adres w logach WAL
+tsvector | Dokument do wyszukiwania         | Używany przy Full Text Search
+
 * **Unikać używania `TEXT`**, gdyż może spowalniać bazę.
-
-### Typy danych — wymiarowanie
-
-**`char` vs `varchar`:**
-
-* `char(n)` — stała liczba znaków, niewykorzystane miejsca wypełniane spacjami.
-* `varchar(n)` — zmienna długość, efektywniejszy.
 
 **`uuid`:**
 
@@ -192,61 +391,21 @@ sudo systemctl restart postgresql
 
 ---
 
-## Typy niestandardowe (Domain i Composite)
+#### 1.7 Typy niestandardowe (Domain i Composite)
 
-### 1. DOMAIN — rozszerzenia typów
-
-**Przykład: wymuszenie wartości nieujemnej**
-
-```sql
-CREATE DOMAIN positive_integer AS INTEGER
-    DEFAULT 0
-    NOT NULL
-    CHECK (VALUE >= 0);
-```
-
-**Przykład: walidacja kodu pocztowego**
-
-```sql
-CREATE DOMAIN us_postal_code AS TEXT
-    CHECK (VALUE ~ '^\d{5}$' OR VALUE ~ '^\d{2}-\d{3}$');
-```
+Cecha                    | DOMAIN (Domena)                                                                  | COMPOSITE TYPE (Typ złożony)
+-------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------
+**Definicja**            | Rozszerzenie istniejącego już typu (np. INTEGER, TEXT) o dodatkowe ograniczenia  | Tworzenie zupełnie nowej struktury składającej się z wielu różnych pól (jak obiekt)
+**Główny Cel**           | Walidacja danych (wymuszanie formatu, zakresu lub braku NULL)                   | Grupowanie danych (logiczne połączenie powiązanych informacji w jedną kolumnę)
+**Przykładowa Składnia** | `CREATE DOMAIN nazwa AS typ_bazowy CHECK (warunek);` przykład warunku (val >= 0) | `CREATE TYPE nazwa AS (pole1 typ1,  pole2 typ2)`
+**Przykład użycia**      | Weryfikacja kodu pocztowego, upewnienie się, że cena > 0                         | Przechowywanie adresu (ulica, miasto, kod) jako jednego elementu
+**Wstawianie danych**    | Jak zwykły typ: `INSERT INTO ... VALUES ('00-001');`                             | Wymaga konstruktora ROW: `VALUES (ROW('Główna',  'W-wa',  '00-001'));`
 
 ---
 
-### 2. Typy złożone (Composite Types)
+## 2025.11.13:
 
-**Tworzenie typu złożonego:**
-
-```sql
-CREATE TYPE address AS (
-    street TEXT,
-    city TEXT,
-    postal_code VARCHAR(6)
-);
-```
-
-**Użycie w tabeli:**
-
-```sql
-CREATE TABLE cluster (
-    id SERIAL PRIMARY KEY,
-    user_address address
-);
-```
-
-**Wstawianie danych:**
-
-```sql
-INSERT INTO cluster (user_address)
-VALUES (ROW('ul. Główna 1', 'Warszawa', '00-001'));
-```
-
----
-
-## 13.11.2025:
-
-### Struktura początkowa i Domeny
+### 1. Struktura początkowa i Domeny
 
 Utworzenie podstawowych tabel (`users`, `forms`) oraz domeny (`form_title`) z kluczami głównymi i obcymi.
 
@@ -283,9 +442,9 @@ CREATE TABLE IF NOT EXISTS forms (
 
 ### Zadanie 1: Tabela Pytania (`questions`)
 
-Utworzenie tabeli `questions` przechowującej pytania do formularzy.
+#### Z 1.1 Utworzenie tabeli `questions` przechowującej pytania do formularzy.
 
-**Wskazówka:** Staramy się tworzyć nazwy kluczy, aby identyfikowały się z nazwą tabeli (np. `fk_form`).
+ - **Wskazówka:** Staramy się tworzyć nazwy kluczy, aby identyfikowały się z nazwą tabeli (np. `fk_form`).
 
 ```sql
 -- Tabela questions:
@@ -295,16 +454,20 @@ CREATE TABLE IF NOT EXISTS questions (
     question_text TEXT NOT NULL,
     question_type VARCHAR(50) NOT NULL, /* np text, rating, wybór itp. */
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_form
+    CONSTRAINT fk_form -- CONSTRAINT stosuje się, kiedy chcemy nadać nazwę ograniczeniu (np. kluczowi obcemu)
         FOREIGN KEY(form_id)
             REFERENCES forms(form_id)
     ON DELETE CASCADE
+
+    -- CASCADE Automatycznie usuwa powiązane rekordy w tabeli potomnej,
+    -- gdy usunięty zostanie rekord w tabeli nadrzędnej
+    
 );
 ```
 
 ---
 
-### Wprowadzanie Danych
+#### 1.2 Wprowadzanie Danych
 
 Przykładowe dane do tabel `users`, `forms` i `questions`.
 
@@ -335,16 +498,16 @@ INSERT INTO questions (form_id, question_text, question_type) VALUES
 
 ### Zadanie 2: Modyfikacja Tabeli `forms`
 
-#### A. Dodanie kolumny `status`
+#### 2.1 Dodanie kolumny `status`
 
-Dodanie kolumny `status` do tabeli `forms` z domyślną wartością `'draft'`.
+#### 2.1.1 Dodanie kolumny `status` do tabeli `forms` z domyślną wartością `'draft'`.
 
 ```sql
--- A do tabeli forms dodajemy kolumnę status domyślnie jako 'draft'
+-- Do tabeli forms dodajemy kolumnę status domyślnie jako 'draft'
 ALTER TABLE forms ADD COLUMN status VARCHAR (20) DEFAULT 'draft';
 ```
 
-#### Dodanie nowego formularza (z domyślnym statusem)
+#### 2.1.2 Dodanie nowego formularza (z domyślnym statusem)
 
 ```sql
 -- Dodajemy nowy formularz bez podawania statusu
@@ -352,7 +515,7 @@ INSERT INTO forms (title, owner_id) VALUES
 ('Quiz', 1);
 ```
 
-#### Dodanie i aktualizacja `response_count`
+#### 2.1.3 Dodanie i aktualizacja `response_count`
 
 Dodanie kolumny `response_count` i zaktualizowanie jej wartości w istniejących formularzach.
 
@@ -372,9 +535,9 @@ UPDATE forms SET response_count = 50 WHERE form_id = 3;
 
 ---
 
-### Funkcje Agregujące i Grupowanie
+### 3. Funkcje Agregujące i Grupowanie
 
-#### Obliczenia globalne (SUM, AVG, MAX, MIN)
+#### 3.1 Obliczenia globalne (SUM, AVG, MAX, MIN)
 
 ```sql
 -- Suma wartości wszystkich odpowiedzi
@@ -389,7 +552,7 @@ SELECT AVG(response_count) AS average_responses,
 FROM forms;
 ```
 
-#### Grupowanie (`GROUP BY`)
+#### 3.2 Grupowanie (`GROUP BY`)
 
 Policzenie, ilu formularzy jest właścicielem każdy z użytkowników.
 
@@ -401,9 +564,9 @@ GROUP BY owner_id
 ORDER BY number_of_forms DESC;
 ```
 
-## 17.11.2025
+## 2025-11-17
 
-### Kontynuacja zadań SQL
+### 1. Kontynuacja zadań SQL
 
 ```sql
 -- Wyświetlenie wszystkich formularzy i liczby formularzy na użytkownika
@@ -454,7 +617,7 @@ FROM forms WHERE owner_id = 2
 AND (status='published' OR response_count >= 50);
 ```
 
-Aby zabezpieczyć się przed SQL injection należy przekształcać znać znak `.
+Aby zabezpieczyć się przed SQL injection należy przekształcać dodać znak `'`.
 
 ```sql
 -- Zabezpieczenie przed SQL injection
@@ -475,25 +638,25 @@ INSERT INTO users (email, password_hash) VALUES
 ('adam10@example.com', 'hash456');
 ```
 
-### Wyrażenia Regularne (Regex) w PostgreSQL
+### 2. Wyrażenia Regularne (Regex) w PostgreSQL
 
-#### 1. W regex . oznacza dowolny znak w ilości jeden, * oznacza zero lub więcej wystąpień poprzedzającego znaku.
+#### 2.1. W regex . oznacza dowolny znak w ilości jeden, * oznacza zero lub więcej wystąpień poprzedzającego znaku.
 
-#### 2. Aby je wyłączyć w regex używamy `\` przed znakiem.
+#### 2.2. Aby je wyłączyć w regex używamy `\` przed znakiem.
 
 ```sql
 SELECT email FROM users WHERE email ~ 'adam\.';
 -- \. oznacza dosłowną kropkę
 ```
 
-#### 3. Nie uwzględnianie wielkości liter w regex
+#### 2.3. Nie uwzględnianie wielkości liter w regex
 
 ```sql
 SELECT email FROM users WHERE email ~* 'ADAM\.';
 -- ~* oznacza ignorowanie wielkości liter
 ```
 
-#### 4. Przykład walidacji e-mail za pomocą regex
+#### 2.4. Przykład walidacji e-mail za pomocą regex
 
 ```sql
 --- Weryfikacja e-mail z pomocą regex
@@ -505,7 +668,7 @@ SELECT email FROM users WHERE email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-
 -- trzeba zaremować kropkę w domenie \. by była interpretowana dosłownie jako kropka 
 ```
 
-### Tematy związane z JOIN'ami
+### 3. Tematy związane z JOIN'ami
 
 Warzne jest to że za pomocą JOIN'ów jesteśmy w stanie połączyć ze sobą dane z różnych tabel na podstawie relacji między nimi.
 
@@ -538,9 +701,9 @@ FULL OUTER JOIN forms AS f
 ON u.user_id = f.owner_id;
 ```
 
-### Polecenia UPDATE
+### 4. Polecenia UPDATE
 
-#### 1. Dodajemy kolumnę owner_email do tabeli forms, UPDATE wstawia do niej odpowiednie wartości z tabeli users.
+#### 4.1. Dodajemy kolumnę owner_email do tabeli forms, UPDATE wstawia do niej odpowiednie wartości z tabeli users.
 
 A. Dodanie kolumny `owner_email` do tabeli `forms`.
 
@@ -590,8 +753,6 @@ RETURNING user_id, created_at;
 ```
 
 ## 2025-11-24
-
-Lista wykonanych poleceń SQL:
 
 ```sql
 -- Wyświetlenie wszystkich użytkowników
@@ -729,7 +890,22 @@ COMMIT;
 
 ```
 
-2025-12-01
+### \*Przypomienie transakcji i savepointów
+
+Komenda TCL (Transaction Control Language) — Transakcje | Opis działania
+--------------------------------------------------------|------------------------------------------
+`BEGIN;`                                                  | Rozpoczyna transakcję
+`COMMIT;`                                                 | Zapisuje wszystkie zmiany na stałe
+`ROLLBACK;`                                               | Wycofuje wszystkie zmiany (jeśli coś poszło nie tak)
+`SAVEPOINT nazwa;`                                        | Tworzy punkt kontrolny wewnątrz transakcji
+`ROLLBACK TO SAVEPOINT nazwa;`                            | Cofnięcie do określonego punktu kontrolnego
+
+Błąd z transakcjami      | Opis błędu
+-------------------------|------------------------------------------------
+`deadlock`               | Gdy dwie transakcje wzajemnie na siebie czekają
+`serialization_failure`  | Gdy transakcje próbują zmienić te same dane jednocześnie
+
+## 2025-12-01
 
 ```sql
 -- Oknna
@@ -799,7 +975,7 @@ FROM forms f, ile i
 WHERE f.owner_id = i.owner_id;
 ```
 
-1. Podzapytania CTE
+1. Podzapytania CTE -- Common Table Expressions (WITH)
 
 - Dobrze znać użycie operatorów logicznych AND, OR, NOT oraz IN, EXISTS.
 - Oraz Joinów (INNER, LEFT, RIGHT, FULL, CROSS).
@@ -872,7 +1048,8 @@ SELECT * FROM employee_hierarchy;
 Funkcje rozpoczna i kończy się znakiem $$
 Za nim wpisujemy jaki język np dla psql jetst to plpgsql
 Funkcje może przyjmować różne języki np sql, plpgsql, plpythonu itp.
-OR REPLACE pozwala nadpisać istniejącą funkcję - i nie trzeba jej usuwać przed ponownym tworzeniem.
+OR REPLACE pozwala nadpisać istniejącą funkcję - i nie trzeba jej usuwać przed ponownym tworzeniem
+\*STRICT nie zważając na NULL - jeżeli któryś z parametrów jest NULL to funkcja nie zostanie wywołana i zwróci NULL
 
 ```sql
 
@@ -966,7 +1143,7 @@ SELECT age()
 -- wyciąganie danych z daty
 SELECT date_part('month', now()); -- wyciąganie miesiąca z bieżącej daty
 --  date_trunc - zaokrąglanie daty do określonej jednostki
-SELECT date_trunc('month', now()); -- zaokrąglenie do początku miesią
+SELECT date_trunc('month', now()); -- zaokrąglenie do początku miesiącd
 -- make_date - tworzenie daty z podanych wartości
 SELECT make_date(2025, 12, 31); -- tworzy datę '2025-12-31'::date
 
@@ -1111,7 +1288,7 @@ BEGIN
         FROM forms
         WHERE owner_id = user_id_in
     LOOP-- pętla po wierszach
-        output := output || r.title || ';'; -- dodanie tytułu do wyniku z nowym średnikiem
+        output := output || r.title || ';'; -- || służy do konkatenacji (łączenia) stringów
     END LOOP;
     RETURN output;
 END;
@@ -1133,7 +1310,7 @@ DECLARE
     order_code TEXT;
 BEGIN
     -- Aktualny rok
-    current_year := EXTRACT(YEAR FROM CURRENT_DATE);
+    current_year := EXTRACT(YEAR FROM CURRENT_DATE); -- EXTRACT służy do wyciągania części daty
     -- LOSOWE_3_CYFRY
     random_number := FLOOR(RANDOM() * 900) + 100; -- losowa liczba od 100 do 999
     -- Formatowanie ORD-[ROK]-[ID_USERA]-[LOSOWE_3_CYFRY]
@@ -1201,6 +1378,7 @@ BEGIN
     IF EXISTS (
         SELECT 1 FROM users WHERE email = user_email
     ) THEN
+        -- RAISE EXCEPTION służy do zgłaszania błędów w procedurze bez przerwania działania 
         RAISE EXCEPTION 'Użytkownik %, już istnieje w tabeli users', user_email;
     END IF;
 
@@ -1472,7 +1650,7 @@ CREATE TRIGGER trg_log_title_change
 AFTER UPDATE ON forms
 FOR EACH ROW
 -- Kluczowe: Użyj klauzuli WHEN, aby trigger nie uruchamiał się, gdy zmieniono tylko pole is_published, a tytuł został ten sam.
-WHEN (OLD.title IS DISTINCT FROM NEW.title)
+WHEN (OLD.title IS DISTINCT FROM NEW.title)  -- IS DISTINCT FROM sprawdza czy wartości są różne, uwzględniając NULL
 EXECUTE FUNCTION log_wgen_title_change();
 ```
 
@@ -1495,10 +1673,10 @@ INSERT INTO products (name, specs) VALUES
 ('Smart Watch', '{ "brand": "Apple", "features": {"gps": true, "lte": false} }');
 ``` 
 
-Aby się odwoływać 
--> operator -> zwraca JSON w cudzysłowie
+- Aby się odwoływać 
+    * -> operator -> zwraca JSON w cudzysłowie
 
-->> operator ->> zwraca czysty tekst
+    * ->> operator ->> zwraca czysty tekst
 
 ```sql
 SELECT name, specs->>'ram' AS ram
@@ -1540,4 +1718,3 @@ UPDATE products
 SET specs = specs - '{available}'   
 WHERE name = 'Laptop Pro';
 ```
-
