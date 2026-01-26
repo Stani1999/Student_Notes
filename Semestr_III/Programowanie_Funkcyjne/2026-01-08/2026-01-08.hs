@@ -18,6 +18,19 @@ suma a b = a + b
 
 zw1= suma 1
 
+
+wynik oc pula
+    | wynik < 50 = lipa
+    | wynik < 67 = meme
+    | wynik < 75 = srednio
+    | wynik < 90 = ekstra
+    | otherwise = najlepszy
+  where 
+    wynik = oc/pula*100
+    (lipa, meme, srednio, ekstra, najlepszy) = ("Dwa","Trzy", "Cztery", "Piec", "Szostka")
+    
+
+
 -- komendy do testowania w GHCi:
 -- map zw1 [1,3,5]
 -- (wynik) [2,4,6]

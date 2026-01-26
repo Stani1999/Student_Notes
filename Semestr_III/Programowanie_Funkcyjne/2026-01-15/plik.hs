@@ -16,7 +16,7 @@ oSuma n lista = if lista == []
                      then oSuma (n + x) xd
                      else oSuma n xd
 
-ooSuma list = zSuma list 0
+jSuma list = zSuma list 0
     where
         zSuma n [] = n
         zSuma n (x:xd) = 
