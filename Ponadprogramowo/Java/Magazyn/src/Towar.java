@@ -6,7 +6,7 @@ import java.util.Random;
 // Klasa Towar
 public class Towar {
     //pola
-    private String nazwa;
+    private String nazwa, waluta = "PLN";
     private double cena;
     private Date dataProdukcji;
     private int id;
@@ -35,12 +35,11 @@ public class Towar {
     }
     // Konstruktor II
     public Towar(String n, double c){
-        GregorianCalendar g = new GregorianCalendar();
-        this(n, c, g.get(GregorianCalendar.DAY_OF_MONTH),
-                g.get(GregorianCalendar.MONTH)+1,
-                g.get(GregorianCalendar.YEAR));
+        this(n, c,
+                new GregorianCalendar().get(GregorianCalendar.DAY_OF_MONTH),
+                new GregorianCalendar().get(GregorianCalendar.MONTH) + 1,
+                new GregorianCalendar().get(GregorianCalendar.YEAR));
     }
-
     // Konstruktor III
     public Towar(){
         this("Nieznany", 0.0);
@@ -66,7 +65,7 @@ public class Towar {
         gc.setTime(getDataProdukcji());
         String daneTowaru = ("Dane produktu -------" + getId() +  "-------"
                 + "\nNazwa: " + getNazwa()
-                + "\nCena: " + getCena()
+                + "\nCena: " + getCena() + " " +  waluta
                 + "\nPrzyjęto dnia: " +  gc.toZonedDateTime().format(dtf)
                 );
         return daneTowaru;

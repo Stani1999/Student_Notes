@@ -3,6 +3,8 @@ import java.nio.file.*;
 import java.util.Scanner;
 
 public class Magazyn {
+
+
     public static void main(String[] args){
 
         // Tworzenie instancji kalsy Towar
@@ -12,12 +14,11 @@ public class Magazyn {
         item[2] =  new Towar();
 
         // Łańcuch na raport
-        String raport_dane = "";
-
+        String raportDane = "";
 
         // Wypisz wszystkie elementy (item) z tablicy towar "typu (kalsy) Towar"
         for (Towar t: item){ // Przykład pętli for each
-            raport_dane += t.getDaneTowaru()+"\n"; // sumowanie raportów
+            raportDane += t.getDaneTowaru()+"\n\n"; // sumowanie raportów
         }
 
         // Alternatywna iteracja w zakresie od do
@@ -29,6 +30,7 @@ public class Magazyn {
         }
         Scanner scan = new Scanner(System.in);
 
+        // Wczytywanie pliku
         System.out.print("Podaj nazwę poprzedniego lub pomiń (enter) ");
         String prevRaportName = scan.nextLine();
         if (prevRaportName != "") {
@@ -37,22 +39,25 @@ public class Magazyn {
                 String prevRaport = Files.readString(pervSource);
                 System.out.print(prevRaport);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("Błąd: " + e.getMessage());
             }
         }
+        // Pominięcie Wczytania pliku
         else System.out.println("Pominięto poprzedni raport.");
 
+        // Zapis do pliku
         System.out.print("Podaj nazwę do raportu: ");
         String raportName = scan.nextLine();
         
         Path sourcePath = Paths.get(raportName);
         try {
-            Files.writeString(sourcePath, raport_dane);
+            Files.writeString(sourcePath, raportDane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         Path rPath = sourcePath.toAbsolutePath();
         System.out.println(sourcePath);
+        // Wyświetlenie pełnej ścieszki do pliku
         System.out.println("Plik zostanie zapisany do: " + rPath);
     }
 }
