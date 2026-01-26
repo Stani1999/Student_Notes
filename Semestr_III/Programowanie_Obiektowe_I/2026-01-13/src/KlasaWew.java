@@ -6,7 +6,7 @@ import javax.swing.Timer;
 
 
 public class KlasaWew {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Zegar z = new Zegar(2*1000, true);
         z.start();
         JOptionPane.showMessageDialog(null, "Dziala?");
