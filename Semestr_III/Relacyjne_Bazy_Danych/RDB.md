@@ -45,6 +45,7 @@ sudo -u postgres psql
 ```
 
 #### \*6. Aby sprawdzić kto jest aktualnie podpięty do bazy
+
 ```sql
 SELECT * FROM pg_stat_activity;
 ```
@@ -1718,3 +1719,49 @@ UPDATE products
 SET specs = specs - '{available}'   
 WHERE name = 'Laptop Pro';
 ```
+
+## 2026-01-26 - Indexy i Optymalizacja Zapytan
+
+- Indeksu powodóją szybsze wyszukiwanie danych w tabeli
+- Działają zn zasadzie tworzenia dodatkowego pliku, który posiada metadane o lokalizacji danych w tabeli w przestrzeni dyskowej
+- Indeksy mogą być tworzone na pojedynczych kolumnach lub na wielu kolumnach (indeksy złożone)
+
+```sql
+INSERT INTO users (email, password_hash, manager_id)
+SELECT 'user' || i || '@test.com', -- generuje email
+md5(random()::text), -- generuje hash hasła
+1
+FROM generate_series(1, 1000000) AS i; -- generuje 1 milion użytkowników
+```
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'user500000@test.com';
+```
+
+```sql
+ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key; -- usunięcie unikalnego indeksu jeżeli istnieje
+
+CREATE INDEX idx_users_email_lower ON users(LOWER(email)); -- tworzenie unikalnego indeksu na kolumnie email
+
+-- Użycie lower bardzo przyśpiesza wyszukiwanie caseinsitive 
+```
+
+```sql
+ALTER TABLE forms ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT true;
+UPDATE forms SET is_active = false WHERE form_id % 2 = 0; -- ustawienie co drugiego formularza jako nieaktywny
+```
+
+```sql
+CREATE INDEX idx_forms_active ON forms(owner_id) WHERE is_active = true; -- indeks częściowy na aktywne formularze
+
+-- Stosowane ponieważ źle tworzone indeksy potrafią ważyć więcej niż sama tabela (marnowanie przestrzeni dyskowej)
+```
+
+Jak wykorystać taki index?
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM forms WHERE owner_id = 1 AND is_active = true;
+```
+
