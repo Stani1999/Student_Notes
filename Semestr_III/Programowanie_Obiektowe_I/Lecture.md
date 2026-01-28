@@ -62,7 +62,7 @@ Java enumerated   | Typ wyliczeniowy
 
 Pojęcie       | Opis
 ------------- | ----------------------------------------------------------------------------------
-`null`        | Wartość oznaczająca brak referencji do obiektu (obiekt nie jest z niczym powiązan)
+`null`        | Wartość oznaczająca brak referencji do obiektu (obiekt nie jest z niczym powiązany)
 `NaN`         | "Not a Number" - reprezentuje wartość, która nie jest liczbą
 `infinity`    | Reprezentuje nieskończoność w obliczeniach
 Wrapper Class | Klasy opakowujące typy proste (np. Integer, Double)
