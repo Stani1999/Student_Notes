@@ -16,30 +16,30 @@
 **Przekaźnik**              | Służy do wyłączania i włączanie pojedynczego toru prądowego                | Sterowanie fizyczne (elektromagnetyczne)
 **Stycznik**                | "Rozbudowany przekaźnik" do wielu torów prądowych (większe moce)           | Budowa zbliżona do przekaźnika,<br> ale z większą ilością styków
 **Układy klasyczne**        | Połączenie przekaźników i styczników <br> Dobre dla prostych małych maszyn | *Wady* - duża ilość elementów, <br> skomplikowane okablowanie, <br> trudna diagnostyka
-**Przekaźnik progrmowalny** | Podstawowy poziom cyfryzacji (tzw. sterownik "logo")                       | Logika zaszyta w **prostym programie**,<br> ograniczonym do liczby wejść i wyjść (I/O)
+**Przekaźnik progrmowalny** | Podstawowy poziom cyfryzacji (tzw. sterownik "LOGO!")                       | Logika zaszyta w **prostym programie**,<br> ograniczonym do liczby wejść i wyjść (I/O)
 **Sterownik PLC**           | Zaawansowane urządzenie mikroprocesorowe do dużych systemów                | Logika "przerzucona" do procesora <br> 
 
 ### **I. 3. Model działania i komunikacja rozproszona**
 
-**Zagadnienie** | **Opis**                                                            | **Wyjaśnienie**
---------------- | ------------------------------------------------------------------- | ----------------
-**Cykl pracy**  | Pętla zamknięta, <br> generowanie wyjść na podstawie wejść          | Wykonywany w powtarzalnych odstępach czasu,<br> zmienna długość cyklu <br> uniemożliwia pełną synchroniczność
-**Próbkowanie** | To sposób, w jaki sterownik "widzi" świat (stany) wewnątrz cyklu    | Sporadyczne sprawdzenia stanów wejść i aktualizacji wyjść
-**Brak ciągłości** | Fizyczny skutek próbkowania                                      | Wprowadza opóźnienia odczytu do reakcji
-**Pozorny czas rzeczywisty** | Wynik bardzo szybkiego cyklu pracy                     | Milisekundowe opóźnienia, <br> praktycznie niezauważalne dla ludzkiego oka
-**System DCS**  | To przykład systemu rozproszonego <br> Distributed Control System   | Stosowany w dużych zakładach <br> gdzie kontrolery rozproszone są po całym obiekcie, <br> system spięty siecią komunikacyjną
-**Zdalne I/O**  | Czyjniki i inne elementy oddalone od siebie                         | Połączone medium komunikacyjnym <br> umożliwiający odczyt stanu i wysterowania
+**Zagadnienie**    | **Opis**                                                            | **Wyjaśnienie**
+------------------ | ------------------------------------------------------------------- | ----------------
+**Cykl pracy**     | Pętla zamknięta, <br> generowanie wyjść na podstawie wejść          | Wykonywany w powtarzalnych odstępach czasu,<br> zmienna długość cyklu <br> uniemożliwia pełną synchroniczność
+**Próbkowanie**    | To sposób, w jaki sterownik "widzi" świat (stany) wewnątrz cyklu    | Sporadyczne sprawdzenia stanów wejść i aktualizacji wyjść
+**Brak ciągłości** | Fizyczny skutek próbkowania                                         | Wprowadza opóźnienia odczytu do reakcji
+**Pozorny czas rzeczywisty** | Wynik bardzo szybkiego cyklu pracy                        | Milisekundowe opóźnienia, <br> praktycznie niezauważalne dla ludzkiego oka
+**System DCS**     | To przykład systemu rozproszonego <br> Distributed Control System   | Stosowany w dużych zakładach <br> gdzie kontrolery rozproszone są po całym obiekcie, <br> system spięty siecią komunikacyjną
+**Zdalne I/O**     | Czyjniki i inne elementy oddalone od siebie                         | Połączone medium komunikacyjnym <br> umożliwiający odczyt stanu i wysterowania
 
 ### **I. 4. Technologie i protokoły komunikacyjne**
 
 **Standard**     | **Opis**  | **Zastosowanie, cecha**
 ---------------- | --------- | ---------------
 **Modbus**       | Najstarszy i najprostszy standard przesyłania danych | Wykorzystuje porty szeregowe "przetrwał do dziś i ma się dobrze"
-**Profibus**     | Standard firmy Simens                                | "Bardziej zaawansowany Modbus" 
-**Can (CANbus)** | Sieć dwużyłowa, odporna na zakłócenia                | Standardowo wykorzystywana w motoryzacji
+**Profibus**     | Standard firmy Siemens                                | "Bardziej zaawansowany Modbus" 
+**Can (CANbus)** | Sieć dwużyłowa, odporna na zakłócenia                | Standardowo wykorzystywana w motoryzacji magistrala szeregowa
 **HART**         | Protokół do zdalnej konfiguracji urządzeń            | Umożliwia strojenie i diagnostykę czujników
 **Ethernet**     | Technologia sukcesywnie wypierająca starsze łącza    | Wprowadzane z opóźnieniem ze względu na konieczność zapernienia niezawodności
-**Profinet**     | Standard firmy Simens<br> oparty na łączu Ethernet   | Służy do programowania sterowników<br> przez nadanie im<br> unikatowego adresu IP
+**Profinet**     | Standard firmy Siemens<br> oparty na łączu Ethernet   | Służy do programowania sterowników<br> przez nadanie im<br> unikatowego adresu IP
 
 ### **I. 5. Język drabinkowy (Ladder)**
 
@@ -49,11 +49,11 @@
 **Kierunek czytania**         | Od lewej do prawej <br>, od góry do dołu                                 | Wyznacza kolejność w jakiej <br> sterownik analizuje logikę programu
 **Cewka przekaźnika**         | Zastępowana<br> symbolami `O` lub `( )`                                      | Łatwo w taki sposób<br> narysować logikę
 **NO (Normally Open)**        | `\| \|` - Zestyk zwierny                                                 | Przewodzi prąd,<br> gdy wejście jest aktywne
-**NC (Normally Closed)**      | `\|/\|` - Zestyk rozwierny                                               | Przewodzi prąd,<br> gdy nie jest pobudzony
+**NC (Normally Closed)**      | `\|/\|` - Zestyk rozwierny                                               | Przewodzi prąd,<br> gdy stan logiczny zmiennej <br> wynosi `0` (gdy nie jest pobudzony)
 **Rodzaje cewek**             | Cewka ustawienia <br> `(S)` od `Set`, <br> Cewka resetowania <br> `(R)` od `Reset` | Umożliwiają tworzenie pamięci stanu, <br> za cewkami mogą być tylko inne cewki
-**Paradygmat**                | Cewki typu `(S)` i `(R)`<br> tworzyć na zmiennych pomocniczych | Niezalecane bezpośrednio na wyjściach (błąd w sztuce),<br> lepiej interpretować: "jeżeli nie uruchomione, to uruchom"
+**Paradygmat na temat cewek** | Cewki typu `(S)` i `(R)`<br> tworzyć na zmiennych pomocniczych | Niezalecane bezpośrednio na wyjściach (błąd w sztuce),<br> lepiej interpretować: "jeżeli nie uruchomione, to uruchom"
 **Budowa**                    | Oparta na koncepcji przekażników                                         | Programowe odwzorowanie klasycznej automatyki stycznikowej
-**FBD**                       | Function Block Diagram                                                   | Alternatywny język graficzny, <br> firmy Simens
+**FBD**                       | Function Block Diagram                                                   | Alternatywny język graficzny, <br> firmy Siemens
 
 ### **I. 6. Architektura wewnętrzna**
 
@@ -76,7 +76,7 @@
 **Przycisk START**    | Zestyk sterujący                        | Przycisk zwierny (`NO`),<br> pobudznie uruchamia algorytm
 **Logika Start/Stop** | Warunek `X0 i nie X1`                   | Start (`X0`) jest załączony oraz <br> Stop (`X1`) nie jest pobudzony
 
-### **I. 8. Hardware i Software Simens**
+### **I. 8. Hardware i Software Siemens**
 
 **Urządzenie/Soft** | **Opis**                                  | **Zastosowanie, cecha**
 ------------------- | ----------------------------------------- | ---------------
@@ -84,16 +84,17 @@
 **S7-1200**         | Nowoczesny,<br> ekonomiczny sterownik PLC | Oprogramowanie "prawie darmowe",<br> posiada pamięć wewnętrzną, <br> inne sterowniki wymagają karty pamięci
 **S7-300/400**      | Zaawansowane, <br> droższe rozwiązanie    | Stosowane w dużych zakładach przemysłowych
 **S7-1500**         | Najnowsza, zaawansowana seria sterowników | Wymaga odpowiednich licencji
-**TIA Portal**      | Zintegrowane środowisko od Simens         | Bardzo zasobożerne,<br> przechowuje wszystkie składowe projektu Siemens
+**TIA Portal**      | Zintegrowane środowisko od Siemens         | Bardzo zasobożerne,<br> przechowuje wszystkie składowe projektu Siemens
 **Hot Swapping**    | Wymiana modułów na gorąco                 | Uszkodzony komponent można wymienić <br> bez przerywania pracy systemu
 
-## **2026-02-24 Wykład II Realizowany podczas zajęć komputerowych**
+## **2026-02-24 Wykład II Realizowany podczas zajęć komputerowych za 2026-03-04**
 
 ### **II. 1. Układy logiczne**
 
 **Zagadnienie**          | **Opis**  | **Zastosowanie, cecha**
 ------------------------ | --------------------------------------------------------------- | ---------------
 **Układ synchroniczny**  | Posiada wejście taktujące (clock)                               | Często oparte na kwarcu,<br> zapewnia jednoznaczność<br> i powtarzalność operacji
+**Zegar**                | Generator impulsów                                              | Powstałe przebiegi okresowe są wykorzystywane do synchronizacji 
 **Układ asynchroniczny** | Brak wspólnego sygnału zegarowego                               | Każda zmiana stanu na wejściu<br> natychmiast wpływa na wyjście,<br> ryzyko braku stabilności
 **Układ kombinowany**    | Wyjście zależy tylko od <br> aktualnego stany wejść             | Służy do prostej minimalizacji funkcji logicznych
 **Układ sekwencyjny**    | Wejście zależy od wejść<br> oraz stanu poprzedniego             | Wymaga zastosowania elementów pamięciowych (np. przerzutników)
@@ -113,7 +114,7 @@
 
 **Element**                        | **Opis**                         | **Zastosowanie, cecha**
 ---------------------------------- | -------------------------------- | ---------------
-**Blok funkcjonalny**              | Następny poziom układu cyfrowego | Realizuje narzuconą funkcjonalność,<br> oparty na układach sekwenchjnych,<br> komutacyjnych lub bramkach logicznych
+**Blok funkcjonalny**              | Następny poziom układu cyfrowego | Realizuje narzuconą funkcjonalność,<br> oparty na układach sekwencyjnych,<br> komutacyjnych lub bramkach logicznych
 **Wejścia/Wyjścia (X, Y)**         | Główne tory danych               | Wejścia (X) to sygnały sterujące,<br> Wyjścia (Y) to sygnały wynikowe
 **Wejście<br> sterujące (S)**      | Sygnał wyboru lub trybu          | Określa, ak blok ma zareagować na dane (np. adres w multiplexerze)
 **Wyjście<br> potwierdzające (P)** | Sygnał statusu operacji          | Potwierdza wykonanie zadania przez blok,<br>  kluczowe dla powtarzalności operacji
@@ -130,32 +131,112 @@
 **Licznik**           | Specyficzny rodzaj rejestru                   | Posiada możliwość liczenia <br> w górę lub w dół <br> (inkrementacji/dekrementacji)
 **Dekoder**           | Przekształca kod binarny na sygnał `1 z N`    | W pamięci ROM pełni rolę układu odczytu<br> (np. z 3 bitów robi 8 kombinacji) 
 
-### **II. 5. Konfiguracja sprzętowa (Simens S7-1200)**
+### **II. 5. Konfiguracja sprzętowa (Siemens S7-1200)**
 
 **Element**      | **Opis**                                     | **Zastosowanie, cecha**
 ---------------- | -------------------------------------------- | ---------------
 **Nasze modele** | S7-1211, S7-1212, S7-1215                    | Na wyposażeniu sali komputerowej
-**Oznaczenia**   | Zapisywane jako DC/AC/RYL                    | Określają kolejno<br> zasilacnie procesra, zasilanie wejścia, typ wyjścia
+**Oznaczenia**   | Zapisywane jako DC/AC/RLY                    | Określają kolejno<br> Zasilacnie procesora,<br> Typ wejść `Input`,<br> Typ wyjść (`Output`)
 **Wejście DC**   | Standardowe wejście cyfrowe (24V DC)         | Jedyny typ wekścia w S7-1200,<br> Zasilacz przetwarza 230V AC na 24V DC
 **Wejście AC**   | Wejście na prąd przemienny (230V)            | W S7-1200 wymagają przekaźników 
 **Wyście DC**    | Wyjście tranzystorowe<br> (półprzewodnikowe) | Bardzo mała bezwładność,<br> bardzo szybkie przełączanie,<br> brak zużycia mechanicznego
-**Wyjście AC**   | Wyjscie triakowe                             | W S7-1200 nie występują,<br> zamiast nich jest RYL
-**Wyjście RYL**  | Skrót od Relay, wyjście przekaźnikowe        | Elektromechaniczne wolniejsze ale o większym prądzie
+**Wyjście AC**   | Wyjscie triakowe                             | W S7-1200 nie występują,<br> zamiast nich jest RLY
+**Wyjście RLY**  | Skrót od Relay, wyjście przekaźnikowe        | Elektromechaniczne wolniejsze ale o większym prądzie
 
 ### **II. 6. Adresacja komponentów**
 
 **Element**               | **Opis**      | **Zastosowanie, cecha**
 ------------------------- | ------------- | ---------------
-**Symbol adresu**         | `%` (procent) | Każdy adres zmiennej w sterownikach Simens<br> musi być nim poprzedzony
+**Symbol adresu**         | `%` (procent) | Każdy adres zmiennej w sterownikach Siemens<br> musi być nim poprzedzony
 **Zapis bitu i bajtu**    | Znak `.` pomiędzy | Jest separatorem między bajtem a bitem  
 **Struktura adresu**      | `Bajt.Bit`    | Przykład `%I0.1` oznacza **0 bajt** oraz **1 bit** na wejściu
 
 ### **II. 7. Przykład obliczeniowy (Impulsowanie)**
 
-**Parametr**             | **Wartość / Obliczenie** | **Aspekty techniczne**
------------------------- | ---------------------    | -----------------
-**Prędkość obiektu**     |36 km/h = 10 m/s          |Prędkość liniowa przeliczona na jednostki SI
-**Charakterystyka koła** |Obwód = 1 m               |Przy 20 impulsach na jeden obrót koła
-**Częstotliwość sygnału**|200 impulsów na sekundę   |Wymaga szybkich wejść licznikowych (HSC) ze względu na dynamikę sygnału
-**Wybór wyjść**          | Układy szybko przełączające (np. sterowanie PWM) | Stosowane są tam tranzystory,<br> bo przekaźniki są za wolne i mają zużycie mechaniczne
+**Parametr**             | **Wartość / Obliczenie**                             | **Aspekty techniczne**
+------------------------ | ---------------------------------------------------- | -----------------
+**Prędkość obiektu**     | 36 km/h = 10 m/s                                     |Prędkość liniowa przeliczona na jednostki SI
+**Charakterystyka koła** | Obwód = 1 m                                          |Przy 20 impulsach na jeden obrót koła
+**Częstotliwość sygnału**| 200 impulsów na sekundę                              |Wymaga szybkich wejść licznikowych (HSC) ze względu na dynamikę sygnału
+**Wybór wyjść**          | Układy szybko przełączające<br> (np. sterowanie PWM) | Stosowane są tam tranzystory,<br> bo przekaźniki są za wolne i mają zużycie mechaniczne
 
+## **2026-03-10 Wykład III TIA Portal**
+
+**III. 1. Środowisko TIA Portal i Sprzęt**
+
+**Zagadnienie**          | **Opis i funkcja**              | **Szczegóły**
+------------------------ | ------------------------------- | ---------------
+**Lokalizacja projektu** | `Documents\\Automation\`        | Domylśne miejsce zapisu,<br> Przy otwieraniu wyświetlana jest wersja oprogramowania, w której powstał plik
+**Kompatybilność**       | Migracja projeków               | Możłiwość otwierania starszych <br> projektów w nowszych wersjach 
+**Adres MAC**            | Unikalny identyfikator fizyczny | Kluczowy dla konfiguracji<br> w warstwie sprzętowej Ethernet
+**Aktualizacja systemy** | Kompilacja <br> Wgranie         | `Compile` stworzenie pliku binarnego<br> `Download` wysłanie go do sterownika
+**Tryb Offline**         | Praca konfiguracyjna            | Zmiana parametrów,<br> pisanie kodu bez połączenia z PLC
+**Tryb Online**          | Podgląd pracy sterownika        | Pozwala widzieć aktualne stany wejść/wyjść i flag
+**Systemowe Flagi**      | `AlwaysTrue` /<br>`AlwaysFalse` | Zestyki zawsze przewodzą <br> lub zawsze blokują sygnał
+**First SCAN**           | Flaga pierwszego cyklu          | Wykonuje się tylko raz<br> przy przejśiu ze STOP do RUN<br> Służy do inicjalizacji zmiennych
+**Zmiany częściowe**     | Compile changes - tylko zmiany  | Przy drobnych korektach można wykonać tylko kompilację zmian <br> i wgrać je bez zatrzymywania całego sterownika
+
+### **III. 2. Symbolika i Typy sygnałów**
+
+**Symbol** | **Pełna nazwa**                 | **Opis i funkcja**
+---------- | ------------------------------- | ----------------
+`DI`       | Digital Input                   | Wejście cyfrowe (binarne) <br> (np. przycisk, krańcówka)
+`DQ`       | Digital output                  | Wyjście cyfrowe <br> (np. sterujące cewką stycznika lub lampką)
+`AI`       | Analog Input                    | Wejście analogowe <br> (np. czujnik temperatury, ciśnienia)
+`I`        | Prądowe                         | Sygnał analogowy prądowy <br> (najczęściej standard 4-20 mA)
+`U`        | Napięciowe                      | Sygnał analogowy napięciowy <br> (najczęściej 0-10 V)
+`TC`       | Thermocouple                    | Termoelement, termopara <br> (napięcie w mV)
+`RTD`      | Resistance Temperature Detector | Czujnik rezystancyjny <br> (np. Pt100)
+`CP`       | Communication Processor         | Koprocesor / moduł komunikacyjny <br> (np. Modbus/RS485)
+`PS`       | Power Supply                    | Źródło zasilania <br> (np. zasilacz DC)
+`PM`       | Power Module                    | Moduł zasilania <br> (np. moduł zasilania 24V)   
+
+## **2026-03-17 Wykład IV TIA Portal - c.d.**
+
+### **IV. 1. TIA Portal - Rozszerzona Adresacja**
+
+**Zagadnienie**              | **Opis**                          | **Szczegóły**
+---------------------------- | --------------------------------- | --------------------------------
+**Adres IP**                 | Podstawowy element komunikacji    | Uikalny adres w sieci Ethernet
+**Gniazda modułów**          | W konfiguracji sprzętowej moduły muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
+**`M0` (Memory 0)**          | Obszar pamięci bitorej (markerów) | Można wykorystać jedynie jako zmienne pomocnicze wewnątrz programu
+**`M1` (Zmienne systemowe)** | Bajt pamięc, w którym znajdują się flagi systemowe (np. `AlwaysTrue`, `AlwaysFalse`) <br> lub zegary taktujące (`Clock_Byte`) | Tylko jeśli zostały aktywowane w ustwieniach CPU
+**Adresacja <br> `M1.0` vs `M1`** | `%M1.0` odnosi się <br> do pojedyńczego bitu `0` w bajcie `1` | Samo `%M1` lub (`%MB1`) odnosi się do całego bajtu danych
+**Adresacja `M.2`**          | Określenie rozmiaru zmiennej     | **Bitu** (np. `%M0.2`),<br> **Bajtu** `%MB2` (8-bitowego - Memory Byte),<br> **Słowa** `%MW2` (16-bitowego - Memory Word),<br> **Podwójnego słowa** `%MD2` (32-bitowego - Memory Double Word)
+`QW/QI`                      | Word wyjściowy/wejściowy         | Stosowane np do obsługi sygnałów analogowych 
+
+### **IV. 2. Liczbowe typy danych w PLC**
+
+**Typ danych** | **Rozmiar** |**Opis** 
+-------------- | ----------- | ------------------------------------------- 
+**SINT**       | 8-bit       | Signed Integer
+**INT**        | 16-bit      | Integer      
+**DINT**       | 32-bit      | Double Integer
+**UINT**       | 16-bit      | Unsigned Integer bez ujemnych wartości
+**REAL**       | 32-bit      | Zmiennoprzecinkowa reprezentacja liczb w PLC
+
+### **IV. 3. Zarządzanie zmienntmi - PLC Tags**
+
+**Rodzaj zmiennej**      | Symbol   | **Charakterystyka**
+------------------------ | -------- | ---------------------------------------------------------
+**Zmienne globalne**     | `%`      | Widoczne w całym programie związane z fizycznymi wejściami/wyjściami (`I`,`Q`) lub pamięcią (`M`)
+**Zmienne lokalne**      | `#`      | Zdefiniowane wewnątrz konkretnego bloku (np. FC lub FB), uzywane jedynie w jego obrębie
+**Zmienne Statyczne**    | `static` | Zachowują swoją wartość pomiędzy cyklami programy, dostępne w FB
+**Zmienne Tymczasowe**   | `temp`   | Zmienne dynamicznie, tracą swoją wartość po zakończeniu wykonanego blok, lub przy utracie zasilania<br> Brak dostępu dla paneli HMI
+**Retain**               | `retain` | Rezerwowane zazwyczaj na początku obszaru adresowania zmienne,<br> które zachowują swoją wartość nawet po utracie zasilania
+**Export/Import**        | n.d.     | Przenoszenie zmiennych poza projeky <br> Można eksportować listy zmiennych<br> np. do Excela i importować je z powrotem
+
+### **IV. 4. Złożone typy danych - Struktury i Tablice**
+
+**Tablica - ARRAY** | **Struktura - STRUCT**
+------------------- | -------------------
+Zbiór elementów tego samego typu <br> Np. 6 zmiennych typu `INT` pod jedną nazwą | Zbiór różnych elementów <br> Może zawierać w środku wiele typów jednocześni
+
+### **IV. 5. Błędy, Nazewnictwo i Pamięć**
+
+**Zagadnienie**       | **Opis** | **Konsekwencja/Rozwiązanie**
+--------------------- | --------- | ----------------------
+**Błąd N31.0**        | Deklaracja typu `char` w bicie    | Błąd "Za mało pamięci", <br> znak potrzebuje całego bajtu, nie zmieści się na bicie
+**Nazwy symboliczne** | Stosowane zamiast adresów         | Ułatwiają czytelność kodu zapisywane w tablicy tagów
+**Duplikaty nazw**    | Dwie zmienne o tej samej nazwie   | TIA Portal automatcznie dodaje sufiks `_1`<br> do drugiej zmiennej tworząc kopie
+**Konflikt adresów**  | Dwie zmienne na tym samym adresie | Powoduje niezgodność i błędy w działaniu logiki
