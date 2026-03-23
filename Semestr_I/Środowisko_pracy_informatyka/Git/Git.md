@@ -3,23 +3,27 @@
 - Dotyczy systemu operacyjnego Linux
 
 
-## 1. Konfiguracja wstępne 
+## 1. Konfiguracja tożsamości
 
-### 1. Zaleca się zmiane domylśnego edytora np na Nano.
+* Przed rozpoczęciem pracy, należy określić, kto podpisuje się pod zmianami.
+* Jest to niezbędne dla poprawnej historii projektu.
 
-- Zmiany możemy dokonać wpisując w terminalu następujące polecenie:
+    ```zsh
+    git config --global user.name "Twoje Imię"
+    ```
+    ```zsh
+    git config --global user.email "twój.email@example.com"
+    ```
+
+### 2. Zalecenia ogólne
+
+* Ustawić ulubiony edytor np. Nano, za pomocą polecenia:
 
     ```zsh
     git config --global core.editor "nano"
     ```
 
-- w miejsce nano możesz wstawić dowolny edytor tekstu.
-
-### 2. Zaleca się zmianę domylśnego branch'a z master na main.
-
-- Domylśna nazwa master nie jest już używana ze względu na "poprawność polityczną".
-
-- Służy do tego komenda:
+* Zmienić domylśnego branch'a z master na main ze względu na "poprawność polityczną":
 
     ```zsh
     git config --global init.defaultBranch main
@@ -27,7 +31,7 @@
 
 ### 3. Tworzenie repozytorium
 
-- Służy do tego polecenie:
+* Służy do tego polecenie:
 
     ```zsh
     git init            #inicjalizacja
