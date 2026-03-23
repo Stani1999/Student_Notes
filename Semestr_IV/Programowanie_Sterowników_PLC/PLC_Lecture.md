@@ -208,7 +208,7 @@
 ### **IV. 2. Liczbowe typy danych w PLC**
 
 **Typ danych**   | **Rozmiar** |**Opis** 
----------------- | ----------- | ------------------------------------------- --------------------------
+---------------- | ----------- | ----------------------------------------------------------------------
 **SINT**         | 8-bit       | Signed Integer (liczba całkowita ze znakiem)
 **INT**          | 16-bit      | Integer (standardowa liczba całkowita)
 **DINT**         | 32-bit      | Double Integer (liczba całkowita o podwójnej precyzji)
