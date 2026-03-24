@@ -1,0 +1,15 @@
+C:\Users\jstan\source\repos\PAD\26-02-25\bin\Debug\26-02-25.exe.config
+C:\Users\jstan\source\repos\PAD\26-02-25\bin\Debug\26-02-25.exe
+C:\Users\jstan\source\repos\PAD\26-02-25\bin\Debug\26-02-25.pdb
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.csproj.AssemblyReference.cache
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\MainWindow.g.cs
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\App.g.cs
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25_MarkupCompile.cache
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25_MarkupCompile.lref
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\MainWindow.baml
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.g.resources
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\_26_02_25.Properties.Resources.resources
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.csproj.GenerateResource.cache
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.csproj.CoreCompileInputs.cache
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.exe
+C:\Users\jstan\source\repos\PAD\26-02-25\obj\Debug\26-02-25.pdb

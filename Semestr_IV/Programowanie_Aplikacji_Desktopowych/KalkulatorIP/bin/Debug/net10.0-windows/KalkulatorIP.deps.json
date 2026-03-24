@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "KalkulatorIP/1.0.0": {
+        "dependencies": {
+          "IPNetwork2": "4.0.2"
+        },
+        "runtime": {
+          "KalkulatorIP.dll": {}
+        }
+      },
+      "IPNetwork2/4.0.2": {
+        "runtime": {
+          "lib/net10.0/System.Net.IPNetwork.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "KalkulatorIP/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IPNetwork2/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JKcBv1IIhOJsDRuQP69TGVqkacaTYMFj/519mNIPXosN3NH25oSwWFWBdLIsVCmlj3Exe0cOXim666f5QhBi6g==",
+      "path": "ipnetwork2/4.0.2",
+      "hashPath": "ipnetwork2.4.0.2.nupkg.sha512"
+    }
+  }
+}

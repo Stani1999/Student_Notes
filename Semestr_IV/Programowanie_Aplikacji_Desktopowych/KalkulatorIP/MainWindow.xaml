@@ -1,0 +1,24 @@
+﻿<Window x:Class="KalkulatorIP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KalkulatorIP"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="SP_Head" Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock x:Name="TBL_Monit" Text="Wprowadź dane"/>
+            <TextBox x:Name="TBX_InputIP"/>
+        </StackPanel>
+        <Button x:Name="B_Calc" Grid.Row="1" Content="Oblicz" HorizontalAlignment="Left" Click="B_Oblicz_Click"/>
+        <ScrollViewer Grid.Row="2">
+            <TextBlock x:Name="TB_Result"/>
+        </ScrollViewer>
+    </Grid>
+</Window>
