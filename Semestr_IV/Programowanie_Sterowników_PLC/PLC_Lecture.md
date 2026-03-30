@@ -181,7 +181,7 @@
 **Symbol** | **Pełna nazwa**                 | **Opis i funkcja**
 ---------- | ------------------------------- | ---------------------------------------------------------------
 `DI`       | Digital Input                   | Wejście cyfrowe (binarne) <br> (np. przycisk, krańcówka)
-`DQ`       | Digital output                  | Wyjście cyfrowe <br> (np. sterujące cewką stycznika lub lampką)
+`DQ`       | Digital Output                  | Wyjście cyfrowe <br> (np. sterujące cewką stycznika lub lampką)
 `AI`       | Analog Input                    | Wejście analogowe <br> (np. czujnik temperatury, ciśnienia)
 `I`        | Prądowe                         | Sygnał analogowy prądowy <br> (najczęściej standard 4-20 mA)
 `U`        | Napięciowe                      | Sygnał analogowy napięciowy <br> (najczęściej 0-10 V)
@@ -199,24 +199,28 @@
 --------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------
 **Adres IP**                      | Podstawowy element komunikacji                                     | Unikalny adres w sieci Ethernet
 **Gniazda modułów**               | W konfiguracji sprzętowej moduły muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
-**`M0` (Memory 0)**               | Obszar pamięci bitowej (markerów)                                  | Można wykorystać jedynie jako zmienne pomocnicze wewnątrz programu
+**`M0` (Memory 0)**               | Obszar pamięci bitowej (markerów)                                  | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
 **`M1` (Zmienne systemowe)**      | Bajt pamięci, w którym znajdują się<br> flagi systemowe (np. `AlwaysTrue`, `AlwaysFalse`)<br> lub zegary taktujące (`Clock_Byte`) | Tylko jeśli zostały aktywowane w ustawieniach CPU
-**Adresacja <br> `M1.0` vs `M1`** | `%M1.0` odnosi się <br> do pojedynczego bitu `0` w bajcie `1`      | Samo `%M1` lub (`%MB1`) odnosi się do całego bajtu danych
+**Adresacja bit vs bajt**         | `M1.0` vs `M1`                                                     | `%M1.0` to konkretny bit, `%MB1` (lub samo `%M1`) to cały bajt danych
 **Adresacja `M.2`**               | Określenie typu i rozmiaru danych                                  | Bitu (np. `%M0.2`),<br> Bajtu `%MB2`,<br> Słowa `%MW2`,<br> Podwójnego słowa `%MD2`
-`QW/QI`                           | Word wyjściowy/wejściowy                                           | Stosowane np do obsługi sygnałów analogowych 
+`QW/QI`                           | Word wyjściowy/wejściowy                                           | Stosowane do obsługi sygnałów analogowych lub szybkich liczników
 
-### **IV. 2. Liczbowe typy danych w PLC**
+### **IV. 2. Typy danych w PLC**
 
 **Typ danych**   | **Rozmiar** |**Opis** 
 ---------------- | ----------- | ----------------------------------------------------------------------
-**SINT**         | 8-bit       | Signed Integer (liczba całkowita ze znakiem)
+**SINT**         | 8-bit       | Signed Integer (skrócona liczba całkowita ze znakiem)
 **INT**          | 16-bit      | Integer (standardowa liczba całkowita)
 **DINT**         | 32-bit      | Double Integer (liczba całkowita o podwójnej precyzji)
+**USINT**        | 8-bit       | Unsigned Signed Integer (liczba całkowita dodatnia, bez znaku)
 **UINT**         | 16-bit      | Unsigned Integer (liczba całkowita dodatnia, bez znaku)
-**REAL**         | 32-bit      | Zmiennoprzecinkowa reprezentacja liczb (liczby z ułamkiem)
+**REAL**         | 32-bit      | Liczba zmiennoprzecinkowa (ułamkowa), adresowana zawsze jako `%MD`
+**Bool**         | 1 bit       | Typ logiczny (1/0 - prawda/fałsz)
 **`B` (Byte)**   | 8 bitów     | Podstawowy bajt danych, np. `%MB10`
 **`W` (Word)**   | 16 bitów    | Słowo danych, np. `%MW10` (zajmuje dwa bajty: `MB10` i `MB11`)
-**`D` (Double)** | 32 bity     | Podwójne słowo, np. `%MD10` (zajmuje cztery bajty od `MB10` do `MB13`)
+**`D` (Double)** | 32 bity     | Podwójne słowo, zajmuje cztery bajty (np. `%MD10` to bajty 10, 11, 12 i 13)
+**Char**         | 8 bitów     | Znak ASCII, ale w PLC zajmuje cały bajt (nie można go adresować na poziomie bitu)
+
 
 ### **IV. 3. Zarządzanie zmiennymi - PLC Tags**
 
@@ -229,17 +233,75 @@
 **Retain**               | Atrybut (Checkbox)        | Rezerwowane zazwyczaj na początku obszaru adresowania zmienne, które zachowują swoją wartość nawet po utracie zasilania
 **Export/Import**        | n.d.                      | Przenoszenie zmiennych poza projekty <br> Można eksportować listy zmiennych<br> np. do Excela i importować je z powrotem
 
-### **IV. 4. Złożone typy danych - Struktury i Tablice**
+### **IV. 4. Złożone typy danych - Struktury i Tablice i Czas**
 
-**Tablica - ARRAY**                                                              | **Struktura - STRUCT**
--------------------------------------------------------------------------------- | ----------------------------------------------------------------------------
-Zbiór elementów tego samego typu <br> Np. 6 zmiennych typu `INT` pod jedną nazwą | Zbiór różnych elementów <br> Może zawierać w środku wiele typów jednocześnie
+ **Typ danych**        | **Opis i zastosowanie**
+---------------------- | --------------------------------------------------------------------------------------------
+**Tablice**            | Zbiór elementów tego samego typu, np. 6 zmiennych typu `INT` pod jedną nazwą
+**Struktura**          | Zbiór różnych elementów, może zawierać w środku wiele typów jednocześnie
+**String**             | Ciąg znaków ASCII, domyślnie zajmuje 254 znaki + 2 bajty nagłówka
+**WString**            | Łańcuch znaków o rozszerzonym kodowaniu (Unicode), pozwalający na zapis znaków specjalnych
+**DT (Date_And_Time)** | Standardowy format daty i czasu (rok, miesiąc, dzień, godzina, minuty, sekundy, milisekundy)
+**DTL**                | Data and Time Long, rozszerzony format daty i czasu (32-bitowy)
+**T (Time)**           | Czas trwania (np. dla Timerów). Zapisywany w milisekundach (np. `T#5s`)
 
 ### **IV. 5. Błędy, Nazewnictwo i Pamięć**
 
-**Zagadnienie**       | **Opis**                          | **Konsekwencja/Rozwiązanie**
---------------------- | --------------------------------- | -----------------------------------------------------------------------------------
-**Błąd N31.0**        | Deklaracja typu `char` w bicie    | Błąd "Za mało pamięci", <br> znak potrzebuje całego bajtu, nie zmieści się na bicie
-**Nazwy symboliczne** | Stosowane zamiast adresów         | Ułatwiają czytelność kodu zapisywane w tablicy tagów
-**Duplikaty nazw**    | Dwie zmienne o tej samej nazwie   | TIA Portal automatycznie dodaje sufiks `_1`<br> do drugiej zmiennej tworząc kopie
-**Konflikt adresów**  | Dwie zmienne na tym samym adresie | Powoduje niezgodność i błędy w działaniu logiki
+**Zagadnienie**        | **Opis**                          | **Konsekwencja/Rozwiązanie**
+---------------------- | --------------------------------- | --------------------------------------------------------------------------------------------
+**Błąd N31.0**         | Deklaracja typu `char` w bicie    | Błąd "Za mało pamięci", <br> znak potrzebuje całego bajtu, nie zmieści się na bicie
+**Nazwy symboliczne**  | Stosowane zamiast adresów         | Ułatwiają czytelność kodu zapisywane w tablicy tagów
+**Duplikaty nazw**     | Dwie zmienne o tej samej nazwie   | TIA Portal automatycznie dodaje sufiks `_1`<br> do drugiej zmiennej tworząc kopie
+**Konflikt obszarów**  | Nakładanie się adresów            | Powoduje niezgodność i błędy w działaniu logiki,<br> jedna zmienna nadpisuje drugą w pamięci
+
+## **2026-03-24 Wykład V**
+
+### **V. 1. Architektura i Pamięć (Uzupełnienie)**
+
+**Zagadnienie**                     | **Zasada / Dobra praktyka** | **Szczegóły techniczne**
+----------------------------------- | --------------------------- | --------------------------------------------------------------------------------------------
+**Adresacja 32-bit**                | Rezerwacja dla typów z `D`  | Oznaczenie `D` (np. `%MD`) dotyczy zawsze typów 32-bitowych, w tym `Real` oraz `DINT`
+**Wyjścia wysokoczęstotliwościowe** | Obsługa HSC/PWM             | Wyjścia wysokoczęstotliwościowe są wykorzystywane przy sterowaniu impulsowym (np. silniki)
+**Pamięć systemowa**                | Pierwsze 2 bajty            | Dobre praktyki nakazują rezerwację początkowych bajtów pamięci `M` na potrzeby systemowe sterownika
+**Rezerwacja pamięci**              | Przesunięcie adresacji      | Zalecenie rezerwowania pierwszych dwóch bajtów pamięci na potrzeby systemowe i adresowanie zmiennych procesowych (markerów) od dalszych adresów
+
+
+### **V. 2. Programowanie i struktura bloków**
+
+**Typ bloku**           | **Opis**                  | **Zastosowanie**
+----------------------- | ------------------------- | -----------------------------------------------------------------------------------------------------------------
+**OB1 (Main)**          | Blok organizacyjny główny | Główna pętla programu wykonywana w nieskończoność, częstotliwość zależy od ilości kroków wewnątrz tego typu bloków
+**System Operacyjny**   | Interface sprzętowy       | Pośredniczy między kodem użytkownika a fizycznym sprzętem, wejściami/wyjściami 
+**DB (Data Block)**     | Blok danych               | Globalny obszar pamięci dla komponentów programu, może przechowywać typy proste i złożone
+**FC (Function)**       | Funkcja                   | Wykonuje kod korzystając ze zmiennych globalnych, nie posiada własnej pamięci
+**FB (Function Block)** | Blok funkcyjny            | Posiada dodatkową bazę danych (Instancja DB), pozwala na parametryzację obiektową
+**LAD / FBD / SCL**     | Języki programowania      | Wybór zależy od problemu, LAD (drabinka), FBD (bloki) lub SCL (tekst strukturalny)
+
+### **V. 3. Struktura i zarządzanie blokami programowymi**
+
+**Element** | **Opis i funkcja** | **Szczegóły techniczne**
+------------------------------ | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------
+**Tworzenie DB**               | Bloki danych (Data Block) służą do przechowywania zmiennych | Mogą być tworzone ręcznie jako bloki globalne lub automatycznie jako <br> instancje przy zakładaniu `FB`
+**Dodawanie bloków**           | `Add new block` w drzewie projektu pod `Program blocks`     | Pozwala na wybór typu bloku (`OB, FC, FB, DB`) oraz nadanie mu unikalnej nazwy i numeru
+**Wybór języka**               | Określenie sposobu zapisu logiki wewnątrz bloku             | Można wymusić język programowania (`LAD, FBD, SCL`) 
+**Wywoływanie bloków**         | Umieszczenie bloków `FC/FB` wewnątrz pętli głównej (`OB1`)  | Przeciąganie bloku do segmentu (`Network`) <br> Bloki mogą być predefiniowane lub stworzone przez użytkownika
+**Powielanie bloków**          | Możliwość wielokrotnego użycia tej samej logiki             | Raz napisany blok FB można wywołać wielokrotnie, przypisując mu każdorazowo inną instancję DB
+**Kompilacja i Optymalizacja** | Przetwarzanie kodu do formy binarnej                        | Aby mieć dostęp do stałej struktury danych (np. dla systemów zewnętrznych),<br> należy w ustawieniach bloku włączyć opcje `Optimized block access`
+
+### **V. 4. Elementy graficzne w LAD**
+
+**Element interfejsu**  | **Funkcjonalność**                          | **Zastosowanie**
+----------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------
+**Pasek ulubionych**    | Sekcja nad obszarem roboczym programu       | Zaleca się dodawanie tam najczęściej używanych instrukcji (styk NO, NC, Cewka) aby przyspieszyć tworzenie kodu
+**Komentarze Network**  | Pole tekstowe nad każdym segmentem drabinki | Służy do opisu realizowanych funkcji, co jest niezbędne przy rozbudowanych programach dla łatwiejszej diagnostyki
+**Podpowiedzi Tagów**   | System autouzupełniania nazw zmiennych      | Po wpisaniu pierwszych liter nazwy symbolicznej, TIA Portal wyświetla listę pasujących wpisów z tablicy PLC Tags
+**Zamykanie Networków** | Ikona strzałek przy numerze segmentu        | Pozwala zwijać i rozwijać część kodu, co poprawia przejrzystość przy pracy z dużą liczbą instrukcji
+
+### **V. 5. Zaawansowana logika: Przekaźniki i Zbocza**
+
+**Element logiczny**  | **Działanie w programie** | **Powiązanie fizyczne**
+--------------------- | ----------------------------------------- | -----------------------------------------------------------------------------
+**Wirtualna cewka**   | Programowe odwzorowanie stanu przekaźnika | W programie widzimy zestyki, ale ich stan (zwarty czy rozwarty) zależy od "wirtualnej cewki", którą pobudza np. fizyczny przycisk lub czujnik"
+**Czujniki Poziomu**  | Przykład wejścia binarnego                | Gdy woda zalewa czujnik, aktywuje on swój wewnętrzny mechanizm, co sterownik interpretuje jak zmianę stanu zestyku
+**Wykrywanie zboczy** | `P` (positive edge) i `N` (negative edge) | Wykrywają moment zmiany sygnału z 0 na 1 (zbocze narastające) lub z 1 na 0 (zbocze opadające), sygnał aktywny tylko przez jeden cykl sterownika
+**Pamięć Zbocza**     | Wymóg dwóch zmiennych pomocniczych        | Instrukcja musi przechowywać stan aktualny oraz stan z poprzedniego cyklu, aby stwierdzić, czy nastąpiła zmiana
