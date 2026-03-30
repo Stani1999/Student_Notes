@@ -1,0 +1,1 @@
+{"version":3,"file":"IProductRepository.d.ts","sourceRoot":"","sources":["IProductRepository.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,mBAAmB,CAAC;AAE5C,MAAM,WAAW,kBAAkB;IAC/B,OAAO,CAAC,EAAE,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,GAAG,IAAI,CAAC,CAAC;IAC7C,IAAI,IAAI,OAAO,CAAC,OAAO,EAAE,CAAC,CAAC;CAC9B"}

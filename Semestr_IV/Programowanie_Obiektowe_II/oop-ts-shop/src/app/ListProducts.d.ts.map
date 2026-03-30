@@ -1,0 +1,1 @@
+{"version":3,"file":"ListProducts.d.ts","sourceRoot":"","sources":["ListProducts.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,iCAAiC,CAAC;AAErE,qBAAa,YAAY;IACT,OAAO,CAAC,iBAAiB;gBAAjB,iBAAiB,EAAE,kBAAkB;IAEnD,OAAO;CAGhB"}
