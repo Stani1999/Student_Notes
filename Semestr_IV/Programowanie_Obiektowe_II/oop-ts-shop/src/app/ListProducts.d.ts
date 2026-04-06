@@ -1,7 +1,7 @@
-import { IProductRepository } from "../domain/IProductRepository.js";
+import type { IProductRepository } from "../domain/IProductRepository.js";
 export declare class ListProducts {
-    private productRepository;
-    constructor(productRepository: IProductRepository);
-    execute(): Promise<import("../oop/Product.js").Product[]>;
+    private readonly repo;
+    constructor(repo: IProductRepository);
+    execute(): Promise<import("../Product.js").Product[]>;
 }
 //# sourceMappingURL=ListProducts.d.ts.map

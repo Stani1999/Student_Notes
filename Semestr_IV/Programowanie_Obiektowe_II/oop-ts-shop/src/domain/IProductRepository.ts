@@ -1,6 +1,6 @@
-import { Product } from "../oop/Product.js";
+import { Product } from "../Product.js";
 
 export interface IProductRepository {
-    getById(id: string): Promise<Product | null>;
+    getByEan(ean: string): Promise<Product | null>;
     list(): Promise<Product[]>;
 }

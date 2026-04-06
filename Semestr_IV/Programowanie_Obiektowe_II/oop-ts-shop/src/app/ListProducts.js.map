@@ -1,1 +1,1 @@
-{"version":3,"file":"ListProducts.js","sourceRoot":"","sources":["ListProducts.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,YAAY;IACD;IAApB,YAAoB,iBAAqC;QAArC,sBAAiB,GAAjB,iBAAiB,CAAoB;IAAG,CAAC;IAE7D,KAAK,CAAC,OAAO;QACT,OAAO,MAAM,IAAI,CAAC,iBAAiB,CAAC,IAAI,EAAE,CAAC;IAC/C,CAAC;CACJ"}
+{"version":3,"file":"ListProducts.js","sourceRoot":"","sources":["ListProducts.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,YAAY;IACQ;IAA7B,YAA6B,IAAwB;QAAxB,SAAI,GAAJ,IAAI,CAAoB;IAAG,CAAC;IAEzD,KAAK,CAAC,OAAO;QACT,OAAO,MAAM,IAAI,CAAC,IAAI,CAAC,IAAI,EAAE,CAAC;IAClC,CAAC;CAEJ"}

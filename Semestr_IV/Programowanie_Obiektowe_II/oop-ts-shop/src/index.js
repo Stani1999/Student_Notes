@@ -1,6 +1,21 @@
-import { Product } from "./oop/Product.js";
-import { Cart } from "./oop/Cart.js";
-import { InMemoryProductRepository } from "./domain/InMemoryProductRepository.js";
+// import { CartItem } from "./CartItem.js";
+// import { Cart } from "./Cart.js";
+// import { Product } from "./Product.js";
+// const product1 = new Product(100.99, "description1", "name1", "1111111111111");
+// const item1 = new CartItem(product1, 1);
+// const product2 = new Product(233.29, "description2", "name2", "1111111111112");
+// const item2 = new CartItem(product2, 2);
+// const product3 = new Product(52.69, "description3", "name3", "1111111111113");
+// const item3 = new CartItem(product3, 3);
+// const product4 = new Product(10.79, "description4", "name4", "1111111111114");
+// const item4 = new CartItem(product4, 4);
+// const cart = new Cart([item1, item2, item3]);
+// cart.printItems();
+// cart.addItem(item4);
+// cart.printItems();
+// cart.removeItem(item3);
+// cart.printItems();
+import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
 import { ListProducts } from "./app/ListProducts.js";
 async function main() {
     const repo = new InMemoryProductRepository();
@@ -9,22 +24,4 @@ async function main() {
     console.log(products);
 }
 main();
-try {
-    const laptop = new Product("EAN1", "Laptop Pro", 5000);
-    const mouse = new Product("EAN2", "Mouse", 100);
-    const myCart = new Cart();
-    myCart.addProduct(laptop, 1);
-    myCart.addProduct(laptop, 1);
-    myCart.addProduct(mouse, 5);
-    console.log("Koszyk:");
-    myCart.items.forEach(item => {
-        console.log(`${item.product.name} | Ilość: ${item.quantity} | Suma: ${item.product.price * item.quantity} PLN`);
-    });
-    console.log(`Do zapłaty: ${myCart.getTotalPrice()} PLN`);
-}
-catch (error) {
-    if (error instanceof Error) {
-        console.error("Błąd:", error.message);
-    }
-}
 //# sourceMappingURL=index.js.map

@@ -1,10 +1,10 @@
 export class ListProducts {
-    productRepository;
-    constructor(productRepository) {
-        this.productRepository = productRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async execute() {
-        return await this.productRepository.list();
+        return await this.repo.list();
     }
 }
 //# sourceMappingURL=ListProducts.js.map
