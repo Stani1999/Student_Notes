@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Programowanie_Aplikacji_Desktopowych\\Kwadrat\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D51518EE-F683-AD81-31AA-BF3CC5014ECA}|Kwadrat.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\programowanie_aplikacji_desktopowych\\kwadrat\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D51518EE-F683-AD81-31AA-BF3CC5014ECA}|Kwadrat.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D51518EE-F683-AD81-31AA-BF3CC5014ECA}|Kwadrat.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\programowanie_aplikacji_desktopowych\\kwadrat\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D51518EE-F683-AD81-31AA-BF3CC5014ECA}|Kwadrat.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Programowanie_Aplikacji_Desktopowych\\Kwadrat\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Programowanie_Aplikacji_Desktopowych\\Kwadrat\\MainWindow.xaml.cs*",
+              "RelativeToolTip": "MainWindow.xaml.cs*",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAswGoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T16:59:13.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Programowanie_Aplikacji_Desktopowych\\Kwadrat\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Programowanie_Aplikacji_Desktopowych\\Kwadrat\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T16:30:21.181Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
