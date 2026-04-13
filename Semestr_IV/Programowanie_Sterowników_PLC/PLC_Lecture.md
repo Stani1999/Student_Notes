@@ -157,7 +157,7 @@
 ------------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------
 **Prędkość obiektu**     | 36 km/h = 10 m/s                                     |Prędkość liniowa przeliczona na jednostki SI
 **Charakterystyka koła** | Obwód = 1 m                                          |Przy 20 impulsach na jeden obrót koła
-**Częstotliwość sygnału**| 200 impulsów na sekundę                              |Wymaga szybkich wejść licznikowych (HSC) ze względu na dynamikę sygnału
+**Częstotliwość sygnału**| 200 impulsów na sekundę                              |Wymaga szybkich wejść licznikowych (HSC)<br> ze względu na dynamikę sygnału
 **Wybór wyjść**          | Układy szybko przełączające<br> (np. sterowanie PWM) | Stosowane są tam tranzystory,<br> bo przekaźniki są za wolne i mają zużycie mechaniczne
 
 ## **2026-03-10 Wykład III TIA Portal**
@@ -166,7 +166,7 @@
 
 **Zagadnienie**          | **Opis i funkcja**              | **Szczegóły**
 ------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------
-**Lokalizacja projektu** | `Documents\\Automation\`        | Domyślne miejsce zapisu,<br> Przy otwieraniu wyświetlana jest wersja oprogramowania, w której powstał plik
+**Lokalizacja projektu** | `Documents\\Automation\`        | Domyślne miejsce zapisu,<br> Przy otwieraniu wyświetlana jest wersja oprogramowania pliku
 **Kompatybilność**       | Migracja projektów              | Możliwość otwierania starszych <br> projektów w nowszych wersjach 
 **Adres MAC**            | Unikalny identyfikator fizyczny | Kluczowy dla konfiguracji<br> w warstwie sprzętowej Ethernet
 **Aktualizacja systemu** | Kompilacja <br> Wgranie         | `Compile` stworzenie pliku binarnego<br> `Download` wysłanie go do sterownika
@@ -195,15 +195,15 @@
 
 ### **IV. 1. TIA Portal - Rozszerzona Adresacja**
 
-**Zagadnienie**                   | **Opis**                                                           | **Szczegóły**
---------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------
-**Adres IP**                      | Podstawowy element komunikacji                                     | Unikalny adres w sieci Ethernet
-**Gniazda modułów**               | W konfiguracji sprzętowej moduły muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
-**`M0` (Memory 0)**               | Obszar pamięci bitowej (markerów)                                  | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
+**Zagadnienie**                   | **Opis**                                                               | **Szczegóły**
+--------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------
+**Adres IP**                      | Podstawowy element komunikacji                                         | Unikalny adres w sieci Ethernet
+**Gniazda modułów**               | W konfiguracji sprzętowej moduły<br> muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
+**`M0` (Memory 0)**               | Obszar pamięci bitowej (markerów)                                      | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
 **`M1` (Zmienne systemowe)**      | Bajt pamięci, w którym znajdują się<br> flagi systemowe (np. `AlwaysTrue`, `AlwaysFalse`)<br> lub zegary taktujące (`Clock_Byte`) | Tylko jeśli zostały aktywowane w ustawieniach CPU
-**Adresacja bit vs bajt**         | `M1.0` vs `M1`                                                     | `%M1.0` to konkretny bit, `%MB1` (lub samo `%M1`) to cały bajt danych
-**Adresacja `M.2`**               | Określenie typu i rozmiaru danych                                  | Bitu (np. `%M0.2`),<br> Bajtu `%MB2`,<br> Słowa `%MW2`,<br> Podwójnego słowa `%MD2`
-`QW/QI`                           | Word wyjściowy/wejściowy                                           | Stosowane do obsługi sygnałów analogowych lub szybkich liczników
+**Adresacja bit vs bajt**         | `M1.0` vs `M1`                                                         | `%M1.0` to konkretny bit, `%MB1` (lub samo `%M1`) to cały bajt danych
+**Adresacja `M.2`**               | Określenie typu i rozmiaru danych                                      | Bitu (np. `%M0.2`),<br> Bajtu `%MB2`,<br> Słowa `%MW2`,<br> Podwójnego słowa `%MD2`
+`QW/QI`                           | Word wyjściowy/wejściowy                                               | Stosowane do obsługi sygnałów analogowych lub szybkich liczników
 
 ### **IV. 2. Typy danych w PLC**
 
@@ -263,7 +263,7 @@
 **Adresacja 32-bit**                | Rezerwacja dla typów z `D`  | Oznaczenie `D` (np. `%MD`) dotyczy zawsze typów 32-bitowych, w tym `Real` oraz `DINT`
 **Wyjścia wysokoczęstotliwościowe** | Obsługa HSC/PWM             | Wyjścia wysokoczęstotliwościowe są wykorzystywane przy sterowaniu impulsowym (np. silniki)
 **Pamięć systemowa**                | Pierwsze 2 bajty            | Dobre praktyki nakazują rezerwację początkowych bajtów pamięci `M` na potrzeby systemowe sterownika
-**Rezerwacja pamięci**              | Przesunięcie adresacji      | Zalecenie rezerwowania pierwszych dwóch bajtów pamięci na potrzeby systemowe i adresowanie zmiennych procesowych (markerów) od dalszych adresów
+**Rezerwacja pamięci**              | Przesunięcie adresacji      | Zalecenie rezerwowania pierwszych dwóch bajtów pamięci na potrzeby systemowe<br> i adresowanie zmiennych procesowych (markerów) od dalszych adresów
 
 
 ### **V. 2. Programowanie i struktura bloków**
@@ -296,7 +296,6 @@
 **Komentarze Network**  | Pole tekstowe nad każdym segmentem drabinki | Służy do opisu realizowanych funkcji, co jest niezbędne przy rozbudowanych programach dla łatwiejszej diagnostyki
 **Podpowiedzi Tagów**   | System autouzupełniania nazw zmiennych      | Po wpisaniu pierwszych liter nazwy symbolicznej, TIA Portal wyświetla listę pasujących wpisów z tablicy PLC Tags
 **Zamykanie Networków** | Ikona strzałek przy numerze segmentu        | Pozwala zwijać i rozwijać część kodu, co poprawia przejrzystość przy pracy z dużą liczbą instrukcji
-
 ### **V. 5. Zaawansowana logika: Przekaźniki i Zbocza**
 
 **Element logiczny**  | **Działanie w programie** | **Powiązanie fizyczne**
@@ -305,3 +304,46 @@
 **Czujniki Poziomu**  | Przykład wejścia binarnego                | Gdy woda zalewa czujnik, aktywuje on swój wewnętrzny mechanizm, co sterownik interpretuje jak zmianę stanu zestyku
 **Wykrywanie zboczy** | `P` (positive edge) i `N` (negative edge) | Wykrywają moment zmiany sygnału z 0 na 1 (zbocze narastające) lub z 1 na 0 (zbocze opadające), sygnał aktywny tylko przez jeden cykl sterownika
 **Pamięć Zbocza**     | Wymóg dwóch zmiennych pomocniczych        | Instrukcja musi przechowywać stan aktualny oraz stan z poprzedniego cyklu, aby stwierdzić, czy nastąpiła zmiana
+
+## **2026-03-31 Wykład VI**
+
+### **VI. 1. Mechanizmy wykonywania programów i wykrywania zboczy**
+
+**Zagadnienie**         | **Zasada/Działanie**         | **Szczegóły techniczne**
+----------------------- | ---------------------------- | --------------------------------------
+**Cykl pracy OB**       | Bardzo krótki czas wykonania | Blok OB jest aktywny przez bardzo krótki czas rzędu kilku milisekund
+**Detekcja zboczy**     | Porównanie stanów sygnału    | Aby wykryć zbocze, sterownik porównuje aktualny stan sygnału z obecnego cyklu ze stanem zapisanym w poprzednim cyklu
+**Pamięć operacji**     | Wymóg zmiennej `Memory`      | Instrukcja zbocza musi posiadać przypisaną zmienną pamięciową (`marker`), który przechowuje wynik porównania
+**Opis zestyku zbocza** | Dwuargumentowość zapisu      | Zestyk opisywany jest przez dwie zmienne: zmienną wejściową (u góry) oraz zmienną pamięciową (na dole)
+
+### **VI. 2. Operacje i konwersja typów danych**
+
+**Operacja**               | **Opis**                         | **Skutki i ograniczenia**
+-------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------
+**Interpretacja danych**   | Zależność od typu zmiennej       | Dane w pamięci są odczytywane w charakterystyczny sposób dla przypisanego im typu
+**Zgodność typów**         | Restrykcje bloków arytmetycznych | W podstawowych blokach (np. dodawania) operacje można realizować tylko na zmiennych tego samego typu
+**Automatyczna konwersja** | Wsparcie przez kompilator        | Kompilator TIA Portal posiada funkcję automatycznej konwersji typów, jeśli operacja tego wymaga 
+**Konwersja Real -> Int**  | Wycinanie części ułamkowej       | Podczas przekształcenia typu zmiennoprzecinkowego (`Real`) na całkowity (`Int`), wartość po przecinku zostaje obcięta
+**Konwersja "w górę"**     | Unikanie przepełnienia zakresu   | W przypadku ryzyka przekroczenia zakresu (np. `Int`), dane są automatycznie konwertowane na typ o większym zakresie (np. `DINT`)
+**Konwersja "w dół"**      | Ryzyko utraty danych             | Konwersja z typów większych na mniejsze, jest możliwa jedynie, gdy wartość mieści się w węższym zakresie
+
+
+### **VI. 3.Skalowanie wartości analogowych**
+
+**Element układu** | **Funkcja i rola** | **Charakterystyka sygnału**
+------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------
+**Czujnik (np. `PT100`)** | Element pomiarowy (`TE`) | Fizyczny pomiar wartości procesowej, np. temperatury
+**Przetwornik `TT`**  | Konwerter sygnału | Zamienia sygnał z czujnika na standard przemysłowy (np. `0-10V` lub `4-20mA`)
+**Przetwornik `ADC w PLC`** | Interpretacja analogowo-cyfrowa | PLC przekształca napięcie/prąd na liczbę całkowitą zrozumiałą dla procesora
+**Zakres w Siemens** | Rozdzielczość cyfrowa | Urządzenia Siemens interpretują sygnał w zakresie od 0 do 27648, <br> gdzie 0V odpowiada 0, a 10V odpowiada wartości maksymalnej (27648)
+ 
+### **VI. 4. Gotowe biblioteki w systemie**
+
+**Instrukcja**     | **Działanie i logika**         | **Zastosowanie**
+------------------ | ------------------------------ | -----------------------------------------------------------------------------------------------------------------
+**CALCULATE**      | Wykonywanie złożonych operacji | Pozwala na zapisanie skomplikowanego wzoru matematycznego w jednym bloku na wielu argumentach
+**MIN/MAX**        | Wybór skrajnej wartości        | Bloki `MIN` i `MAX` zwracają odpowiednio najmniejszą lub największą wartość spośród podanych argumentów (zmiennych na wejściu)
+**LIMIT**          | Ograniczenia zmiennej          | Blok `LIMIT` "pilnuje", aby zmienna nie przekroczyła zadanej wartości minimalnej i maksymalnej
+**IN_RANGE**       | Sprawdzanie przedziału         | Blok `IN_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się wewnątrz zdefiniowanego zakresu
+**OUT_RANGE**      | Sprawdzenie poza zakresem      | Blok `OUT_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się poza zdefiniowanym przedziałem
+**NORM_X/SCALE_X** | Proces skalowania analogowego  | `NORM_X` normalizuje sygnał do zakresu 0.0-1.0, a `SCALE_X` skaluje go na jednostki inżynierskie (np. °C, bar)
