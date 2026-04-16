@@ -1,36 +1,36 @@
-// import { CartItem } from "./CartItem.js";
-// import { Cart } from "./Cart.js";
-// import { Product } from "./Product.js";
+import { Cart } from "./Cart.js";
+import { Product } from "./Product.js";
+import { Money } from "./domain/Money.js";
+import { CartItem } from "./CartItem.js";
 
-// const product1 = new Product(100.99, "description1", "name1", "1111111111111");
-// const item1 = new CartItem(product1, 1);
+const cart = new Cart<Product>();
 
-// const product2 = new Product(233.29, "description2", "name2", "1111111111112");
-// const item2 = new CartItem(product2, 2);
+const p1 = new Product("1", "Chleb", new Money(5, "PLN"));
+const p2 = new Product("2", "Mleko", new Money(4, "PLN"));
 
-// const product3 = new Product(52.69, "description3", "name3", "1111111111113");
-// const item3 = new CartItem(product3, 3);
+cart.addItem(p1);
+cart.addItem(p1); 
+cart.addItem(p2);
 
-// const product4 = new Product(10.79, "description4", "name4", "1111111111114");
-// const item4 = new CartItem(product4, 4);
+console.log("Po dodaniu przedmiotów koszyk zawiera:", cart.getItems().length, "pozycje.");
 
-// const cart = new Cart([item1, item2, item3]);
+cart.changeQuantity("1", 5);
+console.log("Ilość produktu '1' po zmianie:", cart.getItems()[0].quantity);
 
-// cart.printItems();
-// cart.addItem(item4);
-// cart.printItems();
-// cart.removeItem(item3);
-// cart.printItems();
-
-import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
-import { ListProducts } from "./app/ListProducts.js";
-
-async function main() {
-    const repo = new InMemoryProductRepository();
-    const listProducts = new ListProducts(repo);
-
-    const products = await listProducts.execute();
-    console.log(products);
+try {
+  cart.changeQuantity("1", -1);
+} catch (e) {
+  if (e instanceof Error) {
+    console.log("Walidacja działa poprawnie:", e.message);
+  }
 }
 
-main();
+const productList = cart.getItems().map((i: CartItem<Product>) => i.item);
+const filtered = Cart.getFeatusers(productList, "name", "Chleb");
+console.log("Wynik getFeatusers (szukanie 'Chleb'):", filtered.length, "element(y)");
+
+cart.removeItem("2");
+console.log("Liczba pozycji po usunięciu produktu '2':", cart.getItems().length);
+
+cart.clean();
+console.log("Liczba pozycji po wyczyszczeniu koszyka:", cart.getItems().length);

@@ -1,29 +1,32 @@
+import { CartItem } from "./CartItem.js";
 export class Cart {
     items = [];
-    constructor(items) {
-        this.items = items;
+    getItems() {
+        return this.items;
     }
-    printItems() {
-        for (var item of this.items) {
-            console.log(`Nazwa: ${item.getName()}`);
-            console.log(`Opis: ${item.getDescription()}`);
-            console.log(`Cena: ${item.getPrice()}`);
-            console.log(`Ilość: ${item.getQuantity()}`);
-            console.log(`EAN: ${item.getEan()}`);
-            console.log("---------------------------");
+    addItem(item) {
+        const existingItem = this.items.find((cartItem) => cartItem.item.id === item.id);
+        if (existingItem) {
+            existingItem.quantity++;
+        }
+        else {
+            this.items.push(new CartItem(item, 1));
         }
     }
-    addItem(cartItem) {
-        for (var existingItem of this.items) {
-            if (existingItem.getEan() === cartItem.getEan()) {
-                existingItem.setQuantity(existingItem.getQuantity() + cartItem.getQuantity());
-                return;
-            }
-        }
-        this.items.push(cartItem);
+    removeItem(itemId) {
+        this.items = this.items.filter((cartItem) => cartItem.item.id !== itemId);
     }
-    removeItem(cartItem) {
-        this.items = this.items.filter(item => item.getEan() !== cartItem.getEan());
+    changeQuantity(itemId, newQuantity) {
+        const cartItem = this.items.find((ci) => ci.item.id === itemId);
+        if (cartItem) {
+            cartItem.changeQuantity(newQuantity);
+        }
+    }
+    clean() {
+        this.items = [];
+    }
+    static getFeatusers(list, key, value) {
+        return list.filter((item) => item[key] === value);
     }
 }
 //# sourceMappingURL=Cart.js.map

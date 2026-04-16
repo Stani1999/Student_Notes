@@ -1,40 +1,12 @@
-import { Product } from "./Product.js";
+import { Identifiable } from "./Identifiable.js";
 
-export class CartItem {
-    private item: Product;
-    private quantity: number;
+export class CartItem<T extends Identifiable> {
+  constructor(public readonly item: T, public quantity: number) {}
 
-    constructor(item: Product, quantity: number) {
-        CartItem.validateQuantity(quantity);
-        this.item = item;
-        this.quantity = quantity;
+  changeQuantity(newQuantity: number): void {
+    if (newQuantity < 0) {
+      throw new Error("Ilość nie może być mniejsza od 0");
     }
-
-    public static validateQuantity(quantity: number) {
-        if (quantity <= 0) {
-            throw new Error("Invalid quantity!");
-        }
-    }
-
-    public getQuantity() {
-        return this.quantity; 
-    }
-
-    public setQuantity(quantity: number) {
-        CartItem.validateQuantity(quantity);
-        this.quantity = quantity;
-    }
-
-    public getName() {
-        return this.item.getName();
-    }
-    public getDescription() {
-        return this.item.getDescription();
-    }
-    public getPrice() {
-        return this.item.getPrice();
-    }
-    public getEan() {
-        return this.item.getEan();
-    }
+    this.quantity = newQuantity;
+  }
 }

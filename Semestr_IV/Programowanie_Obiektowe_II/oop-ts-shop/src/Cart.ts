@@ -1,34 +1,41 @@
 import { CartItem } from "./CartItem.js";
- 
-export class Cart {
-    private items: CartItem[] = [];
+import { Identifiable } from "./Identifiable.js";
 
-    constructor(items: CartItem[]) {
-        this.items = items;
-    }
+export class Cart<T extends Identifiable> {
+  private items: CartItem<T>[] = [];
 
-    public printItems() {
-        for (var item of this.items) {
-            console.log(`Nazwa: ${item.getName()}`);
-            console.log(`Opis: ${item.getDescription()}`)
-            console.log(`Cena: ${item.getPrice()}`);
-            console.log(`Ilość: ${item.getQuantity()}`);
-            console.log(`EAN: ${item.getEan()}`);
-            console.log("---------------------------");
-        }
-    }
+  getItems(): CartItem<T>[] {
+    return this.items;
+  }
 
-    public addItem(cartItem: CartItem) {
-        for (var existingItem of this.items) {
-            if (existingItem.getEan() === cartItem.getEan()) {
-                existingItem.setQuantity(existingItem.getQuantity() + cartItem.getQuantity());  
-                return;
-            }
-        }
-        this.items.push(cartItem);
-    }
+  addItem(item: T): void {
+    const existingItem = this.items.find(
+      (cartItem) => cartItem.item.id === item.id
+    );
 
-    public removeItem(cartItem: CartItem) {
-        this.items = this.items.filter(item => item.getEan() !== cartItem.getEan());
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      this.items.push(new CartItem(item, 1));
     }
+  }
+
+  removeItem(itemId: string): void {
+    this.items = this.items.filter((cartItem) => cartItem.item.id !== itemId);
+  }
+
+  changeQuantity(itemId: string, newQuantity: number): void {
+    const cartItem = this.items.find((ci) => ci.item.id === itemId);
+    if (cartItem) {
+      cartItem.changeQuantity(newQuantity);
+    }
+  }
+
+  clean(): void {
+    this.items = [];
+  }
+
+  static getFeatusers<T>(list: T[], key: keyof T, value: T[keyof T]): T[] {
+    return list.filter((item) => item[key] === value);
+  }
 }

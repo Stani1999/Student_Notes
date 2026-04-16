@@ -1,0 +1,1 @@
+{"version":3,"file":"FakeProductRepository.js","sourceRoot":"","sources":["FakeProductRepository.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,OAAO,EAAE,MAAM,eAAe,CAAC;AAExC,MAAM,OAAO,qBAAqB;IACtB,QAAQ,GAAc;QACtB,IAAI,OAAO,CAAC,IAAI,EAAE,QAAQ,EAAE,QAAQ,EAAE,eAAe,CAAC;QACtD,IAAI,OAAO,CAAC,GAAG,EAAE,OAAO,EAAE,OAAO,EAAE,eAAe,CAAC;KAC1D,CAAC;CACL"}
