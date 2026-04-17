@@ -10,12 +10,16 @@ export class CartItem {
         }
     }
 
-    get product(): Product {
+    getProduct(): Product {
         return this._product;
     }
 
-    get quantity(): number {
+    getQuantity(): number {
         return this._quantity;
+    }
+
+    getPrice(): number {
+        return this._product.price * this._quantity;
     }
 
     increase(quantity: number): void {
