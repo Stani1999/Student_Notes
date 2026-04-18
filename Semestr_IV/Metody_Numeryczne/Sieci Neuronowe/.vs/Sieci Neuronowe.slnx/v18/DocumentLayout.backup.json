@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\sieci neuronowe\\src\\models\\technology.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|solutionrelative:src\\models\\technology.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\sieci neuronowe\\src\\logic\\technologyanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|solutionrelative:src\\logic\\technologyanalyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\sieci neuronowe\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|solutionrelative:src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\sieci neuronowe\\src\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2BB47EE4-1A7B-0DEF-A041-BC25DEEE4E97}|Sieci Neuronowe.csproj|solutionrelative:src\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Technology.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\Models\\Technology.cs",
+              "RelativeDocumentMoniker": "Src\\Models\\Technology.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\Models\\Technology.cs",
+              "RelativeToolTip": "Src\\Models\\Technology.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T18:26:09.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TechnologyAnalyzer.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\Logic\\TechnologyAnalyzer.cs",
+              "RelativeDocumentMoniker": "Src\\Logic\\TechnologyAnalyzer.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\Logic\\TechnologyAnalyzer.cs",
+              "RelativeToolTip": "Src\\Logic\\TechnologyAnalyzer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T18:26:07.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Src\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Src\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAUwFYAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T17:59:14.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Src\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\Sieci Neuronowe\\Src\\MainWindow.xaml",
+              "RelativeToolTip": "Src\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-18T17:58:52.11Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
