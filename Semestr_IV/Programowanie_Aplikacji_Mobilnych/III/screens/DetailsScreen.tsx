@@ -1,6 +1,7 @@
-import { RootStackParamList } from "@/app/(tabs)/index";
+import { RootStackParamList } from "@/types/Navigation";
 import { RouteProp } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { styles } from "@/styles/DetailsScreenStyles";
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, "Details">;
 
@@ -18,15 +19,3 @@ export default function DetailsScreen({ route }: DetailsScreenProps) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: "#4a90e2",
-    },
-    title: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "bold",
-    },
-});

@@ -1,14 +1,8 @@
-import { Product } from "./Product.js";
-export declare class CartItem {
-    private item;
-    private quantity;
-    constructor(item: Product, quantity: number);
-    static validateQuantity(quantity: number): void;
-    getQuantity(): number;
-    setQuantity(quantity: number): void;
-    getName(): string;
-    getDescription(): string;
-    getPrice(): number;
-    getEan(): string;
+import { Identifiable } from "./Identifiable.js";
+export declare class CartItem<T extends Identifiable> {
+    readonly item: T;
+    quantity: number;
+    constructor(item: T, quantity: number);
+    changeQuantity(newQuantity: number): void;
 }
 //# sourceMappingURL=CartItem.d.ts.map

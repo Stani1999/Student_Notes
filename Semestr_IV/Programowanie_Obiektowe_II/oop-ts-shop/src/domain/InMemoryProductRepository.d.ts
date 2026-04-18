@@ -1,4 +1,4 @@
-import type { IProductRepository } from "./IProductRepository.js";
+import { IProductRepository } from "./IProductRepository.js";
 import { Product } from "../oop/Product.js";
 export declare class InMemoryProductRepository implements IProductRepository {
     private products;
