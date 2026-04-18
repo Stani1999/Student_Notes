@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kwadrat")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8da2d8f5c27c2d4396d750ecd08f99a52536ca34")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+650f4190c4f5f20aae500be2c5dd01129cd3db1c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kwadrat")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kwadrat")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
