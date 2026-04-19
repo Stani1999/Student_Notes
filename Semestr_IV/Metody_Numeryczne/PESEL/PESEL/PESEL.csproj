@@ -55,7 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Src\Interfaces\IErrorsLanguage.cs" />
+    <Compile Include="Src\Languages\Errors\ErrorsEN.cs" />
+    <Compile Include="Src\Languages\Errors\ErrorsPL.cs" />
+    <Compile Include="Src\Models\PESELModel.cs" />
+    <Compile Include="Src\Models\PESELWeights.cs" />
+    <Compile Include="Src\Validations\PESELChecksumValidator.cs" />
+    <Compile Include="Src\Validations\PESELFormatValidator.cs" />
+    <Page Include="Src\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,7 +70,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Src\Interfaces\IPESELRequest.cs" />
+    <Compile Include="Src\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Src\Languages\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

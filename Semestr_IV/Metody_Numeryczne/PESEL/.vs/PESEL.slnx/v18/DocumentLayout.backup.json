@@ -3,12 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\pesel\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\models\\peselmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\models\\peselmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\validations\\peselformatvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\validations\\peselformatvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\interfaces\\ipeselrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\interfaces\\ipeselrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\interfaces\\ierrorslanguage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\interfaces\\ierrorslanguage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\languages\\errors\\errorspl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\languages\\errors\\errorspl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\languages\\errors\\errorsen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\languages\\errors\\errorsen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,31 +42,111 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ErrorsEN.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Languages\\Errors\\ErrorsEN.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Languages\\Errors\\ErrorsEN.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Languages\\Errors\\ErrorsEN.cs",
+              "RelativeToolTip": "PESEL\\Src\\Languages\\Errors\\ErrorsEN.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T21:00:03.214Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ErrorsPL.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Languages\\Errors\\ErrorsPL.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Languages\\Errors\\ErrorsPL.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Languages\\Errors\\ErrorsPL.cs",
+              "RelativeToolTip": "PESEL\\Src\\Languages\\Errors\\ErrorsPL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T20:59:04.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IErrorsLanguage.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Interfaces\\IErrorsLanguage.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Interfaces\\IErrorsLanguage.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Interfaces\\IErrorsLanguage.cs",
+              "RelativeToolTip": "PESEL\\Src\\Interfaces\\IErrorsLanguage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T20:56:18.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IPESELRequest.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Interfaces\\IPESELRequest.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Interfaces\\IPESELRequest.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Interfaces\\IPESELRequest.cs",
+              "RelativeToolTip": "PESEL\\Src\\Interfaces\\IPESELRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T19:13:26.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PESELFormatValidator.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Validations\\PESELFormatValidator.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Validations\\PESELFormatValidator.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Validations\\PESELFormatValidator.cs",
+              "RelativeToolTip": "PESEL\\Src\\Validations\\PESELFormatValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T19:38:37.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PESELModel.cs",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Models\\PESELModel.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\Models\\PESELModel.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\Models\\PESELModel.cs",
+              "RelativeToolTip": "PESEL\\Src\\Models\\PESELModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T19:08:06.851Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "PESEL\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\MainWindow.xaml.cs*",
-              "RelativeToolTip": "PESEL\\MainWindow.xaml.cs*",
-              "ViewState": "AgIAACQAAAAAAAAAAAAQwDcAAAAtAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "PESEL\\Src\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml.cs",
+              "RelativeToolTip": "PESEL\\Src\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-16T07:17:53.358Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "PESEL\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\MainWindow.xaml",
-              "RelativeToolTip": "PESEL\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "PESEL\\Src\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml",
+              "RelativeToolTip": "PESEL\\Src\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-04-16T07:17:54.44Z"
+              "WhenOpened": "2026-04-19T20:53:13.128Z",
+              "EditorCaption": ""
             }
           ]
         }

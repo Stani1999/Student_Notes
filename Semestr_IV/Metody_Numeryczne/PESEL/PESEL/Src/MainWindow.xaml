@@ -9,6 +9,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Zwaliduj numer PESEL" Grid.Row="0" HorizontalAlignment="Center" FontSize="16" Margin="10"/>
