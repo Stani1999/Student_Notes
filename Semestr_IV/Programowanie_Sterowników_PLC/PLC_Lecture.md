@@ -59,12 +59,12 @@
 
 **Element**          | **Opis**                                      | **Zastosowanie, cecha**
 -------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------
-**Mikrokontroler**   | Układ scalony mający wszystko "na pokładzie"  | Dedykowany do autonomicznej pracy <br> (RAM, ROM wewnątrz)
-**Mikroprocesor**    | Serce sterownika PLC                          | Współpracuje z zewnętrzną pamięcią i modułami I/O
-**Rejestr**          | Komórka pamięci procesora                     | Służy do ogólnego przechowywania danych lub jako rejestr przesuwny
-**Licznik**          | Inkrementacja impulsów                        | Zlicza do wartości zadanej, <br> wymaga instrukcji `RESET`
-**Timer**            | Układ odmierzający czas w sterowniku          | Służy do programowania zwłoki<br> na włączenie lub wyłączenie urządzenia
-**Zmienna (Tag)**    | Nazwa symboliczna konkretnego obszaru pamięci | Wskazuje na wyjście `Q`, wejście `I`, lub zmienną pomocniczą `M`
+**`Mikrokontroler`** | Układ scalony mający wszystko "na pokładzie"  | Dedykowany do autonomicznej pracy <br> (RAM, ROM wewnątrz)
+**`Mikroprocesor`**  | Serce sterownika PLC                          | Współpracuje z zewnętrzną pamięcią i modułami I/O
+**`Rejestr`**        | Komórka pamięci procesora                     | Służy do ogólnego przechowywania danych lub jako rejestr przesuwny
+**`Licznik`**        | Inkrementacja impulsów                        | Zlicza do wartości zadanej, <br> wymaga instrukcji `RESET`
+**`Timer`**          | Układ odmierzający czas w sterowniku          | Służy do programowania zwłoki<br> na włączenie lub wyłączenie urządzenia
+**`Zmienna (Tag)`**  | Nazwa symboliczna konkretnego obszaru pamięci | Wskazuje na wyjście `Q`, wejście `I`, lub zmienną pomocniczą `M`
 **Symbol odwrócony** | Specyficzny rysunek czujnika                  | Stosowany, gdy czujnik ma generować działanie, gdy nie jest pobudzony (np. krańcówka)
 
 ### **I. 7. Logika zabezpieczenia**
@@ -78,14 +78,14 @@
 
 ### **I. 8. Hardware i Software Siemens**
 
-**Urządzenie/Soft** | **Opis**                                  | **Zastosowanie, cecha**
-------------------- | ----------------------------------------- | -----------------------------------------------------------------------------------------------------------
-**S7-200 (Micro)**  | Wcześniejsze, <br> tanie rozwiązanie      | Dzielił drogie oprogramowanie z S7-300
-**S7-1200**         | Nowoczesny,<br> ekonomiczny sterownik PLC | Oprogramowanie "prawie darmowe",<br> posiada pamięć wewnętrzną, <br> inne sterowniki wymagają karty pamięci
-**S7-300/400**      | Zaawansowane, <br> droższe rozwiązanie    | Stosowane w dużych zakładach przemysłowych
-**S7-1500**         | Najnowsza, zaawansowana seria sterowników | Wymaga odpowiednich licencji
-**TIA Portal**      | Zintegrowane środowisko od Siemens        | Bardzo zasobożerne,<br> przechowuje wszystkie składowe projektu Siemens
-**Hot Swapping**    | Wymiana modułów na gorąco                 | Uszkodzony komponent można wymienić <br> bez przerywania pracy systemu
+**Urządzenie/Soft**  | **Opis**                                  | **Zastosowanie, cecha**
+-------------------- | ----------------------------------------- | -----------------------------------------------------------------------------------------------------------
+**`S7-200 (Micro)`** | Wcześniejsze, <br> tanie rozwiązanie      | Dzielił drogie oprogramowanie z S7-300
+**`S7-1200`**        | Nowoczesny,<br> ekonomiczny sterownik PLC | Oprogramowanie "prawie darmowe",<br> posiada pamięć wewnętrzną, <br> inne sterowniki wymagają karty pamięci
+**`S7-300/400`**     | Zaawansowane, <br> droższe rozwiązanie    | Stosowane w dużych zakładach przemysłowych
+**`S7-1500`**        | Najnowsza, zaawansowana seria sterowników | Wymaga odpowiednich licencji
+**`TIA Portal`**     | Zintegrowane środowisko od Siemens        | Bardzo zasobożerne,<br> przechowuje wszystkie składowe projektu Siemens
+**`Hot Swapping`**   | Wymiana modułów na gorąco                 | Uszkodzony komponent można wymienić <br> bez przerywania pracy systemu
 
 ## **2026-02-24 Wykład II Realizowany podczas zajęć komputerowych za 2026-03-04**
 
@@ -160,9 +160,9 @@
 **Częstotliwość sygnału**| 200 impulsów na sekundę                              |Wymaga szybkich wejść licznikowych (HSC)<br> ze względu na dynamikę sygnału
 **Wybór wyjść**          | Układy szybko przełączające<br> (np. sterowanie PWM) | Stosowane są tam tranzystory,<br> bo przekaźniki są za wolne i mają zużycie mechaniczne
 
-## **2026-03-10 Wykład III TIA Portal**
+## **2026-03-10 Wykład III `TIA Portal`**
 
-**III. 1. Środowisko TIA Portal i Sprzęt**
+**III. 1. Środowisko `TIA Portal` i Sprzęt**
 
 **Zagadnienie**          | **Opis i funkcja**              | **Szczegóły**
 ------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------
@@ -191,47 +191,47 @@
 `PS`       | Power Supply                    | Źródło zasilania <br> (np. zasilacz DC)
 `PM`       | Power Module                    | Moduł zasilania <br> (np. moduł zasilania 24V)   
 
-## **2026-03-17 Wykład IV TIA Portal - c.d.**
+## **2026-03-17 Wykład IV `TIA Portal` - c.d.**
 
-### **IV. 1. TIA Portal - Rozszerzona Adresacja**
+### **IV. 1. `TIA Portal` - Rozszerzona Adresacja**
 
-**Zagadnienie**                   | **Opis**                                                               | **Szczegóły**
---------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------
-**Adres IP**                      | Podstawowy element komunikacji                                         | Unikalny adres w sieci Ethernet
-**Gniazda modułów**               | W konfiguracji sprzętowej moduły<br> muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
-**`M0` (Memory 0)**               | Obszar pamięci bitowej (markerów)                                      | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
-**`M1` (Zmienne systemowe)**      | Bajt pamięci, w którym znajdują się<br> flagi systemowe (np. `AlwaysTrue`, `AlwaysFalse`)<br> lub zegary taktujące (`Clock_Byte`) | Tylko jeśli zostały aktywowane w ustawieniach CPU
-**Adresacja bit vs bajt**         | `M1.0` vs `M1`                                                         | `%M1.0` to konkretny bit, `%MB1` (lub samo `%M1`) to cały bajt danych
-**Adresacja `M.2`**               | Określenie typu i rozmiaru danych                                      | Bitu (np. `%M0.2`),<br> Bajtu `%MB2`,<br> Słowa `%MW2`,<br> Podwójnego słowa `%MD2`
-`QW/QI`                           | Word wyjściowy/wejściowy                                               | Stosowane do obsługi sygnałów analogowych lub szybkich liczników
+**Zagadnienie**              | **Opis**                                                               | **Szczegóły**
+---------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------
+**`Adres IP`**               | Podstawowy element komunikacji                                         | Unikalny adres w sieci Ethernet
+**`Gniazda modułów`**        | W konfiguracji sprzętowej moduły<br> muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
+**`M0` (`Memory 0`)**        | Obszar pamięci bitowej (markerów)                                      | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
+**`M1` (Zmienne systemowe)** | Bajt pamięci, w którym znajdują się<br> flagi systemowe (np. `AlwaysTrue`, `AlwaysFalse`)<br> lub zegary taktujące (`Clock_Byte`) | Tylko jeśli zostały aktywowane w ustawieniach CPU
+**Adresacja bit vs bajt**    | `M1.0` vs `M1`                                                         | `%M1.0` to konkretny bit, `%MB1` (lub samo `%M1`) to cały bajt danych
+**Adresacja `M.2`**          | Określenie typu i rozmiaru danych                                      | Bitu (np. `%M0.2`),<br> Bajtu `%MB2`,<br> Słowa `%MW2`,<br> Podwójnego słowa `%MD2`
+`QW/QI`                      | Word wyjściowy/wejściowy                                               | Stosowane do obsługi sygnałów analogowych lub szybkich liczników
 
 ### **IV. 2. Typy danych w PLC**
 
 **Typ danych**   | **Rozmiar** |**Opis** 
 ---------------- | ----------- | ----------------------------------------------------------------------
-**SINT**         | 8-bit       | Signed Integer (skrócona liczba całkowita ze znakiem)
-**INT**          | 16-bit      | Integer (standardowa liczba całkowita)
-**DINT**         | 32-bit      | Double Integer (liczba całkowita o podwójnej precyzji)
-**USINT**        | 8-bit       | Unsigned Signed Integer (liczba całkowita dodatnia, bez znaku)
-**UINT**         | 16-bit      | Unsigned Integer (liczba całkowita dodatnia, bez znaku)
-**REAL**         | 32-bit      | Liczba zmiennoprzecinkowa (ułamkowa), adresowana zawsze jako `%MD`
-**Bool**         | 1 bit       | Typ logiczny (1/0 - prawda/fałsz)
+**`SINT`**       | 8-bit       | Signed Integer (skrócona liczba całkowita ze znakiem)
+**`INT`**        | 16-bit      | Integer (standardowa liczba całkowita)
+**`DINT`**       | 32-bit      | Double Integer (liczba całkowita o podwójnej precyzji)
+**`USINT`**      | 8-bit       | Unsigned Signed Integer (liczba całkowita dodatnia, bez znaku)
+**`UINT`**       | 16-bit      | Unsigned Integer (liczba całkowita dodatnia, bez znaku)
+**`REAL`**       | 32-bit      | Liczba zmiennoprzecinkowa (ułamkowa), adresowana zawsze jako `%MD`
+**`Bool`**       | 1 bit       | Typ logiczny (`1`/`0` - `prawda`/`fałsz`)
 **`B` (Byte)**   | 8 bitów     | Podstawowy bajt danych, np. `%MB10`
 **`W` (Word)**   | 16 bitów    | Słowo danych, np. `%MW10` (zajmuje dwa bajty: `MB10` i `MB11`)
 **`D` (Double)** | 32 bity     | Podwójne słowo, zajmuje cztery bajty (np. `%MD10` to bajty 10, 11, 12 i 13)
-**Char**         | 8 bitów     | Znak ASCII, ale w PLC zajmuje cały bajt (nie można go adresować na poziomie bitu)
+**`Char`**       | 8 bitów     | Znak ASCII, ale w PLC zajmuje cały bajt (nie można go adresować na poziomie bitu)
 
 
-### **IV. 3. Zarządzanie zmiennymi - PLC Tags**
+### **IV. 3. Zarządzanie zmiennymi - `PLC Tags`**
 
 **Rodzaj zmiennej**      | **Symbol / Lokalizacja**  | **Charakterystyka**
 ------------------------ | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------
-**Zmienne globalne**     | Poprzedzone przez `%`     | Widoczne w całym programie związane z fizycznymi wejściami/wyjściami (`I`,`Q`) lub pamięcią (`M`)
-**Zmienne lokalne**      | Poprzedzone przez `#`     | Zdefiniowane wewnątrz konkretnego bloku (np. FC lub FB), używane jedynie w jego obrębie
-**Zmienne Statyczne**    | Sekcja Static             | Zachowują swoją wartość pomiędzy cyklami programu, dostępne w FB
-**Zmienne Tymczasowe**   | Sekcja Temp               | Zmienne dynamiczne, tracą swoją wartość po zakończeniu wykonanego bloku lub przy utracie zasilania<br> Brak dostępu dla paneli HMI
-**Retain**               | Atrybut (Checkbox)        | Rezerwowane zazwyczaj na początku obszaru adresowania zmienne, które zachowują swoją wartość nawet po utracie zasilania
-**Export/Import**        | n.d.                      | Przenoszenie zmiennych poza projekty <br> Można eksportować listy zmiennych<br> np. do Excela i importować je z powrotem
+**Zmienne globalne**     | Poprzedzone przez `%`     | Widoczne w całym programie związane z fizycznymi<br> wejściami/wyjściami (`I`,`Q`) lub pamięcią (`M`)
+**Zmienne lokalne**      | Poprzedzone przez `#`     | Zdefiniowane wewnątrz konkretnego bloku,<br> np. `FC` lub `FB` używane jedynie w jego obrębie
+**Zmienne Statyczne**    | Sekcja `Static`           | Zachowują swoją wartość pomiędzy cyklami programu, dostępne w `FB`
+**Zmienne Tymczasowe**   | Sekcja `Temp`             | Zmienne dynamiczne, tracą swoją wartość po zakończeniu wykonanego bloku lub przy utracie zasilania<br> Brak dostępu dla `paneli HMI`
+**`Retain`**             | Atrybut (`Checkbox`)      | Rezerwowane zazwyczaj na początku obszaru adresowania zmienne,<br> które zachowują swoją wartość nawet po utracie zasilania
+**Export/Import**        | n.d.                      | Przenoszenie zmiennych poza projekty <br> Można eksportować listy zmiennych<br> np. do `Excel'a` i importować je z powrotem
 
 ### **IV. 4. Złożone typy danych - Struktury i Tablice i Czas**
 
@@ -251,7 +251,7 @@
 ---------------------- | --------------------------------- | --------------------------------------------------------------------------------------------
 **Błąd N31.0**         | Deklaracja typu `char` w bicie    | Błąd "Za mało pamięci", <br> znak potrzebuje całego bajtu, nie zmieści się na bicie
 **Nazwy symboliczne**  | Stosowane zamiast adresów         | Ułatwiają czytelność kodu zapisywane w tablicy tagów
-**Duplikaty nazw**     | Dwie zmienne o tej samej nazwie   | TIA Portal automatycznie dodaje sufiks `_1`<br> do drugiej zmiennej tworząc kopie
+**Duplikaty nazw**     | Dwie zmienne o tej samej nazwie   | `TIA Portal` automatycznie dodaje sufiks `_1`<br> do drugiej zmiennej tworząc kopie
 **Konflikt obszarów**  | Nakładanie się adresów            | Powoduje niezgodność i błędy w działaniu logiki,<br> jedna zmienna nadpisuje drugą w pamięci
 
 ## **2026-03-24 Wykład V**
@@ -270,7 +270,7 @@
 
 **Typ bloku**           | **Opis**                  | **Zastosowanie**
 ----------------------- | ------------------------- | -----------------------------------------------------------------------------------------------------------------
-**OB1 (Main)**          | Blok organizacyjny główny | Główna pętla programu wykonywana w nieskończoność, częstotliwość zależy od ilości kroków wewnątrz tego typu bloków
+**OB1 (Main)**          | Blok organizacyjny główny | Główna pętla programu wykonywana w nieskończoność,<br> częstotliwość zależy od ilości kroków wewnątrz tego typu bloków
 **System Operacyjny**   | Interface sprzętowy       | Pośredniczy między kodem użytkownika a fizycznym sprzętem, wejściami/wyjściami 
 **DB (Data Block)**     | Blok danych               | Globalny obszar pamięci dla komponentów programu, może przechowywać typy proste i złożone
 **FC (Function)**       | Funkcja                   | Wykonuje kod korzystając ze zmiennych globalnych, nie posiada własnej pamięci
@@ -279,7 +279,7 @@
 
 ### **V. 3. Struktura i zarządzanie blokami programowymi**
 
-**Element** | **Opis i funkcja** | **Szczegóły techniczne**
+**Element**                    | **Opis i funkcja**                                          | **Szczegóły techniczne**
 ------------------------------ | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------
 **Tworzenie DB**               | Bloki danych (Data Block) służą do przechowywania zmiennych | Mogą być tworzone ręcznie jako bloki globalne lub automatycznie jako <br> instancje przy zakładaniu `FB`
 **Dodawanie bloków**           | `Add new block` w drzewie projektu pod `Program blocks`     | Pozwala na wybór typu bloku (`OB, FC, FB, DB`) oraz nadanie mu unikalnej nazwy i numeru
@@ -294,16 +294,16 @@
 ----------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------
 **Pasek ulubionych**    | Sekcja nad obszarem roboczym programu       | Zaleca się dodawanie tam najczęściej używanych instrukcji (styk NO, NC, Cewka) aby przyspieszyć tworzenie kodu
 **Komentarze Network**  | Pole tekstowe nad każdym segmentem drabinki | Służy do opisu realizowanych funkcji, co jest niezbędne przy rozbudowanych programach dla łatwiejszej diagnostyki
-**Podpowiedzi Tagów**   | System autouzupełniania nazw zmiennych      | Po wpisaniu pierwszych liter nazwy symbolicznej, TIA Portal wyświetla listę pasujących wpisów z tablicy PLC Tags
+**Podpowiedzi Tagów**   | System autouzupełniania nazw zmiennych      | Po wpisaniu pierwszych liter nazwy symbolicznej, `TIA Portal` wyświetla listę pasujących wpisów z tablicy PLC Tags
 **Zamykanie Networków** | Ikona strzałek przy numerze segmentu        | Pozwala zwijać i rozwijać część kodu, co poprawia przejrzystość przy pracy z dużą liczbą instrukcji
 ### **V. 5. Zaawansowana logika: Przekaźniki i Zbocza**
 
 **Element logiczny**  | **Działanie w programie** | **Powiązanie fizyczne**
 --------------------- | ----------------------------------------- | -----------------------------------------------------------------------------
-**Wirtualna cewka**   | Programowe odwzorowanie stanu przekaźnika | W programie widzimy zestyki, ale ich stan (zwarty czy rozwarty) zależy od "wirtualnej cewki", którą pobudza np. fizyczny przycisk lub czujnik"
-**Czujniki Poziomu**  | Przykład wejścia binarnego                | Gdy woda zalewa czujnik, aktywuje on swój wewnętrzny mechanizm, co sterownik interpretuje jak zmianę stanu zestyku
-**Wykrywanie zboczy** | `P` (positive edge) i `N` (negative edge) | Wykrywają moment zmiany sygnału z 0 na 1 (zbocze narastające) lub z 1 na 0 (zbocze opadające), sygnał aktywny tylko przez jeden cykl sterownika
-**Pamięć Zbocza**     | Wymóg dwóch zmiennych pomocniczych        | Instrukcja musi przechowywać stan aktualny oraz stan z poprzedniego cyklu, aby stwierdzić, czy nastąpiła zmiana
+**Wirtualna cewka**   | Programowe odwzorowanie stanu przekaźnika | W programie widzimy zestyki, ale ich stan (zwarty czy rozwarty) zależy od "wirtualnej cewki",<br> którą pobudza np. fizyczny przycisk lub czujnik"
+**Czujniki Poziomu**  | Przykład wejścia binarnego                | Gdy woda zalewa czujnik, aktywuje on swój wewnętrzny mechanizm,<br> co sterownik interpretuje jak zmianę stanu zestyku
+**Wykrywanie zboczy** | `P` (positive edge) i `N` (negative edge) | Wykrywają moment zmiany sygnału z 0 na 1 (zbocze narastające)<br> lub z 1 na 0 (zbocze opadające), sygnał aktywny tylko przez jeden cykl sterownika
+**Pamięć Zbocza**     | Wymóg dwóch zmiennych pomocniczych        | Instrukcja musi przechowywać stan aktualny oraz stan z poprzedniego cyklu,<br> aby stwierdzić, czy nastąpiła zmiana
 
 ## **2026-03-31 Wykład VI**
 
@@ -312,38 +312,84 @@
 **Zagadnienie**         | **Zasada/Działanie**         | **Szczegóły techniczne**
 ----------------------- | ---------------------------- | --------------------------------------
 **Cykl pracy OB**       | Bardzo krótki czas wykonania | Blok OB jest aktywny przez bardzo krótki czas rzędu kilku milisekund
-**Detekcja zboczy**     | Porównanie stanów sygnału    | Aby wykryć zbocze, sterownik porównuje aktualny stan sygnału z obecnego cyklu ze stanem zapisanym w poprzednim cyklu
-**Pamięć operacji**     | Wymóg zmiennej `Memory`      | Instrukcja zbocza musi posiadać przypisaną zmienną pamięciową (`marker`), który przechowuje wynik porównania
-**Opis zestyku zbocza** | Dwuargumentowość zapisu      | Zestyk opisywany jest przez dwie zmienne: zmienną wejściową (u góry) oraz zmienną pamięciową (na dole)
+**Detekcja zboczy**     | Porównanie stanów sygnału    | Aby wykryć zbocze, sterownik porównuje aktualny stan sygnału z bieżącego cyklu programu ze stanem z poprzedniego cyklu
+**Pamięć operacji**     | Wymóg zmiennej `Memory`      | Instrukcja zbocza musi posiadać przypisaną zmienną pamięciową (`marker`), która przechowuje stan z poprzedniego cyklu
+**Opis zestyku zbocza** | Zapis dwuargumentowy         | Zestyk opisywany jest przez dwie zmienne: zmienną wejściową (u góry) oraz zmienną pamięciową (na dole)
 
 ### **VI. 2. Operacje i konwersja typów danych**
 
-**Operacja**               | **Opis**                         | **Skutki i ograniczenia**
--------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------
-**Interpretacja danych**   | Zależność od typu zmiennej       | Dane w pamięci są odczytywane w charakterystyczny sposób dla przypisanego im typu
-**Zgodność typów**         | Restrykcje bloków arytmetycznych | W podstawowych blokach (np. dodawania) operacje można realizować tylko na zmiennych tego samego typu
-**Automatyczna konwersja** | Wsparcie przez kompilator        | Kompilator TIA Portal posiada funkcję automatycznej konwersji typów, jeśli operacja tego wymaga 
-**Konwersja Real -> Int**  | Wycinanie części ułamkowej       | Podczas przekształcenia typu zmiennoprzecinkowego (`Real`) na całkowity (`Int`), wartość po przecinku zostaje obcięta
-**Konwersja "w górę"**     | Unikanie przepełnienia zakresu   | W przypadku ryzyka przekroczenia zakresu (np. `Int`), dane są automatycznie konwertowane na typ o większym zakresie (np. `DINT`)
-**Konwersja "w dół"**      | Ryzyko utraty danych             | Konwersja z typów większych na mniejsze, jest możliwa jedynie, gdy wartość mieści się w węższym zakresie
+**Operacja**               | **Cel i opis**                                  | **Ograniczenia przyczynowo-skutkowe**
+-------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------
+**Interpretacja danych**   | Zależność od typu zmiennej                      | Dane w pamięci są odczytywane w charakterystyczny sposób dla przypisanego typu
+**Automatyczna konwersja** | Wsparcie przez kompilator                       | Kompilator `TIA Portal` posiada funkcję automatycznej konwersji typów,<br> jeśli operacja tego wymaga
+**Konwersja typów**        | Umożliwienie operacji na różnych typach         | Blok operacyjny wymaga, aby wszystkie argumenty były tego samego typu
+**Konwersja `Real -> Int`**| Zamiana liczby zmiennoprzecinkowej na całkowitą | Podczas przekształcenia typu zmiennoprzecinkowego (`Real`)<br> na całkowity (`Int`),<br> wartość po przecinku zostaje obcięta
+**Konwersja `w górę`**     | Przejście na typ o większym zakresie            | W przypadku ryzyka przekroczenia zakresu (np. `Int`),<br> dane są automatycznie konwertowane na typ o większym zakresie (np. `DINT`)
+**Konwersja `w dół`**      | Przejście z typu większego na mniejszy          | Konwersja z typów większych na mniejsze jest możliwa jedynie,<br> gdy wartość mieści się w węższym zakresie
 
 
-### **VI. 3.Skalowanie wartości analogowych**
+### **VI. 3. Skalowanie wartości analogowych**
 
-**Element układu** | **Funkcja i rola** | **Charakterystyka sygnału**
-------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------
-**Czujnik (np. `PT100`)** | Element pomiarowy (`TE`) | Fizyczny pomiar wartości procesowej, np. temperatury
-**Przetwornik `TT`**  | Konwerter sygnału | Zamienia sygnał z czujnika na standard przemysłowy (np. `0-10V` lub `4-20mA`)
-**Przetwornik `ADC w PLC`** | Interpretacja analogowo-cyfrowa | PLC przekształca napięcie/prąd na liczbę całkowitą zrozumiałą dla procesora
-**Zakres w Siemens** | Rozdzielczość cyfrowa | Urządzenia Siemens interpretują sygnał w zakresie od 0 do 27648, <br> gdzie 0V odpowiada 0, a 10V odpowiada wartości maksymalnej (27648)
+**Element układu**          |**Funkcja**                    |**Rola**                                                                   |**Sygnał**                                  
+----------------------------|-------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------
+**Czujnik (np. `PT100`)**   |Element pomiarowy (`TE`)       |Bezpośredni odczyt wartości procesowej z obiektu                           |**Fizyczny:** Rezystancja, ciśnienie, temperatura, przepływ 
+**Przetwornik `TT`**        |Konwerter sygnału              |Standaryzacja surowego odczytu do standardu przemysłowego                  |**Elektryczny:** napięciowy `0-10 V` lub prądowy `4-20 mA`
+**Przetwornik `ADC w PLC`** |Interpretacja analogowo-cyfrowa|Przekształcenie napięcia/prądu na liczbę całkowitą zrozumiałą dla procesora|**Cyfrowy:** Zakres liczbowy Siemens od `0` do `27648`    
+**Normalizacja<br>`NORM_X`**|Przetwarzanie wstępne          |Sprowadzenie wartości `0-27648` do ułamka z zakresu `0.0 - 1.0`            |**Liczbowy:** Typ Real (zmiennoprzecinkowy)
+**Skalowanie<br>`SCALE_X`** |Przetwarzanie końcowe          |Nadanie jednostki inżynierskiej (np. `bary`, `°C`) wartości ułamkowej      |**Inżynierski:** Wartość rzeczywista w skali czujnika (np. `0-10 bar`)
  
 ### **VI. 4. Gotowe biblioteki w systemie**
 
 **Instrukcja**     | **Działanie i logika**         | **Zastosowanie**
------------------- | ------------------------------ | -----------------------------------------------------------------------------------------------------------------
-**CALCULATE**      | Wykonywanie złożonych operacji | Pozwala na zapisanie skomplikowanego wzoru matematycznego w jednym bloku na wielu argumentach
-**MIN/MAX**        | Wybór skrajnej wartości        | Bloki `MIN` i `MAX` zwracają odpowiednio najmniejszą lub największą wartość spośród podanych argumentów (zmiennych na wejściu)
-**LIMIT**          | Ograniczenia zmiennej          | Blok `LIMIT` "pilnuje", aby zmienna nie przekroczyła zadanej wartości minimalnej i maksymalnej
-**IN_RANGE**       | Sprawdzanie przedziału         | Blok `IN_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się wewnątrz zdefiniowanego zakresu
-**OUT_RANGE**      | Sprawdzenie poza zakresem      | Blok `OUT_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się poza zdefiniowanym przedziałem
-**NORM_X/SCALE_X** | Proces skalowania analogowego  | `NORM_X` normalizuje sygnał do zakresu 0.0-1.0, a `SCALE_X` skaluje go na jednostki inżynierskie (np. °C, bar)
+------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------
+**`CALCULATE`**    | Wykonywanie złożonych operacji | Pozwala na zapisanie skomplikowanego wzoru matematycznego w jednym bloku na wielu argumentach
+**`MIN/MAX`**      | Wybór skrajnej wartości        | Bloki `MIN` i `MAX` zwracają odpowiednio najmniejszą lub największą wartość spośród podanych argumentów (zmiennych na wejściu)
+**`LIMIT`**        | Ograniczenia zmiennej          | Blok `LIMIT` "pilnuje", aby zmienna nie przekroczyła zadanej wartości minimalnej i maksymalnej
+**`IN_RANGE`**     | Sprawdzanie przedziału         | Blok `IN_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się wewnątrz zdefiniowanego zakresu
+**`OUT_RANGE`**    | Sprawdzanie poza zakresem      | Blok `OUT_RANGE` zwraca `TRUE/1`, jeśli badana zmienna znajduje się poza zdefiniowanym przedziałem
+
+## **2026-04-14 Wykład VII**
+
+### **VII. 1. Mechanizmy detekcji zboczy**
+
+**Zagadnienie**        | **Opis i działanie**                                 | **Wymagania techniczne**
+---------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------
+**Zbocze narastające** | Rosnący poziom sygnału - Zmiana sygnału z `0 na 1`   | Wymaga markera pamięci do przechowywania stanu z poprzedniego cyklu
+**Zbocze opadające**   | Spadający poziom sygnału - Zmiana sygnału z `1 na 0` | Podobnie jak w przypadku zbocza narastającego, potrzebna jest zmienna pamięciowa
+**Blok sprawdzający**  | Specjalna funkcja weryfikująca aktualny stan wejścia | Konieczność użycia zmiennej pomocniczej w `TIA Portal` (na dole bloku) 
+**Zmienna pomocnicza** | Przechowuje stan z poprzedniego cyklu                | Bez tej zmiennej, instrukcja zbocza nie będzie w stanie poprawnie wykryć zmiany stanu sygnału
+
+### **VII. 2. Przykład skalowania: Barometr (`4-20 mA`)**
+
+**Wartość**            | **Barometr** | **Przetwornik** | **Przetwornik `ADC`** | `NORM_X` | `SCALE_X`
+---------------------- | ------------ | --------------- | --------------------- | -------- | ----------
+**Wartość minimalna**  | `0 bar`      | `4 mA`          | `0`                   | `0.0`    | `0.0`    
+**Wartość pośrednia**  | `5 bar`      | `12 mA`         | `13824`               | `0.5`    | `5.0`   
+**Wartość maksymalna** | `10 bar`     | `20 mA`         | `27648`               | `1.0`    | `10.0`  
+
+### **VII. 3. Monitorowanie i diagnostyka online**
+
+**Zagadnienie**              | **Opis i działanie**                              | **Uwagi techniczne**
+---------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------
+**Status bloków**            | Tryb `Monitoring` (ikona okularów) w `TIA Portal` | Cewki `Set`/`Reset` mogą mylnie wskazywać stan aktywny,<br> należy zwracać uwagę na zestyki 
+**Nadpisywanie bloków**      | Wgrywanie `Download` komponentów do sterownika    | Jeżeli w projekcie istnieją już bloki o tych samych numerach, zostaną one zastąpione nową wersją
+**Diagnostyka<br> zestyków** | Wizualizacja przepływu sygnału w drabince (`LAD`) | Kolor zielony oznacza przewodzenie logiczne sygnału w danym cyklu
+
+### **VII. 4. Karta Pamięci (`SMC`) i Zasoby sprzętowe**
+
+**Element**             | **Opis**                                                  | **Szczegóły techniczne**
+----------------------- | --------------------------------------------------------  | -----------------------------------------------------------------------
+**Sterownik `S7-1200`** | Posiada wbudowaną pamięć typu `Load Memory`               | Karta pamięci jest opcjonalna (używana do transferu lub backupu)
+**Sterownik `S7-1500`** | Nie posiada zintegrowanej pamięci ładowania               | Karta pamięci `SMC` jest niezbędna do pracy sterownika i wgrania programu
+**`Timer`**             | Blok funkcjonalny oparty na cyklach procesora lub zegarze | Wykorzystuje wewnętrzny generator impulsów (zegar systemowy) do odmierzania czasu
+**`Licznik`**           | Blok funkcjonalny oparty na cyklach procesora lub zegarze | Wykorzystuje zliczanie impulsów zewnętrznych (np. z czujnika, enkodera)
+Uwaga ogólna            | `Timer` i `licznik` to często ten sam układ sprzętowy     | Różnica polega wyłącznie na źródle impulsów: wewnętrzne (czas) vs zewnętrzne (zdarzenia)
+
+### **VII. 5. Obsługa Timerów (`TP`, `TON`)**
+
+**Element<br>Typ `Timera`**| **Sposób (działania)**                   | **Logika**                                                                                                                 | **Specyfikacja parametrów i zapisu**
+-------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------
+**`TP`<br>(Impuls)**       | Generowanie impulsu<br> o stałym czasie  |  Po wykryciu zbocza narastającego na wejściu `IN`,<br> wyjście `Q` zostaje załączone na czas określony przez parametr `PT` | **Niezależność od wejścia:**<br> Raz wyzwolony impuls trwa zadany czas, nawet jeśli sygnał `IN` zostanie przerwany<br> Parametr czasu zapisujemy jako np. `T#4s`
+**`TON`<br>(On-Delay)**    | Opóźnienie<br>załączenia                 | Wyjście `Q` zostaje aktywowane dopiero po upływie czasu `PT`,<br> pod warunkiem stałej obecności sygnału na wejściu `IN`   | **Reset automatyczny:**<br> Zanik sygnału na wejściu `IN` przed upływem czasu `PT`<br> powoduje wyzerowanie odliczania
+**Sposób zapisu**          |  1. Blok (`Box`):<br> 2. Cewka (`Coil`): | Pełny blok funkcjonalny z wejściami/wyjściami<br>Uproszczony zapis w drabince                                              | `IN`, `PT`, `Q`,`ET` <br> `Timer` jest przypisany bezpośrednio do operacji na końcu linii logicznej
+**Instancja `DB`**         | Automatyczne tworzenie                   | Każdorazowe wrzucenie timera do drabinki<br> generuje unikalny blok danych instancyjnych (`Instance DB`)                   | **Przechowywanie danych:**<br> `DB` przechowuje aktualny czas odliczania oraz nastawy,<br> co pozwala na dostęp do tych danych z innych części programu
