@@ -1,4 +1,4 @@
-﻿namespace PESEL.Src.Interfaces
+﻿namespace PESEL.Src.Interfaces.Languages
 {
     /// <summary>
     /// Defines the contract for PESEL data handling.

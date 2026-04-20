@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using PESEL.Src.Interfaces;
+using PESEL.Src.Interfaces.Languages;
 
 namespace PESEL.Src.Validations
 {

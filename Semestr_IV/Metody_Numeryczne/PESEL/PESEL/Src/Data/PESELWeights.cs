@@ -1,5 +1,6 @@
 ﻿using System;
-namespace PESEL.Src.Models
+
+namespace PESEL.Src.Data
 {
     /// <summary>
     /// Stores constant weights values for the PESEL algorithm.

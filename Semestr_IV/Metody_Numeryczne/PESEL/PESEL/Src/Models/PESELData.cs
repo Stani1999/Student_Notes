@@ -4,12 +4,9 @@ using PESEL.Src.Interfaces.Languages;
 namespace PESEL.Src.Models
 {
     /// <summary>
-    /// Represents the parsed data extracted from a PESEL (Polish national identification number).
+    /// Represents the extracted data from a PESEL number, including raw PESEL, birth date
     /// </summary>
-    /// <remarks>This model provides access to individual components of a PESEL number, such as date of birth
-    /// and gender information, after parsing. It is intended for internal use within PESEL processing
-    /// workflows.</remarks>
-    internal class PESELModel : IPESELData
+    internal class PESELData : IPESELData
     {
         public string RawPesel { get; set; }
         public int Year { get; set; }
@@ -17,7 +14,7 @@ namespace PESEL.Src.Models
         public int MonthNumber { get; set; }
         public int Day { get; set; }
         public DateTime FullDate { get; set; }
-        public bool Gender { get; set; } 
+        public bool Gender { get; set; }
         public bool GenderShort { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using PESEL.Src.Models;
+﻿using PESEL.Src.Data;
 
 namespace PESEL.Src.Validations
 {

@@ -55,12 +55,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Src\Interfaces\IErrorsLanguage.cs" />
-    <Compile Include="Src\Languages\Errors\ErrorsEN.cs" />
-    <Compile Include="Src\Languages\Errors\ErrorsPL.cs" />
+    <Compile Include="Src\Data\Languages\Out\OutEN.cs" />
+    <Compile Include="Src\Data\Languages\Out\OutPL.cs" />
+    <Compile Include="Src\Data\Languages\Packs\LanguageEN.cs" />
+    <Compile Include="Src\Data\Languages\Packs\LanguagePL.cs" />
+    <Compile Include="Src\Interfaces\Languages\IErrorsLanguage.cs" />
+    <Compile Include="Src\Interfaces\Languages\ILanguageManager.cs" />
+    <Compile Include="Src\Interfaces\Languages\ILanguagePack.cs" />
+    <Compile Include="Src\Interfaces\Languages\IOutLanguage.cs" />
+    <Compile Include="Src\Interfaces\IPESELData.cs" />
+    <Compile Include="Src\Interfaces\Languages\IUILanguage.cs" />
+    <Compile Include="Src\Data\Languages\Errors\ErrorsEN.cs" />
+    <Compile Include="Src\Data\Languages\Errors\ErrorsPL.cs" />
+    <Compile Include="Src\Data\Languages\UI\UIEN.cs" />
+    <Compile Include="Src\Data\Languages\UI\UIPL.cs" />
+    <Compile Include="Src\Models\LanguageManager.cs" />
+    <Compile Include="Src\Models\MainViewModel.cs" />
+    <Compile Include="Src\Models\PESELData.cs" />
     <Compile Include="Src\Models\PESELModel.cs" />
-    <Compile Include="Src\Models\PESELWeights.cs" />
+    <Compile Include="Src\Data\PESELWeights.cs" />
+    <Compile Include="Src\Models\PESELPresenter.cs" />
+    <Compile Include="Src\Models\PESELValidator.cs" />
     <Compile Include="Src\Validations\PESELChecksumValidator.cs" />
+    <Compile Include="Src\Validations\PESELDateValidator.cs" />
     <Compile Include="Src\Validations\PESELFormatValidator.cs" />
     <Page Include="Src\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -102,8 +119,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Src\Languages\UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
