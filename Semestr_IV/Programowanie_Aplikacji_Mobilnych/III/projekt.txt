@@ -1,0 +1,1321 @@
+./hooks/use-theme-color.ts
+
+// --- PATH: ./hooks/use-theme-color.ts ---
+
+/**
+ * Learn more about light and dark modes:
+ * https://docs.expo.dev/guides/color-schemes/
+ */
+
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+export function useThemeColor(
+  props: { light?: string; dark?: string },
+  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+) {
+  const theme = useColorScheme() ?? 'light';
+  const colorFromProps = props[theme];
+
+  if (colorFromProps) {
+    return colorFromProps;
+  } else {
+    return Colors[theme][colorName];
+  }
+}
+
+
+./hooks/use-color-scheme.web.ts
+
+// --- PATH: ./hooks/use-color-scheme.web.ts ---
+
+import { useEffect, useState } from 'react';
+import { useColorScheme as useRNColorScheme } from 'react-native';
+
+/**
+ * To support static rendering, this value needs to be re-calculated on the client side for web
+ */
+export function useColorScheme() {
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  const colorScheme = useRNColorScheme();
+
+  if (hasHydrated) {
+    return colorScheme;
+  }
+
+  return 'light';
+}
+
+
+./hooks/use-color-scheme.ts
+
+// --- PATH: ./hooks/use-color-scheme.ts ---
+
+export { useColorScheme } from 'react-native';
+
+
+./components/AddEventsFrom.tsx
+
+// --- PATH: ./components/AddEventsFrom.tsx ---
+
+import { useState } from "react";
+import { View, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { Event } from "@/types/Event"; 
+
+type AddEventFormProps = {
+    onAddEvent: (newEvent: Omit<Event, "id">) => void;
+};
+
+export default function AddEventForm({ onAddEvent }: AddEventFormProps) {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [location, setLocation] = useState("");
+    const [hour, setHour] = useState("");
+    const [date, setDate] = useState("");
+    const [category, setCategory] = useState("");
+    const handleAddEvent = () => {
+        if (!title || !description || !location || !hour || !date || !category) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+
+        onAddEvent({
+            title, 
+            description, 
+            location, 
+            hour,
+            date, 
+            category 
+        });
+
+        setTitle("");
+        setDescription("");
+        setLocation("");
+        setHour("");
+        setDate("");
+        setCategory("");
+    };
+
+    return (
+        <View>
+            <TextInput
+            placeholder="Data (np. 2137.09.11)"
+            value={date}
+            onChangeText={setDate}
+            style={styles.input}
+        />
+
+        <TextInput
+        placeholder="Category"
+        value={category}
+        onChangeText={setCategory}
+        style={styles.input}
+        />
+
+        <Button title="Add Event" onPress={handleAddEvent} />
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    input: {
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: "#fff",
+    },
+});
+
+./components/Header.tsx
+
+// --- PATH: ./components/Header.tsx ---
+
+import { styles } from "@/styles/IndexStyles";
+import { RootStackParamList } from "@/types/Navigation";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { Text, View } from "react-native";
+import HomeScreen from "../../screens/HomeScreen";
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function DetailsScreen({ route }: any) {
+  const { title, description, location, hour, date, category } = route.params;
+  return (
+    <View style={styles.detailsContainer}>
+      <Text style={styles.detailsTitle}>{title}</Text>
+      <View style={styles.detailsInfoBox}>
+        <Text style={styles.detailsLabel}>Godzina:</Text>
+        <Text style={styles.detailsValue}>{hour}</Text>
+        
+        <Text style={styles.detailsLabel}>Miejsce:</Text>
+        <Text style={styles.detailsValue}>{location}</Text>
+        
+        <Text style={styles.detailsLabel}>Opis:</Text>
+        <Text style={styles.detailsValue}>{description}</Text>
+
+        <Text style={styles.detailsLabel}>Godzina:</Text>
+        <Text style={styles.detailsValue}>{hour}</Text>
+
+        <Text style={styles.detailsLabel}>Data:</Text>
+        <Text style={styles.detailsValue}>{date}</Text>
+
+        <Text style={styles.detailsLabel}>Kategoria:</Text>
+        <Text style={styles.detailsValue}>{category}</Text>
+      </View>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{ headerShown: false }} 
+      />
+      <Stack.Screen 
+        name="Details" 
+        component={DetailsScreen} 
+        options={{ title: 'Szczegóły wydarzenia' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+./components/external-link.tsx
+
+// --- PATH: ./components/external-link.tsx ---
+
+import { Href, Link } from 'expo-router';
+import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
+import { type ComponentProps } from 'react';
+
+type Props = Omit<ComponentProps<typeof Link>, 'href'> & { href: Href & string };
+
+export function ExternalLink({ href, ...rest }: Props) {
+  return (
+    <Link
+      target="_blank"
+      {...rest}
+      href={href}
+      onPress={async (event) => {
+        if (process.env.EXPO_OS !== 'web') {
+          // Prevent the default behavior of linking to the default browser on native.
+          event.preventDefault();
+          // Open the link in an in-app browser.
+          await openBrowserAsync(href, {
+            presentationStyle: WebBrowserPresentationStyle.AUTOMATIC,
+          });
+        }
+      }}
+    />
+  );
+}
+
+
+./components/parallax-scroll-view.tsx
+
+// --- PATH: ./components/parallax-scroll-view.tsx ---
+
+import type { PropsWithChildren, ReactElement } from 'react';
+import { StyleSheet } from 'react-native';
+import Animated, {
+  interpolate,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useScrollOffset,
+} from 'react-native-reanimated';
+
+import { ThemedView } from '@/components/themed-view';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useThemeColor } from '@/hooks/use-theme-color';
+
+const HEADER_HEIGHT = 250;
+
+type Props = PropsWithChildren<{
+  headerImage: ReactElement;
+  headerBackgroundColor: { dark: string; light: string };
+}>;
+
+export default function ParallaxScrollView({
+  children,
+  headerImage,
+  headerBackgroundColor,
+}: Props) {
+  const backgroundColor = useThemeColor({}, 'background');
+  const colorScheme = useColorScheme() ?? 'light';
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollOffset(scrollRef);
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
+            [-HEADER_HEIGHT / 2, 0, HEADER_HEIGHT * 0.75]
+          ),
+        },
+        {
+          scale: interpolate(scrollOffset.value, [-HEADER_HEIGHT, 0, HEADER_HEIGHT], [2, 1, 1]),
+        },
+      ],
+    };
+  });
+
+  return (
+    <Animated.ScrollView
+      ref={scrollRef}
+      style={{ backgroundColor, flex: 1 }}
+      scrollEventThrottle={16}>
+      <Animated.View
+        style={[
+          styles.header,
+          { backgroundColor: headerBackgroundColor[colorScheme] },
+          headerAnimatedStyle,
+        ]}>
+        {headerImage}
+      </Animated.View>
+      <ThemedView style={styles.content}>{children}</ThemedView>
+    </Animated.ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    height: HEADER_HEIGHT,
+    overflow: 'hidden',
+  },
+  content: {
+    flex: 1,
+    padding: 32,
+    gap: 16,
+    overflow: 'hidden',
+  },
+});
+
+
+./components/ListItem.tsx
+
+// --- PATH: ./components/ListItem.tsx ---
+
+import { Text, View, Pressable } from "react-native";
+import { styles } from "@/styles/ListItemStyles";
+type ListItemProps = {
+    title: string;
+    description: string;
+    location: string;
+    hour: string;
+    date: string;
+    category: string;
+    isHighlighted: boolean;
+    onPress?: () => void;
+};
+
+export default function ListItem({ title, description, location, hour, date, category, isHighlighted, onPress }: ListItemProps) {
+    return (
+        <Pressable
+            onPress={onPress}
+            style={({ pressed }) => [
+                styles.container,
+                isHighlighted ? styles.important : styles.default,
+                pressed && styles.active,
+                { opacity: pressed ? 0.7 : 1 }
+            ]}>
+            <View>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.description}>{description}</Text>
+                <Text style={styles.location}>{location}</Text>
+                <Text style={styles.location}>{hour}</Text>
+                <Text style={styles.location}>{date}</Text>
+                <Text style={styles.location}>{category}</Text>
+            </View>
+        </Pressable>
+    );
+}
+
+./components/themed-text.tsx
+
+// --- PATH: ./components/themed-text.tsx ---
+
+import { StyleSheet, Text, type TextProps } from 'react-native';
+
+import { useThemeColor } from '@/hooks/use-theme-color';
+
+export type ThemedTextProps = TextProps & {
+  lightColor?: string;
+  darkColor?: string;
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+};
+
+export function ThemedText({
+  style,
+  lightColor,
+  darkColor,
+  type = 'default',
+  ...rest
+}: ThemedTextProps) {
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  return (
+    <Text
+      style={[
+        { color },
+        type === 'default' ? styles.default : undefined,
+        type === 'title' ? styles.title : undefined,
+        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+        type === 'subtitle' ? styles.subtitle : undefined,
+        type === 'link' ? styles.link : undefined,
+        style,
+      ]}
+      {...rest}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  default: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  defaultSemiBold: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '600',
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    lineHeight: 32,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  link: {
+    lineHeight: 30,
+    fontSize: 16,
+    color: '#0a7ea4',
+  },
+});
+
+
+./components/haptic-tab.tsx
+
+// --- PATH: ./components/haptic-tab.tsx ---
+
+import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
+import { PlatformPressable } from '@react-navigation/elements';
+import * as Haptics from 'expo-haptics';
+
+export function HapticTab(props: BottomTabBarButtonProps) {
+  return (
+    <PlatformPressable
+      {...props}
+      onPressIn={(ev) => {
+        if (process.env.EXPO_OS === 'ios') {
+          // Add a soft haptic feedback when pressing down on the tabs.
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }
+        props.onPressIn?.(ev);
+      }}
+    />
+  );
+}
+
+
+./components/ui/icon-symbol.ios.tsx
+
+// --- PATH: ./components/ui/icon-symbol.ios.tsx ---
+
+import { SymbolView, SymbolViewProps, SymbolWeight } from 'expo-symbols';
+import { StyleProp, ViewStyle } from 'react-native';
+
+export function IconSymbol({
+  name,
+  size = 24,
+  color,
+  style,
+  weight = 'regular',
+}: {
+  name: SymbolViewProps['name'];
+  size?: number;
+  color: string;
+  style?: StyleProp<ViewStyle>;
+  weight?: SymbolWeight;
+}) {
+  return (
+    <SymbolView
+      weight={weight}
+      tintColor={color}
+      resizeMode="scaleAspectFit"
+      name={name}
+      style={[
+        {
+          width: size,
+          height: size,
+        },
+        style,
+      ]}
+    />
+  );
+}
+
+
+./components/ui/collapsible.tsx
+
+// --- PATH: ./components/ui/collapsible.tsx ---
+
+import { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const theme = useColorScheme() ?? 'light';
+
+  return (
+    <ThemedView>
+      <TouchableOpacity
+        style={styles.heading}
+        onPress={() => setIsOpen((value) => !value)}
+        activeOpacity={0.8}>
+        <IconSymbol
+          name="chevron.right"
+          size={18}
+          weight="medium"
+          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+          style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
+        />
+
+        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+      </TouchableOpacity>
+      {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
+    </ThemedView>
+  );
+}
+
+const styles = StyleSheet.create({
+  heading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  content: {
+    marginTop: 6,
+    marginLeft: 24,
+  },
+});
+
+
+./components/ui/icon-symbol.tsx
+
+// --- PATH: ./components/ui/icon-symbol.tsx ---
+
+// Fallback for using MaterialIcons on Android and web.
+
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
+import { ComponentProps } from 'react';
+import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
+
+type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof MaterialIcons>['name']>;
+type IconSymbolName = keyof typeof MAPPING;
+
+/**
+ * Add your SF Symbols to Material Icons mappings here.
+ * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
+ * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
+ */
+const MAPPING = {
+  'house.fill': 'home',
+  'paperplane.fill': 'send',
+  'chevron.left.forwardslash.chevron.right': 'code',
+  'chevron.right': 'chevron-right',
+} as IconMapping;
+
+/**
+ * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
+ * This ensures a consistent look across platforms, and optimal resource usage.
+ * Icon `name`s are based on SF Symbols and require manual mapping to Material Icons.
+ */
+export function IconSymbol({
+  name,
+  size = 24,
+  color,
+  style,
+}: {
+  name: IconSymbolName;
+  size?: number;
+  color: string | OpaqueColorValue;
+  style?: StyleProp<TextStyle>;
+  weight?: SymbolWeight;
+}) {
+  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+}
+
+
+./components/themed-view.tsx
+
+// --- PATH: ./components/themed-view.tsx ---
+
+import { View, type ViewProps } from 'react-native';
+
+import { useThemeColor } from '@/hooks/use-theme-color';
+
+export type ThemedViewProps = ViewProps & {
+  lightColor?: string;
+  darkColor?: string;
+};
+
+export function ThemedView({ style, lightColor, darkColor, ...otherProps }: ThemedViewProps) {
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+
+./app/modal.tsx
+
+// --- PATH: ./app/modal.tsx ---
+
+import { Link } from 'expo-router';
+import { StyleSheet } from 'react-native';
+
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+
+export default function ModalScreen() {
+  return (
+    <ThemedView style={styles.container}>
+      <ThemedText type="title">This is a modal</ThemedText>
+      <Link href="/" dismissTo style={styles.link}>
+        <ThemedText type="link">Go to home screen</ThemedText>
+      </Link>
+    </ThemedView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  link: {
+    marginTop: 15,
+    paddingVertical: 15,
+  },
+});
+
+
+./app/_layout.tsx
+
+// --- PATH: ./app/_layout.tsx ---
+
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import 'react-native-reanimated';
+
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+export const unstable_settings = {
+  anchor: '(tabs)',
+};
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+      </Stack>
+      <StatusBar style="auto" />
+    </ThemeProvider>
+  );
+}
+
+
+./app/(tabs)/index.tsx
+
+// --- PATH: ./app/(tabs)/index.tsx ---
+
+import { styles } from "@/styles/IndexStyles";
+import { RootStackParamList } from "@/types/Navigation";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { Text, View } from "react-native";
+import HomeScreen from "../../screens/HomeScreen";
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function DetailsScreen({ route }: any) {
+  const { title, description, location, hour, date, category } = route.params;
+  return (
+    <View style={styles.detailsContainer}>
+      <Text style={styles.detailsTitle}>{title}</Text>
+      <View style={styles.detailsInfoBox}>
+        <Text style={styles.detailsLabel}>Godzina:</Text>
+        <Text style={styles.detailsValue}>{hour}</Text>
+        
+        <Text style={styles.detailsLabel}>Miejsce:</Text>
+        <Text style={styles.detailsValue}>{location}</Text>
+        
+        <Text style={styles.detailsLabel}>Opis:</Text>
+        <Text style={styles.detailsValue}>{description}</Text>
+
+        <Text style={styles.detailsLabel}>Godzina:</Text>
+        <Text style={styles.detailsValue}>{hour}</Text>
+
+        <Text style={styles.detailsLabel}>Data:</Text>
+        <Text style={styles.detailsValue}>{date}</Text>
+
+        <Text style={styles.detailsLabel}>Kategoria:</Text>
+        <Text style={styles.detailsValue}>{category}</Text>
+      </View>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{ headerShown: false }} 
+      />
+      <Stack.Screen 
+        name="Details" 
+        component={DetailsScreen} 
+        options={{ title: 'Szczegóły wydarzenia' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+./app/(tabs)/_layout.tsx
+
+// --- PATH: ./app/(tabs)/_layout.tsx ---
+
+import { Tabs } from 'expo-router';
+import React from 'react';
+
+import { HapticTab } from '@/components/haptic-tab';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+export default function TabLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+        tabBarButton: HapticTab,
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Explore',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
+    </Tabs>
+  );
+}
+
+
+./app/(tabs)/explore.tsx
+
+// --- PATH: ./app/(tabs)/explore.tsx ---
+
+import { Image } from 'expo-image';
+import { Platform, StyleSheet } from 'react-native';
+
+import { Collapsible } from '@/components/ui/collapsible';
+import { ExternalLink } from '@/components/external-link';
+import ParallaxScrollView from '@/components/parallax-scroll-view';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { Fonts } from '@/constants/theme';
+
+export default function TabTwoScreen() {
+  return (
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+      headerImage={
+        <IconSymbol
+          size={310}
+          color="#808080"
+          name="chevron.left.forwardslash.chevron.right"
+          style={styles.headerImage}
+        />
+      }>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText
+          type="title"
+          style={{
+            fontFamily: Fonts.rounded,
+          }}>
+          Explore
+        </ThemedText>
+      </ThemedView>
+      <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <Collapsible title="File-based routing">
+        <ThemedText>
+          This app has two screens:{' '}
+          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
+          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+        </ThemedText>
+        <ThemedText>
+          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
+          sets up the tab navigator.
+        </ThemedText>
+        <ExternalLink href="https://docs.expo.dev/router/introduction">
+          <ThemedText type="link">Learn more</ThemedText>
+        </ExternalLink>
+      </Collapsible>
+      <Collapsible title="Android, iOS, and web support">
+        <ThemedText>
+          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
+          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
+        </ThemedText>
+      </Collapsible>
+      <Collapsible title="Images">
+        <ThemedText>
+          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
+          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
+          different screen densities
+        </ThemedText>
+        <Image
+          source={require('@/assets/images/react-logo.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center' }}
+        />
+        <ExternalLink href="https://reactnative.dev/docs/images">
+          <ThemedText type="link">Learn more</ThemedText>
+        </ExternalLink>
+      </Collapsible>
+      <Collapsible title="Light and dark mode components">
+        <ThemedText>
+          This template has light and dark mode support. The{' '}
+          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
+          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
+        </ThemedText>
+        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
+          <ThemedText type="link">Learn more</ThemedText>
+        </ExternalLink>
+      </Collapsible>
+      <Collapsible title="Animations">
+        <ThemedText>
+          This template includes an example of an animated component. The{' '}
+          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
+          the powerful{' '}
+          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
+            react-native-reanimated
+          </ThemedText>{' '}
+          library to create a waving hand animation.
+        </ThemedText>
+        {Platform.select({
+          ios: (
+            <ThemedText>
+              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
+              component provides a parallax effect for the header image.
+            </ThemedText>
+          ),
+        })}
+      </Collapsible>
+    </ParallaxScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  headerImage: {
+    color: '#808080',
+    bottom: -90,
+    left: -35,
+    position: 'absolute',
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+});
+
+
+./types/Event.ts
+
+// --- PATH: ./types/Event.ts ---
+
+export type Event = {
+    id: number;
+    title: string;
+    description: string;
+    location: string;
+    hour: string;
+    date: string;
+    category: string;
+}
+
+./types/Navigation.ts
+
+// --- PATH: ./types/Navigation.ts ---
+
+export type RootStackParamList = {
+    Home: undefined;
+    Details: {
+        title: string;
+        description: string;
+        location: string;
+        hour: string;
+        date: string;
+        category: string;
+    };
+};
+
+./constants/theme.ts
+
+// --- PATH: ./constants/theme.ts ---
+
+/**
+ * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
+ * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ */
+
+import { Platform } from 'react-native';
+
+const tintColorLight = '#0a7ea4';
+const tintColorDark = '#fff';
+
+export const Colors = {
+  light: {
+    text: '#11181C',
+    background: '#fff',
+    tint: tintColorLight,
+    icon: '#687076',
+    tabIconDefault: '#687076',
+    tabIconSelected: tintColorLight,
+  },
+  dark: {
+    text: '#ECEDEE',
+    background: '#151718',
+    tint: tintColorDark,
+    icon: '#9BA1A6',
+    tabIconDefault: '#9BA1A6',
+    tabIconSelected: tintColorDark,
+  },
+};
+
+export const Fonts = Platform.select({
+  ios: {
+    /** iOS `UIFontDescriptorSystemDesignDefault` */
+    sans: 'system-ui',
+    /** iOS `UIFontDescriptorSystemDesignSerif` */
+    serif: 'ui-serif',
+    /** iOS `UIFontDescriptorSystemDesignRounded` */
+    rounded: 'ui-rounded',
+    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
+    mono: 'ui-monospace',
+  },
+  default: {
+    sans: 'normal',
+    serif: 'serif',
+    rounded: 'normal',
+    mono: 'monospace',
+  },
+  web: {
+    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    serif: "Georgia, 'Times New Roman', serif",
+    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
+    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  },
+});
+
+
+./screens/HomeScreen.tsx
+
+// --- PATH: ./screens/HomeScreen.tsx ---
+
+import { events as initialEvents } from "../Data/events";
+import type { Event } from "@/types/Event";
+import { styles } from "@/styles/HomeScreenStyles";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React, { useState } from "react";
+import {
+    Button,
+    FlatList,
+    Modal,
+    StyleSheet,
+    Text,
+    View
+} from "react-native";
+
+
+import { RootStackParamList } from "@/types/Navigation";
+import ListItem from "../components/ListItem";
+
+type HomeScreenProps = {
+    navigation: NativeStackNavigationProp<RootStackParamList, "Home">; 
+}
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
+    const [events, setEvents] = useState<Event[]>(initialEvents);
+    const [count, setCount] = useState(0);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const addEvent = (newEvent: Omit<Event, "id">) => {
+        const eventToAdd: Event = {
+            id: Date.now(), 
+            ...newEvent
+        };
+
+        setEvents((prevEvents) => [eventToAdd, ...prevEvents]);
+    }
+    
+    const handlePress = () => {
+        const nextCount = count + 1;
+        setCount(nextCount);
+        if (nextCount > 4) setModalVisible(true);
+    };
+
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={events}
+                keyExtractor={(item) => item.id.toString()}
+                ListHeaderComponent={
+                    <>
+                        <View style={styles.counterSection}>
+                            <Text style={styles.counterText}>Licznik: {count}</Text>
+                            <Button title="Zwiększ" onPress={handlePress} />
+                        </View>
+                        <Text style={styles.header}>Wydarzenia</Text>
+                    </>
+                }
+                renderItem={({ item }: { item: Event }) => (
+                    <ListItem 
+                        title={item.title}
+                        description={item.description}
+                        location={item.location}
+                        hour={item.hour}
+                        date={item.date}
+                        category={item.category}
+                        isHighlighted={item.id % 2 === 0}
+                        onPress={() => navigation.navigate("Details", {
+                            title: item.title,
+                            description: item.description,
+                            location: item.location,
+                            hour: item.hour,
+                            date: item.date,
+                            category: item.category,
+                        })}
+                    />
+                )}
+            />
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalTitle}>Limit kliknięć!</Text>
+                        <Text>Kliknąłeś już {count} razy.</Text>
+                        <Button title="Zamknij" onPress={() => setModalVisible(false)} />
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    );
+}
+
+./screens/DetailsScreen.tsx
+
+// --- PATH: ./screens/DetailsScreen.tsx ---
+
+import { RootStackParamList } from "@/types/Navigation";
+import { RouteProp } from "@react-navigation/native";
+import { Text, View } from "react-native";
+import { styles } from "@/styles/DetailsScreenStyles";
+
+type DetailsScreenRouteProp = RouteProp<RootStackParamList, "Details">;
+
+type DetailsScreenProps = {
+    route: DetailsScreenRouteProp;
+};
+
+export default function DetailsScreen({ route }: DetailsScreenProps) {
+    const { title, description } = route.params;
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            <Text>{description}</Text>
+        </View>
+    )
+}
+
+./Data/events.ts
+
+// --- PATH: ./Data/events.ts ---
+
+import { Event } from "@/types/Event";
+
+export const events: Event[] = [
+    {
+        id: 1, 
+        title: "Wykład React Native", 
+        description: "Sala A1, 10:00",
+        location: "Sala A1", 
+        hour: "10:00", 
+        date: "2026-09-01",
+        category: "Wykład",
+    },
+    {
+        id: 2,
+        title: "Warsztaty AI",
+        description: "Sala B2, 12:00",
+        location: "Sala B2",
+        hour: "12:00",
+        date: "2026-04-17",
+        category: "Warsztaty",
+    },
+    {
+        id: 3,
+        title: "Spotkanie koła",
+        description: "Sala C3, 15:00",
+        location: "Sala C3",
+        hour: "15:00",
+        date: "2026-08-13",
+        category: "Spotkanie",
+    },
+    {
+        id: 4,
+        title: "Konferencja Tech",
+        description: "Aula Główna, 09:00",
+        location: "Aula Główna",
+        hour: "09:00",
+        date: "2026-07-07",
+        category: "Konferencja",
+    },
+    {
+        id: 5,
+        title: "Mecz Koszykówki",
+        description: "Hala Sportowa, 17:30",
+        location: "Hala Sportowa",
+        hour: "17:30",
+        date: "2026-10-01",
+        category: "Mecz",
+    },
+];
+
+./styles/HeaderStyles.tsx
+
+// --- PATH: ./styles/HeaderStyles.tsx ---
+
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+        backgroundColor: "#4a90e2",
+    },
+    title: {
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+});
+
+./styles/ListItemStyles.tsx
+
+// --- PATH: ./styles/ListItemStyles.tsx ---
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+        marginVertical: 5,
+        marginHorizontal: 10,
+        borderRadius: 8,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+    },
+    default: {
+        backgroundColor: "#4a90e2",
+    },
+    important: {
+        backgroundColor: "#f39c12",
+    },
+    active: {
+        backgroundColor: "#1f4f85",
+        transform: [{ scale: 0.98 }],
+    },
+    title: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    description: {
+        color: "white",
+        fontSize: 14,
+    },
+    location: {
+        color: "white",
+        fontSize: 12,
+        marginTop: 5,
+        fontStyle: 'italic',
+    }
+});
+
+./styles/HomeScreenStyles.tsx
+
+// --- PATH: ./styles/HomeScreenStyles.tsx ---
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#f2f2f2",
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: "bold",
+        margin: 15,
+    },
+    counterSection: {
+        padding: 20,
+        backgroundColor: "white",
+        alignItems: "center",
+        borderBottomWidth: 1,
+        borderColor: "#ddd",
+    },
+    counterText: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+    centeredView: {
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        backgroundColor: "rgba(0,0,0,0.5)"
+    },
+    modalView: {
+        backgroundColor: "white", 
+        padding: 35, 
+        borderRadius: 20, 
+        alignItems: "center"
+    },
+    modalTitle: {
+        fontSize: 20, 
+        fontWeight: "bold", 
+        marginBottom: 15
+    }
+});
+
+./styles/DetailsScreenStyles.tsx
+
+// --- PATH: ./styles/DetailsScreenStyles.tsx ---
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+        backgroundColor: "#4a90e2",
+    },
+    title: {
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+});
+
+./styles/IndexStyles.tsx
+
+// --- PATH: ./styles/IndexStyles.tsx ---
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  detailsContainer: { 
+    flex: 1, 
+    padding: 20, 
+    backgroundColor: '#4a90e2' 
+  },
+  detailsTitle: { 
+    fontSize: 30, 
+    color: 'white', 
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+    textAlign: 'center' 
+  },
+  detailsInfoBox: { 
+    backgroundColor: 'white', 
+    borderRadius: 20, 
+    padding: 20, 
+    elevation: 5 
+  },
+  detailsLabel: { 
+    fontSize: 14, 
+    color: '#888', 
+    fontWeight: 'bold', 
+    marginTop: 10 
+  },
+  detailsValue: { 
+    fontSize: 18, 
+    color: '#333', 
+    marginBottom: 5 
+  },
+});
+
+./expo-env.d.ts
+
+// --- PATH: ./expo-env.d.ts ---
+
+/// <reference types="expo/types" />
+
+// NOTE: This file should not be edited and should be in your git ignore
+
