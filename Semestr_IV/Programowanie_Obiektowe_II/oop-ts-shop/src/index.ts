@@ -1,6 +1,6 @@
-import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
 import { InMemoryOrderRepository } from "./infra/InMemoryOrderRepository.js";
-import { Cart } from "./Cart,js";
+import { InMemoryProductRepository } from "./infra/InMemoryProductRepository.js";
+import { Cart } from "./Cart.js";
 import { AddToCart } from "./app/AddToCart.js";
 import { Checkout } from "./app/Checkout.js";
 import { CourierShipping } from "./domain/shipping/CourierShipping.js";
