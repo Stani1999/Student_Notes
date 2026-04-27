@@ -1,4 +1,5 @@
 # **Programowanie Sterowników PLC**
+
 ## **2026-02-24 Wykład I**
 
 ### **I. 1. Organizacyjna**
@@ -92,7 +93,7 @@
 ### **II. 1. Układy logiczne**
 
 **Zagadnienie**          | **Opis**  | **Zastosowanie, cecha**
------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------
+------------------------ | --------------------------------------------------------------- | :---
 **Układ synchroniczny**  | Posiada wejście taktujące (clock)                               | Często oparte na kwarcu,<br> zapewnia jednoznaczność<br> i powtarzalność operacji
 **Zegar**                | Generator impulsów                                              | Powstałe przebiegi okresowe są wykorzystywane do synchronizacji 
 **Układ asynchroniczny** | Brak wspólnego sygnału zegarowego                               | Każda zmiana stanu na wejściu<br> może natychmiast wpływać na wyjście,<br> ryzyko braku stabilności
@@ -113,7 +114,7 @@
 ### **II. 3. Struktura bloku funkcyjnego**
 
 **Element**                        | **Opis**                         | **Zastosowanie, cecha**
----------------------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------
+---------------------------------- | -------------------------------- | :---
 **Blok funkcjonalny**              | Następny poziom układu cyfrowego | Realizuje narzuconą funkcjonalność,<br> oparty na układach sekwencyjnych,<br> komutacyjnych lub bramkach logicznych
 **Wejścia/Wyjścia (X, Y)**         | Główne tory danych               | Wejścia (X) to sygnały sterujące,<br> Wyjścia (Y) to sygnały wynikowe
 **Wejście<br> sterujące (S)**      | Sygnał wyboru lub trybu          | Określa, jak blok ma zareagować na dane (np. adres w multiplexerze)
@@ -189,14 +190,14 @@
 `RTD`      | Resistance Temperature Detector | Czujnik rezystancyjny <br> (np. Pt100)
 `CP`       | Communication Processor         | Koprocesor / moduł komunikacyjny <br> (np. Modbus/RS485)
 `PS`       | Power Supply                    | Źródło zasilania <br> (np. zasilacz DC)
-`PM`       | Power Module                    | Moduł zasilania <br> (np. moduł zasilania 24V)   
+`PM`       | Power Module                    | Moduł zasilania <br> (np. moduł zasilania 24V)
 
 ## **2026-03-17 Wykład IV `TIA Portal` - c.d.**
 
 ### **IV. 1. `TIA Portal` - Rozszerzona Adresacja**
 
 **Zagadnienie**              | **Opis**                                                               | **Szczegóły**
----------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------
+---------------------------- | ---------------------------------------------------------------------- | :---
 **`Adres IP`**               | Podstawowy element komunikacji                                         | Unikalny adres w sieci Ethernet
 **`Gniazda modułów`**        | W konfiguracji sprzętowej moduły<br> muszą być umieszczone w gniazdach | Puste przestrzenie pomiędzy slotami są niedozwolone
 **`M0` (`Memory 0`)**        | Obszar pamięci bitowej (markerów)                                      | Można wykorzystać jedynie jako zmienne pomocnicze wewnątrz programu
@@ -207,7 +208,7 @@
 
 ### **IV. 2. Typy danych w PLC**
 
-**Typ danych**   | **Rozmiar** |**Opis** 
+**Typ danych**   | **Rozmiar** |**Opis**
 ---------------- | ----------- | ----------------------------------------------------------------------
 **`SINT`**       | 8-bit       | Signed Integer (skrócona liczba całkowita ze znakiem)
 **`INT`**        | 16-bit      | Integer (standardowa liczba całkowita)
@@ -220,7 +221,6 @@
 **`W` (Word)**   | 16 bitów    | Słowo danych, np. `%MW10` (zajmuje dwa bajty: `MB10` i `MB11`)
 **`D` (Double)** | 32 bity     | Podwójne słowo, zajmuje cztery bajty (np. `%MD10` to bajty 10, 11, 12 i 13)
 **`Char`**       | 8 bitów     | Znak ASCII, ale w PLC zajmuje cały bajt (nie można go adresować na poziomie bitu)
-
 
 ### **IV. 3. Zarządzanie zmiennymi - `PLC Tags`**
 
@@ -265,13 +265,12 @@
 **Pamięć systemowa**                | Pierwsze 2 bajty            | Dobre praktyki nakazują rezerwację początkowych bajtów pamięci `M` na potrzeby systemowe sterownika
 **Rezerwacja pamięci**              | Przesunięcie adresacji      | Zalecenie rezerwowania pierwszych dwóch bajtów pamięci na potrzeby systemowe<br> i adresowanie zmiennych procesowych (markerów) od dalszych adresów
 
-
 ### **V. 2. Programowanie i struktura bloków**
 
 **Typ bloku**           | **Opis**                  | **Zastosowanie**
 ----------------------- | ------------------------- | -----------------------------------------------------------------------------------------------------------------
 **OB1 (Main)**          | Blok organizacyjny główny | Główna pętla programu wykonywana w nieskończoność,<br> częstotliwość zależy od ilości kroków wewnątrz tego typu bloków
-**System Operacyjny**   | Interface sprzętowy       | Pośredniczy między kodem użytkownika a fizycznym sprzętem, wejściami/wyjściami 
+**System Operacyjny**   | Interface sprzętowy       | Pośredniczy między kodem użytkownika a fizycznym sprzętem, wejściami/wyjściami
 **DB (Data Block)**     | Blok danych               | Globalny obszar pamięci dla komponentów programu, może przechowywać typy proste i złożone
 **FC (Function)**       | Funkcja                   | Wykonuje kod korzystając ze zmiennych globalnych, nie posiada własnej pamięci
 **FB (Function Block)** | Blok funkcyjny            | Posiada dodatkową bazę danych (Instancja DB), pozwala na parametryzację obiektową
@@ -280,7 +279,7 @@
 ### **V. 3. Struktura i zarządzanie blokami programowymi**
 
 **Element**                    | **Opis i funkcja**                                          | **Szczegóły techniczne**
------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------
+------------------------------ | ----------------------------------------------------------- | :---
 **Tworzenie DB**               | Bloki danych (Data Block) służą do przechowywania zmiennych | Mogą być tworzone ręcznie jako bloki globalne lub automatycznie jako <br> instancje przy zakładaniu `FB`
 **Dodawanie bloków**           | `Add new block` w drzewie projektu pod `Program blocks`     | Pozwala na wybór typu bloku (`OB, FC, FB, DB`) oraz nadanie mu unikalnej nazwy i numeru
 **Wybór języka**               | Określenie sposobu zapisu logiki wewnątrz bloku             | Można wymusić język programowania (`LAD, FBD, SCL`) 
@@ -296,6 +295,7 @@
 **Komentarze Network**  | Pole tekstowe nad każdym segmentem drabinki | Służy do opisu realizowanych funkcji, co jest niezbędne przy rozbudowanych programach dla łatwiejszej diagnostyki
 **Podpowiedzi Tagów**   | System autouzupełniania nazw zmiennych      | Po wpisaniu pierwszych liter nazwy symbolicznej, `TIA Portal` wyświetla listę pasujących wpisów z tablicy PLC Tags
 **Zamykanie Networków** | Ikona strzałek przy numerze segmentu        | Pozwala zwijać i rozwijać część kodu, co poprawia przejrzystość przy pracy z dużą liczbą instrukcji
+
 ### **V. 5. Zaawansowana logika: Przekaźniki i Zbocza**
 
 **Element logiczny**  | **Działanie w programie** | **Powiązanie fizyczne**
@@ -309,17 +309,21 @@
 
 ### **VI. 1. Mechanizmy wykonywania programów i wykrywania zboczy**
 
-**Zagadnienie**         | **Zasada/Działanie**         | **Szczegóły techniczne**
------------------------ | ---------------------------- | --------------------------------------
-**Cykl pracy OB**       | Bardzo krótki czas wykonania | Blok OB jest aktywny przez bardzo krótki czas rzędu kilku milisekund
-**Detekcja zboczy**     | Porównanie stanów sygnału    | Aby wykryć zbocze, sterownik porównuje aktualny stan sygnału z bieżącego cyklu programu ze stanem z poprzedniego cyklu
-**Pamięć operacji**     | Wymóg zmiennej `Memory`      | Instrukcja zbocza musi posiadać przypisaną zmienną pamięciową (`marker`), która przechowuje stan z poprzedniego cyklu
-**Opis zestyku zbocza** | Zapis dwuargumentowy         | Zestyk opisywany jest przez dwie zmienne: zmienną wejściową (u góry) oraz zmienną pamięciową (na dole)
+**Zagadnienie**             | **Zasada/Działanie**         | **Szczegóły techniczne**
+:---                        | :---                         | :---
+**Cykl pracy OB**           | Bardzo krótki czas wykonania | Blok OB jest aktywny przez bardzo krótki czas rzędu kilku milisekund
+**Detekcja zboczy**         | Porównanie stanów sygnału    | Aby wykryć zbocze, sterownik porównuje aktualny stan sygnału z bieżącego cyklu programu ze stanem z poprzedniego cyklu
+**Pamięć operacji**         | Wymóg zmiennej `Memory`      | Instrukcja zbocza musi posiadać przypisaną zmienną pamięciową (`marker`), która przechowuje stan z poprzedniego cyklu
+**Opis zestyku zbocza**     | Zapis dwuargumentowy         | Zestyk opisywany jest przez dwie zmienne: zmienną wejściową (u góry) oraz zmienną pamięciową (na dole)
+**Zestyk zwierny `NO`**     | Detekcja w logice dodatniej  | Detekcja zbocza narastającego odpowiada wtedy fizycznemu załączeniu styku
+**Zestyk rozwierny `NC`**   | Detekcja w logice odwróconej | Pozwala wykryć zbocze sygnału, gdy fizyczny styk zostaje przerwany (wejście przechodzi w stan 0)
 
-### **VI. 2. Operacje i konwersja typów danych**
+Można wykożysztać zestyk zwierny rozwierny... [z notatki z dnia 21.04.2026] dokończyć
+
+### **VI. 2. Operacje i konwersja typów danych*
 
 **Operacja**               | **Cel i opis**                                  | **Ograniczenia przyczynowo-skutkowe**
--------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------
+-------------------------- | ----------------------------------------------- | :---
 **Interpretacja danych**   | Zależność od typu zmiennej                      | Dane w pamięci są odczytywane w charakterystyczny sposób dla przypisanego typu
 **Automatyczna konwersja** | Wsparcie przez kompilator                       | Kompilator `TIA Portal` posiada funkcję automatycznej konwersji typów,<br> jeśli operacja tego wymaga
 **Konwersja typów**        | Umożliwienie operacji na różnych typach         | Blok operacyjny wymaga, aby wszystkie argumenty były tego samego typu
@@ -327,11 +331,10 @@
 **Konwersja `w górę`**     | Przejście na typ o większym zakresie            | W przypadku ryzyka przekroczenia zakresu (np. `Int`),<br> dane są automatycznie konwertowane na typ o większym zakresie (np. `DINT`)
 **Konwersja `w dół`**      | Przejście z typu większego na mniejszy          | Konwersja z typów większych na mniejsze jest możliwa jedynie,<br> gdy wartość mieści się w węższym zakresie
 
-
 ### **VI. 3. Skalowanie wartości analogowych**
 
-**Element układu**          |**Funkcja**                    |**Rola**                                                                   |**Sygnał**                                  
-----------------------------|-------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------
+**Element układu**          |**Funkcja**                    |**Rola**                                                                   |**Sygnał**
+----------------------------|-------------------------------|---------------------------------------------------------------------------| :---
 **Czujnik (np. `PT100`)**   |Element pomiarowy (`TE`)       |Bezpośredni odczyt wartości procesowej z obiektu                           |**Fizyczny:** Rezystancja, ciśnienie, temperatura, przepływ 
 **Przetwornik `TT`**        |Konwerter sygnału              |Standaryzacja surowego odczytu do standardu przemysłowego                  |**Elektryczny:** napięciowy `0-10 V` lub prądowy `4-20 mA`
 **Przetwornik `ADC w PLC`** |Interpretacja analogowo-cyfrowa|Przekształcenie napięcia/prądu na liczbę całkowitą zrozumiałą dla procesora|**Cyfrowy:** Zakres liczbowy Siemens od `0` do `27648`    
@@ -353,7 +356,7 @@
 ### **VII. 1. Mechanizmy detekcji zboczy**
 
 **Zagadnienie**        | **Opis i działanie**                                 | **Wymagania techniczne**
----------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------
+---------------------- | ---------------------------------------------------- | :---
 **Zbocze narastające** | Rosnący poziom sygnału - Zmiana sygnału z `0 na 1`   | Wymaga markera pamięci do przechowywania stanu z poprzedniego cyklu
 **Zbocze opadające**   | Spadający poziom sygnału - Zmiana sygnału z `1 na 0` | Podobnie jak w przypadku zbocza narastającego, potrzebna jest zmienna pamięciowa
 **Blok sprawdzający**  | Specjalna funkcja weryfikująca aktualny stan wejścia | Konieczność użycia zmiennej pomocniczej w `TIA Portal` (na dole bloku) 
@@ -363,14 +366,14 @@
 
 **Wartość**            | **Barometr** | **Przetwornik** | **Przetwornik `ADC`** | `NORM_X` | `SCALE_X`
 ---------------------- | ------------ | --------------- | --------------------- | -------- | ----------
-**Wartość minimalna**  | `0 bar`      | `4 mA`          | `0`                   | `0.0`    | `0.0`    
-**Wartość pośrednia**  | `5 bar`      | `12 mA`         | `13824`               | `0.5`    | `5.0`   
+**Wartość minimalna**  | `0 bar`      | `4 mA`          | `0`                   | `0.0`    | `0.0`
+**Wartość pośrednia**  | `5 bar`      | `12 mA`         | `13824`               | `0.5`    | `5.0`
 **Wartość maksymalna** | `10 bar`     | `20 mA`         | `27648`               | `1.0`    | `10.0`  
 
 ### **VII. 3. Monitorowanie i diagnostyka online**
 
 **Zagadnienie**              | **Opis i działanie**                              | **Uwagi techniczne**
----------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------
+---------------------------- | ------------------------------------------------- | :---
 **Status bloków**            | Tryb `Monitoring` (ikona okularów) w `TIA Portal` | Cewki `Set`/`Reset` mogą mylnie wskazywać stan aktywny,<br> należy zwracać uwagę na zestyki 
 **Nadpisywanie bloków**      | Wgrywanie `Download` komponentów do sterownika    | Jeżeli w projekcie istnieją już bloki o tych samych numerach, zostaną one zastąpione nową wersją
 **Diagnostyka<br> zestyków** | Wizualizacja przepływu sygnału w drabince (`LAD`) | Kolor zielony oznacza przewodzenie logiczne sygnału w danym cyklu
@@ -378,7 +381,7 @@
 ### **VII. 4. Karta Pamięci (`SMC`) i Zasoby sprzętowe**
 
 **Element**             | **Opis**                                                  | **Szczegóły techniczne**
------------------------ | --------------------------------------------------------  | -----------------------------------------------------------------------
+----------------------- | --------------------------------------------------------  | :---
 **Sterownik `S7-1200`** | Posiada wbudowaną pamięć typu `Load Memory`               | Karta pamięci jest opcjonalna (używana do transferu lub backupu)
 **Sterownik `S7-1500`** | Nie posiada zintegrowanej pamięci ładowania               | Karta pamięci `SMC` jest niezbędna do pracy sterownika i wgrania programu
 **`Timer`**             | Blok funkcjonalny oparty na cyklach procesora lub zegarze | Wykorzystuje wewnętrzny generator impulsów (zegar systemowy) do odmierzania czasu
@@ -388,8 +391,58 @@ Uwaga ogólna            | `Timer` i `licznik` to często ten sam układ sprzęt
 ### **VII. 5. Obsługa Timerów (`TP`, `TON`)**
 
 **Element<br>Typ `Timera`**| **Sposób (działania)**                   | **Logika**                                                                                                                 | **Specyfikacja parametrów i zapisu**
--------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------
+-------------------------- | ---------------------------------------- | :---                                                                                                                       | :---
 **`TP`<br>(Impuls)**       | Generowanie impulsu<br> o stałym czasie  |  Po wykryciu zbocza narastającego na wejściu `IN`,<br> wyjście `Q` zostaje załączone na czas określony przez parametr `PT` | **Niezależność od wejścia:**<br> Raz wyzwolony impuls trwa zadany czas, nawet jeśli sygnał `IN` zostanie przerwany<br> Parametr czasu zapisujemy jako np. `T#4s`
 **`TON`<br>(On-Delay)**    | Opóźnienie<br>załączenia                 | Wyjście `Q` zostaje aktywowane dopiero po upływie czasu `PT`,<br> pod warunkiem stałej obecności sygnału na wejściu `IN`   | **Reset automatyczny:**<br> Zanik sygnału na wejściu `IN` przed upływem czasu `PT`<br> powoduje wyzerowanie odliczania
 **Sposób zapisu**          |  1. Blok (`Box`):<br> 2. Cewka (`Coil`): | Pełny blok funkcjonalny z wejściami/wyjściami<br>Uproszczony zapis w drabince                                              | `IN`, `PT`, `Q`,`ET` <br> `Timer` jest przypisany bezpośrednio do operacji na końcu linii logicznej
 **Instancja `DB`**         | Automatyczne tworzenie                   | Każdorazowe wrzucenie timera do drabinki<br> generuje unikalny blok danych instancyjnych (`Instance DB`)                   | **Przechowywanie danych:**<br> `DB` przechowuje aktualny czas odliczania oraz nastawy,<br> co pozwala na dostęp do tych danych z innych części programu
+
+## **2026-04-21 Wykład VIII**
+
+### **VIII. 1. Zaawansowane funkcje czasowe i licznikowe**
+
+**Zagadnienie**         | **Opis i działanie**                                  | **Uwagi techniczne**
+:---                    | :---                                                  | :---
+**`TONR`**              | Opóźnione załączenie z podtrzymaniem<br> (Retentive)  | Zlicza czas tylko w stanie wysokim na wejściu `IN` <br> po zaniku sygnału czas nie zeruje się
+**Resetowanie `TONR`**  | Wyzerowanie czasu `ET` oraz wyjścia `Q`               | Wymaga podania sygnału na dedykowane wejście resetujące `R`
+**Blok `MOVE`**         | Przenoszenie zawartości rejestrów                     | Pozwala na kopiowanie danych z jednej zmiennej do drugiej
+**Przesunięcie bloku**  | Operacja `BLK_MOV` lub podobne                        | Można zdefiniować obszar danych do przeniesienia,<br> wskazując element początkowy i długość
+
+### **VIII. 2. Podstawowe operacje binarne**
+
+**Typ połączenia**          | **Operacja logiczna**     | **Bramka**        | **Logika**
+:---                        | :---                      | :---:             | :---
+**Połączenie szeregowe**    | Iloczyn logiczny          | `AND`             | *`Y = A · B`*
+**Połączenie równoległe**   | Suma logiczna             | `OR` (Albo/Albo)  | *`Y = A + B`*
+**Różnica logiczna**        | Wykrywanie różnych stanów | `XOR`             | *`Y = A · B̄ + Ā · B`*
+
+### **VIII. 3. Obsługa zestyków i przerzutników**
+
+**Element**                 | **Opis i działanie**                          | **Szczegóły techniczne**
+:---                        | :---                                          | :---
+**Zestyk zwierny (`NO`)**   | Przenosi sygnał, gdy zmienna ma stan `1`      | Stosowany dla czujników aktywnych w logice dodatniej
+**Zestyk rozwierny (`NC`)** | Przenosi sygnał, gdy zmienna ma stan `0`      | Stosowany dla czujników nieaktywnych lub logiki zanegowanej
+**Przerzutnik `RS`**        | Pamięć z dominującym wejściem **`Reset`**     | `Reset` ma priorytet przy jednoczesnym pobudzeniu obu wejść
+**Przerzutnik `SR`**        | Pamięć z dominującym wejściem **`Set`**       | Ustawienie (`Set`) ma priorytet przy jednoczesnym pobudzeniu obu wejść
+**Blok `FBD`**              | Funkcje w blokach funkcjonalnych              | Wymagają użycia konkretnych instrukcji logicznych zamiast rysowania drabinki
+
+### **VIII. 4. Komunikacja sieciowa i sterowanie**
+
+**Zagadnienie**         | **Opis i działanie**                              | **Wymagania techniczne**  
+:---                    | :---                                              | :---
+**Instrukcje skoku**    | Przeskok do konkretnej etykiety (`Label`)         | Pozwala na omijanie networków, rzadziej stosowane, ale poprawia elastyczność
+**`Profinet`**          | Preferowany standard komunikacji                  | Wykorzystywany głównie między sterownikiem a panelem `HMI`
+**Urządzenia polowe**   | Elementy wykonawcze (falownik, wyspa zaworowa)    | Muszą posiadać interfejs komunikacyjny (np. `Profinet`), by odbierać komunikaty
+**Systemy w autach**    | Niezależne moduły (np. `ABS`)                     | Muszą być wprowadzone do centralnego komputera przez magistralę (posiadać interface) `CAN`
+**Standard Ethernet**   | Wykorzystywany do prostszych połączeń             | Można go użyć bez protokołu Profinet przy połączeniu panelu ze sterownikiem
+
+### **VIII. 5. Formaty danych i adresowanie**
+
+**Zapis/Adres**             | **Znaczenie**                         | **Szczegóły techniczne**
+:---                        | :---                                  | :---
+**`2#`**                    | System binarny                        | Wyświetla stany `0` i `1`
+**`16#`**                   | System szesnastkowy                   | Składa się z cyfr i liter od `A` do `F`
+**Brak przedrostka**        | System dziesiętny (`DEC`)             | Standardowy sposób prezentacji wartości liczbowych
+**`%I2.7`**                 | Adres bitowy wejścia                  | Cyfra `2` to numer bajtu, `7` to konkretny numer bitu w tym bajcie
+**Błąd `%MD80/%MD83`**      | Niewłaściwy adres (nakładanie się)    | `%MD80` zajmuje 4 bajty (80-83), `%MD83` jest zajęty przez poprzedni rejestr
+**Zestyk porównania**       | Np. `>= INT`                          | Aktywny tylko, gdy wartość zmiennej jest większa lub równa zadanej wartości
