@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "I",
-    "slug": "I",
+    "name": "my-app",
+    "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "i",
+    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
