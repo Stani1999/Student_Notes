@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\",
+  "WorkspaceRootPath": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL\\PESEL.csproj|solutionrelative:pesel\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL.csproj|c:\\users\\jstan\\git\\student_notes\\semestr_iv\\metody_numeryczne\\pesel\\pesel\\src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D8FFC82D-BEA2-4257-AF38-5A5619015E74}|PESEL.csproj|solutionrelative:src\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,11 +21,11 @@
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "PESEL\\Src\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Src\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\jstan\\Git\\Student_Notes\\Semestr_IV\\Metody_Numeryczne\\PESEL\\PESEL\\Src\\MainWindow.xaml",
-              "RelativeToolTip": "PESEL\\Src\\MainWindow.xaml",
+              "RelativeToolTip": "Src\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-04-23T10:20:20.541Z",
+              "WhenOpened": "2026-05-03T08:18:35.98Z",
               "EditorCaption": ""
             }
           ]
