@@ -446,3 +446,64 @@ Uwaga ogólna            | `Timer` i `licznik` to często ten sam układ sprzęt
 **`%I2.7`**                 | Adres bitowy wejścia                  | Cyfra `2` to numer bajtu, `7` to konkretny numer bitu w tym bajcie
 **Błąd `%MD80/%MD83`**      | Niewłaściwy adres (nakładanie się)    | `%MD80` zajmuje 4 bajty (80-83), `%MD83` jest zajęty przez poprzedni rejestr
 **Zestyk porównania**       | Np. `>= INT`                          | Aktywny tylko, gdy wartość zmiennej jest większa lub równa zadanej wartości
+
+## **2026-04-28 Wykład IX**
+
+### **IX. 1. Adresacja i formaty prezentacji danych**
+
+**Zapis/Adres**         | **Znaczenie i charakterystyka**               | **Szczegóły techniczne**
+:---                    | :---                                          | :---
+**`%I`**                | Pamięć wejściowa (Inputs)                     | Służy do odczytu stanów z fizycznych wejść sterownika
+**`%Q`**                | Pamięć wyjściowa (Outputs)                    | Służy do sterowania fizycznymi wyjściami (np. cewki, styczniki)
+**`%M`**                | Pamięć ogólnodostępna (Markers)               | Wykorzystywana do przechowywania stanów pośrednich wewnątrz programu
+**`W` (np. `%IW`)**     | Oznaczenie słowa (**Word**)                   | Dodawane przy typach danych `INT` lub `WORD`; operuje na 16 bitach
+**Prezentacja danych**  | Możliwość podglądu online w różnych formatach | Dane mogą być wyświetlane jako: binarne, dziesiętne oraz szesnastkowe (najbardziej optymalne dla sterownika)
+**Podgląd bieżący**     | Funkcja `Monitoring`                          | Pozwala na weryfikację wartości zmiennych w czasie rzeczywistym podczas pracy sterownika
+
+### **IX. 2. Zaawansowana obsługa bloków i funkcji**
+
+**Zagadnienie**         | **Opis i działanie**                  | **Wymagania i uwagi**
+:---                    | :---                                  | :---
+**Blok danych (`DB`)**  | Automatyczna generacja instancji      | Przeciągnięcie bloku funkcyjnego do drabinki automatycznie tworzy unikalny blok `DB`
+**Pomoc systemowa**     | Przycisk **`F1`**                     | Wyświetla szczegółową dokumentację, np. reakcję układu na konkretne wymuszenia czasowe
+**Zwłoki czasowe**      | Funkcje opóźniające                   | Umożliwiają precyzyjne sterowanie momentem załączenia lub wyłączenia sygnału w logice
+**Zestyki porównania**  | Np. blok `>=` (**Greater or Equal**)  | Wartość referencyjna pod blokiem może być stałą lub zmienną, która zmienia się dynamicznie w trakcie programu
+
+### **IX. 3. Struktury danych i typy złożone**
+
+**Typ danych**              | **Definicja i zastosowanie**                      | **Szczegóły techniczne**
+:---                        | :---                                              | :---
+**Struktury (`Struct`)**    | Zbiór zmiennych **różnego typu**                  | Najczęściej stosowane wewnątrz bloków `DB` do opisu złożonych obiektów (np. parametry silnika)
+**Tablice (`Array`)**       | Zbiór zmiennych **tego samego typu**              | Pozwalają na indeksowanie i masową operację na danych (np. 20 elementów typu `INT`)
+**Typ `UDT`**               | Typ danych zdefiniowany przez użytkownika         | Pozwala na tworzenie własnych wzorców struktur danych do wielokrotnego użytku
+**Zapisy 32-bitowe**        | Przechowywanie dużych wartości (np. `L#65539`)    | Wymagają formatu `DWORD` lub `DINT`, ponieważ przekraczają zakres 16 bitów (max 65535)
+
+### **IX. 4. Konfiguracja i optymalizacja bloków danych**
+
+**Opcja**                       | **Opis i przeznaczenie**                      | **Zastosowanie**
+:---                            | :---                                          | :---
+**Wyłączenie optymalizacji**    | Odznaczenie opcji `Optimized block access`    | Niezbędne, gdy funkcje zewnętrzne lub starsze panele wymagają bezpośredniego adresowania offsetowego
+**Blok chroniony**              | Zabezpieczenie dostępu do bloku               | Pozwala to na kontrolę nad tym, kto i kiedy może modyfikować dane lub podglądać logikę wewnątrz bloku
+**Pobieranie danych**           | Komunikacja z urządzeniami                    | Możliwe jest bezpośrednie pobieranie parametrów z urządzeń wykonawczych (np. statusy, błędy, prędkość silnika)
+
+### **IX. 5. Komunikacja rozproszona i standard Profinet**
+
+**Element**                 | **Opis i działanie**                              | **Szczegóły techniczne**
+:---                        | :---                                              | :---
+**`Profinet`**              | Preferowany standard komunikacji                  | Wyparty starszy `Profibus`,<br> oparty na standardzie Ethernet, zapewnia szybką wymianę danych
+**Relacja Master/Slave**    | Model komunikacji Panel-Sterownik                 | Panel HMI zazwyczaj występuje jako **Master** (klient),<br> a sterownik jako **Slave** (serwer),<br> profinet nie jest konieczny
+**Interfejs komunikacyjny** | Niezbędny do komunikacji pomiędzy sterownikami    | Stanowi fizyczny i logiczny punkt styku (np. moduł IM 155),<br> który łączy rozproszone wejścia/wyjścia<br> z jednostką bazową (CPU) po Profinecie
+**Sterownik wyspowy**       | Rozproszone wejścia/wyjścia                       | Łączony z jednostką bazową<br> przez przeciągnięcie symbolu portu RJ45<br> (system sam inicjalizuje połączenie)
+**Konfiguracja IP**         | Ustawienia sterownika podrzędnego                 | Wymaga ręcznego nadania adresu IP,<br> maski podsieci oraz konfiguracji modułów w widoku urządzenia
+**Pliki `GSD`**             | Obsługa urządzeń obcych                           | Pliki konfiguracyjne pozwalające na<br> dodanie do projektu urządzeń bez natywnego wsparcia<br> (np. falowniki innych producentów)
+
+### **IX. 6. Diagnostyka i sygnały analogowe**
+
+**Zagadnienie**         | **Opis i znaczenie**                  | **Uwagi techniczne**
+:---                    | :---                                  | :---
+**Zasilanie modułów**   | Rozróżnienie kolorów (biały/szary)    | **Biały moduł** oznacza konieczność podłączenia<br> nowego zasilania zewnętrznego,<br> **szare** pobierają zasilanie z magistrali
+**Ciągłość obwodu**     | Diagnostyka przerwania (Live Zero)    | Stosuje się standard `4-20 mA` lub `0.5-4.5 V`<br> Wartość `0` oznacza błąd (przerwanie kabla),<br> a nie minimalny pomiar,<br> co dla przykładu pozwala odróżnić awarię od braku ciśnienia
+**Przewaga prądowa**    | Standard napięciowy vs prądowy        | Połączenia prądowe (`4-20 mA`) są odporne na rezystancję długich przewodów<br> Zgodnie z prawem Ohma, spadek napięcia na kablu fałszuje pomiar napięciowy,<br> ale nie wpływa na wartość prądu w pętli
+**Diagnostyka błędów**  | Sygnalizacja **Overflow/Underflow**   | Wartości wykraczające poza próg (np. `21 mA` lub `3 mA`)<br> automatycznie generują sygnały diagnostyczne informujące<br> o awarii czujnika lub toru pomiarowego
+**Wymiana danych**      | Wymuszenie wymiany **Input/Output**   | Najczęściej przerywane połączenie to takie,<br> które wymusza ciągłą aktualizację danych<br> między sterownikami a jednostkami rozproszonymi
+**Aktywność funkcji**   | Definiowanie funkcjonalności          | Aktywność wymiany danych (np. dla I-Device)<br> definiuje się we właściwościach interfejsu PROFINET<br> w zakładce "IO device"
