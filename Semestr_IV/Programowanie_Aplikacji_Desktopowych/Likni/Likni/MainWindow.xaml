@@ -1,0 +1,14 @@
+﻿<Window x:Class="Likni.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Likni"
+        mc:Ignorable="d"
+        Title="Wiązanie danych" Height="200" Width="600">
+    <StackPanel>
+        <Slider x:Name="Suwaczek" Minimum="10" Maximum="70" Value="15" TickFrequency="15" IsSnapToTickEnabled="True"/>
+        <TextBlock FontSize="{Binding Path=Value, ElementName=Suwaczek}">Wiązanie danych</TextBlock>
+        <Label Content="Text" FontSize="{Binding Path=Value, ElementName=Suwaczek}"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="Zadanie_5_G2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zadanie_5_G2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="500">
+    <StackPanel Margin="10">
+        <Slider x:Name="Suwaczek" 
+                Minimum="10" 
+                Maximum="31" 
+                Value="10" 
+                TickFrequency="3" 
+                IsSnapToTickEnabled="True" 
+                Margin="10"/>
+
+        <TextBox x:Name="TBoksik" 
+                 Text="Wpiszesz coś?" 
+                 Margin="10"/>
+
+        <ComboBox x:Name="Kombosik" 
+                  SelectedIndex="0" 
+                  Margin="10">
+            <ComboBoxItem Background="Black" Content="Czarny"/>
+            <ComboBoxItem Background="Red" Content="Czerwony"/>
+            <ComboBoxItem Background="Green" Content="Zielony"/>
+            <ComboBoxItem Background="Blue" Content="Niebieski"/>
+            <ComboBoxItem Background="White" Content="Biały"/>
+        </ComboBox>
+
+        <Label Content="{Binding Text, ElementName=TBoksik}" 
+               FontSize="{Binding Value, ElementName=Suwaczek}" 
+               Foreground="{Binding SelectedItem.Background, ElementName=Kombosik}" 
+               Margin="10"
+               HorizontalAlignment="Center"/>
+
+        <Label x:Name="Labelik"
+               Content="{Binding Text.Length, ElementName=TBoksik}"
+               Margin="10"
+               HorizontalAlignment="Center"/>
+    </StackPanel>
+</Window>
+ 
