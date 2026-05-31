@@ -1,0 +1,30 @@
+﻿<Window x:Class="Schemat_Hornera.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Schemat_Hornera.UserControls"
+        Title="Schemat Hornera" Height="700" Width="330" MinWidth="330"
+        WindowStartupLocation="CenterScreen">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="Program implementujący Schemat Hornera:" FontWeight="Bold" Margin="0,0,0,5" FontFamily="Times New Roman" FontSize="14"/>
+            <TextBlock Text="W(x) = a₃x³ + a₂x² + a₁x + a₀ = (((a₃x) + a₂)x + a₁)x + a₀" Margin="0,0,0,25" FontStyle="Italic" FontSize="11" Foreground="#333333"/>
+
+            <TextBlock Text="Najpierw wybierz stopień wielomianu:" FontWeight="Bold" Margin="0,0,0,5" />
+            <ComboBox ItemsSource="{Binding AvailableDegrees}" 
+                      SelectedItem="{Binding SelectedDegree}" 
+                      Margin="0,0,0,20" Padding="6.7" />
+
+            <TextBlock Text="Następnie wprowadź następujące współczynniki:" FontWeight="Bold" Margin="0,0,0,10" />
+            <controls:CoefficientInputControl Margin="0,0,0,10" />
+
+            <TextBlock Text="Nie zapomnij o wprowadzeni wartość x'a!:" Margin="0,0,0,5" FontWeight="Bold" />
+            <TextBox Text="{Binding XValueInput, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Margin="0,0,0,25" Padding="5" />
+            <Button Content="Oblicz W(x)" Command="{Binding CalculateCommand}" 
+                    Padding="10" Margin="0,10,0,20" Background="#0078D7" 
+                    Foreground="White" BorderThickness="0" />
+
+            <TextBlock Text="{Binding ResultText}" FontWeight="Bold" FontSize="18" Foreground="Green" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

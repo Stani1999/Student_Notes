@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Interpolacja_Aproksymacja.Views.MethodsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <GroupBox Header="2. Metoda Obliczeniowa" Padding="10">
+        <StackPanel>
+            <RadioButton Content="Interpolacja (Lagrange)" 
+                         IsChecked="{Binding IsInterpolationSelected}" 
+                         Margin="0,5"/>
+            <RadioButton Content="Aproksymacja (MNK)" 
+                         IsChecked="{Binding IsApproximationSelected}" 
+                         Margin="0,5"/>
+        </StackPanel>
+    </GroupBox>
+</UserControl>

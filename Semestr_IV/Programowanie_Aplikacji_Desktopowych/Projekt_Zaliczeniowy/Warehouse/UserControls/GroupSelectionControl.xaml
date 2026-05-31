@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="Warehouse.UserControls.GroupSelectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ComboBox ItemsSource="{Binding Groups}" 
+              SelectedItem="{Binding SelectedGroup, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+              IsEditable="True" 
+              IsReadOnly="True" 
+              Text="-- Wybierz Grupę --" 
+              Padding="5" />
+</UserControl>

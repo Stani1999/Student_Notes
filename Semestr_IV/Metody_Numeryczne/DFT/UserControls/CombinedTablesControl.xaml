@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="DFT.UserControls.CombinedTablesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DFT.UserControls"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <controls:NoisySignalDataControl x:Name="NoisyData" Grid.Column="0"/>
+        <controls:DenoisedSignalDataControl x:Name="DenoisedData" Grid.Column="1"/>
+    </Grid>
+</UserControl>

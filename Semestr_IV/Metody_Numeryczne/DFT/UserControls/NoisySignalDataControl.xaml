@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="DFT.UserControls.NoisySignalDataControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataGrid ItemsSource="{Binding NoisySignals}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" 
+              ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="1,1,0,1" MaxWidth="450">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="n" Binding="{Binding N}" MaxWidth="50"/>
+            <DataGridTextColumn Header="x(n) zaszumiony" Binding="{Binding OriginalX, StringFormat=F4}" MaxWidth="120"/>
+            <DataGridTextColumn Header="DFT" Binding="{Binding DftValue, StringFormat=F4}" MaxWidth="160"/>
+            <DataGridTextColumn Header="|DFT|" Binding="{Binding DftMagnitude, StringFormat=F4}" MaxWidth="120"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Warehouse.UserControls.ProductListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataGrid ItemsSource="{Binding Products}" 
+              SelectedItem="{Binding SelectedProduct}"
+              AutoGenerateColumns="False" 
+              IsReadOnly="True"
+              SelectionMode="Single"
+              VirtualizingStackPanel.IsVirtualizing="True"
+              RowHeight="20"
+              VirtualizingStackPanel.VirtualizationMode="Recycling"
+              EnableRowVirtualization="True"
+              CanUserSortColumns="True"
+              MouseDoubleClick="DataGrid_MouseDoubleClick"
+              ScrollViewer.VerticalScrollBarVisibility="Visible"
+              ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Kod" Binding="{Binding Barcode}" Width="1.5*" />
+            <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" Width="2.5*" />
+            <DataGridTextColumn Header="Miara" Binding="{Binding Measurand.Amount}" Width="1*" />
+            <DataGridTextColumn Header="Jednostka" Binding="{Binding Measurand.Unit}" Width="1*" />
+
+            <DataGridTextColumn Header="Opis" Binding="{Binding Description}" Width="3*">
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                        <Setter Property="TextWrapping" Value="NoWrap"/>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Header="Stan" Binding="{Binding Quantity}" Width="1*" />
+            <DataGridTextColumn Header="Cena" Binding="{Binding Price.Amount}" Width="1*" />
+            <DataGridTextColumn Header="Waluta" Binding="{Binding Price.Currency}" Width="1*" />
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

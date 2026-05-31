@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Warehouse.UserControls.ProductPreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="267"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Podgląd Produktu" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+        <Border Grid.Row="1" BorderBrush="#DDDDDD" BorderThickness="1" Background="White" CornerRadius="4">
+            <Image Source="{Binding SelectedProduct.ImageData, Converter={StaticResource ByteArrayToImageConverter}}" Stretch="Uniform" Margin="10"/>
+        </Border>
+    </Grid>
+</UserControl>

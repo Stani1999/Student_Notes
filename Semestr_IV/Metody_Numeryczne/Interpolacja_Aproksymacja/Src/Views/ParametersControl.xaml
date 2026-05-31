@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Interpolacja_Aproksymacja.Views.ParametersControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <GroupBox Header="3. Parametry i Status" Padding="10">
+        <StackPanel>
+            <TextBlock Text="Stopień wielomianu (m):" Margin="0,0,0,5" FontWeight="Bold"/>
+
+            <TextBox Text="{Binding PolynomialDegree, UpdateSourceTrigger=PropertyChanged}" 
+                     FontSize="18" Padding="5" TextAlignment="Center">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="IsReadOnly" Value="False"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsInterpolationSelected}" Value="True">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                                <Setter Property="Background" Value="#F0F0F0"/>
+                                <Setter Property="Foreground" Value="#666666"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <Separator Margin="0,15"/>
+
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Liczba punktów n =" FontSize="14" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding InputPoints.Count}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="BŁĄD: n musi być > m!" 
+                           Foreground="Red" 
+                           FontWeight="Bold" 
+                           Margin="0,10,0,0"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsConditionMet}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsInterpolationSelected}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+
+            <TextBlock FontSize="10" FontStyle="Italic" Foreground="Gray" TextWrapping="Wrap" Margin="0,15,0,0">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsInterpolationSelected}" Value="True">
+                                <Setter Property="Text" Value="* W trybie interpolacji stopień m jest dobierany automatycznie (n-1)."/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsApproximationSelected}" Value="True">
+                                <Setter Property="Text" Value="* W trybie aproksymacji możesz ręcznie wpisać stopień wielomianu m."/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </StackPanel>
+    </GroupBox>
+</UserControl>

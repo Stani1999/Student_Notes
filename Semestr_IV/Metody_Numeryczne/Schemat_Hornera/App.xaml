@@ -1,0 +1,25 @@
+﻿<Application x:Class="Schemat_Hornera.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border BorderBrush="Red" BorderThickness="2" CornerRadius="2">
+                                <AdornedElementPlaceholder x:Name="customAdorner" />
+                            </Border>
+                            <TextBlock Text="{Binding [0].ErrorContent}" 
+                                       Foreground="Red" 
+                                       FontSize="10" 
+                                       Margin="0,0,4,5" 
+                                       TextWrapping="Wrap"
+                                       MaxWidth="{Binding ElementName=customAdorner, Path=ActualWidth}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

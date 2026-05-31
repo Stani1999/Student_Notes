@@ -1,5 +1,5 @@
 ﻿KalkulatorIP
-
+1.0.0.0
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_O
 C:\Users\jstan\Git\Student_Notes\Semestr_IV\Programowanie_Aplikacji_Desktopowych\KalkulatorIP\App.xaml
 11407045341
 
-4334756224
-207177248831
+61376464342
+2071030071782
 MainWindow.xaml;
 
-False
+True
 

@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="Warehouse.UserControls.SearchBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10,5,10,10">
+        <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                 Padding="8" 
+                 FontSize="16"
+                 VerticalContentAlignment="Center" />
+    </Grid>
+</UserControl>

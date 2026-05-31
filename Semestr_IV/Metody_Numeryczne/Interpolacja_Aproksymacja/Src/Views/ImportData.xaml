@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Interpolacja_Aproksymacja.Views.ImportData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <GroupBox Header="1. Dane Wejściowe" Padding="10">
+        <StackPanel>
+            <DockPanel Margin="0,0,0,10">
+                <TextBlock Text="Komórka startowa:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Text="{Binding ImportStartAddress, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="50" HorizontalAlignment="Right" TextAlignment="Center"/>
+            </DockPanel>
+            <Button Content="Wczytaj dane z Excel" 
+                Command="{Binding ImportDataCommand}" 
+                Height="35"/>
+        </StackPanel>
+    </GroupBox>
+</UserControl>
