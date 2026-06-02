@@ -1,4 +1,4 @@
-# **Programowanie Sterowników PLC**
+`# **Programowanie Sterowników PLC**
 
 ## **2026-02-24 Wykład I**
 
@@ -163,7 +163,7 @@
 
 ## **2026-03-10 Wykład III `TIA Portal`**
 
-**III. 1. Środowisko `TIA Portal` i Sprzęt**
+### **III. 1. Środowisko `TIA Portal` i Sprzęt**
 
 **Zagadnienie**          | **Opis i funkcja**              | **Szczegóły**
 ------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------
@@ -318,9 +318,7 @@
 **Zestyk zwierny `NO`**     | Detekcja w logice dodatniej  | Detekcja zbocza narastającego odpowiada wtedy fizycznemu załączeniu styku
 **Zestyk rozwierny `NC`**   | Detekcja w logice odwróconej | Pozwala wykryć zbocze sygnału, gdy fizyczny styk zostaje przerwany (wejście przechodzi w stan 0)
 
-Można wykożysztać zestyk zwierny rozwierny... [z notatki z dnia 21.04.2026] dokończyć
-
-### **VI. 2. Operacje i konwersja typów danych*
+### **VI. 2. Operacje i konwersja typów danych**
 
 **Operacja**               | **Cel i opis**                                  | **Ograniczenia przyczynowo-skutkowe**
 -------------------------- | ----------------------------------------------- | :---
