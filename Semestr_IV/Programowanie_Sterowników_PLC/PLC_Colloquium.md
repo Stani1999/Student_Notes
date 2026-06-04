@@ -27,8 +27,8 @@
 
 **Typ Licznika**                | **Główna cecha**                                          | **Szczegóły**
 ---                             | ---                                                       | ---
-**Standardowe liczniki**        | Są obsługiwane w ramach<br> głównego cyklu programu (OB1) | Domyślny sprzętowy filtr wejść cyfrowych w sterowniku (ok. 10ms)<br> oraz czas wykonywania pętli ograniczają ich częstotliwość<br> do zaledwie kilkunastu Hz.
-**HSC (High Speed Counters)**   | Szybkie liczniki sprzętowe                                | Działają asynchronicznie, omijając cykl skanowania procesora.<br> Niezbędne do zliczania sygnałów o wysokiej dynamice<br> (np. enkodery na wałach silników, np. 200 Hz).
+**Standardowe<br> liczniki**        | Są obsługiwane<br> w ramach głównego<br> cyklu programu (OB1) | Domyślny sprzętowy filtr wejść cyfrowych w sterowniku (ok. 10ms)<br> oraz czas wykonywania pętli ograniczają ich częstotliwość<br> do zaledwie kilkunastu Hz.
+**HSC<br> (High Speed Counters)**   | Szybkie<br> liczniki sprzętowe                                | Działają asynchronicznie, omijając cykl skanowania procesora.<br> Niezbędne do zliczania sygnałów o wysokiej dynamice<br> (np. enkodery na wałach silników, np. 200 Hz).
 
 ## 2. Podstawowe i złożone typy danych w sterownikach Simatic
 
@@ -46,18 +46,18 @@
 
 **Typ Złożony**             | **Główna cecha**                      | **Szczegóły i zastosowanie**
 ---                         | ---                                   | ---
-**`STRING`**                | Łańcuch znaków ASCII                  | Domyślnie zajmuje **254 znaki + 2 bajty nagłówka**. Nagłówek przechowuje maksymalną i bieżącą długość ciągu.
-**`ARRAY`** (Tablica)       | Zbiór elementów **tego samego typu**  | Umożliwia indeksowanie i masowe operacje na danych. Zapis np. `ARRAY[1..20] of INT` (20 pomiarów pod jedną nazwą).
-**`STRUCT`** (Struktura)    | Zbiór elementów **różnych typów**     | Grupuje różne parametry w jeden logiczny obiekt. Np. "Silnik" zawiera `Start` (BOOL) oraz `Prąd` (REAL).
-**`UDT`**                   | Typ zdefiniowany przez użytkownika    | Własny szablon z typów podstawowych lub złożonych. Pozwala powielać strukturę (np. dla 10 silników) bez konieczności ręcznego przepisywania parametrów.
+**`STRING`**                | Łańcuch znaków ASCII                  | Domyślnie zajmuje **254 znaki + 2 bajty nagłówka**.<br> Nagłówek przechowuje maksymalną i bieżącą długość ciągu.
+**`ARRAY`** (Tablica)       | Zbiór elementów<br> **tego samego typu**  | Umożliwia indeksowanie i masowe operacje na danych.<br> Zapis np. `ARRAY[1..20] of INT` (20 pomiarów pod jedną nazwą).
+**`STRUCT`** (Struktura)    | Zbiór elementów<br> **różnych typów**     | Grupuje różne parametry w jeden logiczny obiekt.<br> Np. "Silnik" zawiera `Start` (BOOL) oraz `Prąd` (REAL).
+**`UDT`**                   | Typ zdefiniowany<br> przez użytkownika    | Własny szablon z typów podstawowych lub złożonych.<br> Pozwala powielać strukturę (np. dla 10 silników)<br> bez konieczności ręcznego przepisywania parametrów.
 
 ### 3. Adresacja i zarządzanie pamięcią
 
 **Zagadnienie**                         | **Zasada działania**                                                                          | **Zagrożenia i błędy**
 ---                                     | ---                                                                                           | ---
-**Nakładanie się pamięci** (Overlap)    | Użycie typu `D` (Double) wymaga 4 bajtów. Adres `%MD80` zajmuje bajty: **80, 81, 82 i 83**.   | Deklaracja kolejnej zmiennej pod adresem np. `%MD83` nadpisze pamięć pierwszej zmiennej, powodując krytyczny błąd logiki programu.
-**Konwersja typów** ("w dół")           | Zmiana formatu z większego na mniejszy, np. z typu `REAL` na typ `INT`.                       | Kompilator zezwala na operację, ale wiąże się to z **ucięciem miejsc po przecinku** i utratą precyzji.
-**Brak operacji bezpośrednich**         | Dotyczy wyłącznie typów złożonych. (Znajdują się one w DB lub pamięci TEMP/STAT).             | Na całych tablicach lub strukturach nie można bezpośrednio wykonywać instrukcji matematycznych.
+**Nakładanie się<br> pamięci** (Overlap)    | Użycie typu `D` (Double) wymaga 4 bajtów.<br> Adres `%MD80` zajmuje bajty: **80, 81, 82 i 83**.   | Deklaracja kolejnej zmiennej<br> pod adresem np. `%MD83`<br> nadpisze pamięć pierwszej zmiennej,<br> powodując krytyczny błąd logiki programu.
+**Konwersja typów**<br> ("w dół")           | Zmiana formatu z większego na mniejszy,<br> np. z typu `REAL` na typ `INT`.                       | Kompilator zezwala na operację,<br> ale wiąże się to z **ucięciem miejsc po przecinku** i utratą precyzji.
+**Brak operacji<br> bezpośrednich**         | Dotyczy wyłącznie typów złożonych.<br> (Znajdują się one w DB lub pamięci TEMP/STAT).             | Na całych tablicach lub strukturach nie można<br> bezpośrednio wykonywać instrukcji matematycznych.
 
 ## 3. Programowanie strukturalne i typy bloków programowych
 
@@ -74,10 +74,10 @@
 
 **Rodzaj / Opcja**                              | **Główna cecha**                                      | **Szczegóły i zastosowanie**
 ---                                             | ---                                                   | ---
-**`DB`** (Bloki danych)                         | Służą wyłącznie do magazynowania wartości zmiennych.  | Nie zawierają logiki wykonawczej typu LAD/SCL.<br> Mogą przechowywać proste i złożone typy danych.
+**`DB`** (Bloki danych)                         | Służą wyłącznie<br> do magazynowania<br> wartości zmiennych.  | Nie zawierają logiki wykonawczej typu LAD/SCL.<br> Mogą przechowywać proste i złożone typy danych.
 **Global DB**                                   | Zmienne globalne                                      | Dostępne jako wspólny magazyn dla całego projektu,<br> z którego może korzystać każdy inny blok.
-**Instance DB**                                 | Pamięć instancyjna bloku FB                           | Generowane automatycznie podczas wywoływania bloków FB.<br> Tworzą dedykowane środowisko pamięci przypisane do konkretnej funkcji.
-**Optymalizacja**<br> (Optimized block access)  | Zarządzanie sposobem dostępu CPU do pamięci           | Zaznaczona opcja przyspiesza dostęp CPU do pamięci.<br> Odznaczenie jej (stały offset) jest niezbędne<br> dla integracji ze starszymi zewnętrznymi panelami HMI,<br> które wymagają sztywnej adresacji.
+**Instance DB**                                 | Pamięć instancyjna bloku FB                           | Generowane automatycznie<br> podczas wywoływania bloków FB.<br> Tworzą dedykowane środowisko pamięci<br> przypisane do konkretnej funkcji.
+**Optymalizacja**<br> (Optimized block access)  | Zarządzanie sposobem<br> dostępu CPU do pamięci       | Zaznaczona opcja przyspiesza dostęp CPU do pamięci.<br> Odznaczenie jej (stały offset) jest niezbędne<br> dla integracji ze starszymi zewnętrznymi panelami HMI,<br> które wymagają sztywnej adresacji.
 
 ## 4. Skalowanie wartości analogowych w PLC
 
@@ -85,9 +85,9 @@
 
 **Etap / Element**          | **Zasada działania**                                                                                  | **Szczegóły techniczne i diagnostyka**
 ---                         | ---                                                                                                   | ---
-**Pomiar fizyczny**         | Czujnik (np. PT100) odbiera<br> wielkość fizyczną z obiektu.                                          | Przetwornik (Transmitter) konwertuje ją<br> na standard przemysłowy:<br> najczęściej pętlę prądową **4-20 mA** lub sygnał napięciowy **0-10 V**.
+**Pomiar fizyczny**         | Czujnik (np. PT100) odbiera<br> wielkość fizyczną z obiektu.                                          | Przetwornik (Transmitter) konwertuje ją<br> na standard przemysłowy:<br> najczęściej pętlę prądową<br> **4-20 mA** lub sygnał napięciowy **0-10 V**.
 **Diagnostyka "Live Zero"** | Wartość fizycznego zera (np. 0 barów)<br> jest reprezentowana przez przepływ prądu 4 mA.              | Odczyt 0 mA jednoznacznie komunikuje sterownikowi<br> awarię przewodu lub czujnika (Underflow).<br> Dodatkowo pętla prądowa jest odporna na straty<br> wynikające z długości i rezystancji kabli.
-**Konwersja ADC**           | Przetwornik analogowo-cyfrowy<br> w sterowniku transformuje<br> prąd/napięcie na typ całkowity `INT`. | Zależnie od rozdzielczości sterowników Siemens, standardowy,<br> w pełni prawidłowy sygnał daje zawsze<br> wynik liczbowy z zakresu **od 0 do 27648**.
+**Konwersja ADC**           | Przetwornik analogowo-cyfrowy<br> w sterowniku transformuje<br> prąd/napięcie na typ całkowity `INT`. | Zależnie od rozdzielczości sterowników Siemens,<br> standardowy w pełni prawidłowy sygnał daje zawsze<br> wynik liczbowy z zakresu **od 0 do 27648**.
 
 ### 2. Skalowanie programowe (Instrukcje matematyczne TIA Portal)
 
